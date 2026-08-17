@@ -1,0 +1,1371 @@
+{
+  "asset": {
+    "generator": "glTF-Transform v4.4.2",
+    "version": "2.0"
+  },
+  "accessors": [
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 324,
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 4332,
+      "bufferView": 0,
+      "byteOffset": 648
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 99840,
+      "bufferView": 0,
+      "byteOffset": 9312
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 3168,
+      "bufferView": 0,
+      "byteOffset": 208992
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 840,
+      "bufferView": 0,
+      "byteOffset": 215328
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 684,
+      "bufferView": 0,
+      "byteOffset": 217008
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 1836,
+      "bufferView": 0,
+      "byteOffset": 218376
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 240,
+      "bufferView": 0,
+      "byteOffset": 222048
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 888,
+      "bufferView": 0,
+      "byteOffset": 222528
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 744,
+      "bufferView": 0,
+      "byteOffset": 224304
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 1836,
+      "bufferView": 0,
+      "byteOffset": 225792
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 240,
+      "bufferView": 0,
+      "byteOffset": 229464
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 213,
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 213,
+      "max": [
+        352,
+        408,
+        568
+      ],
+      "min": [
+        -352,
+        -5307,
+        -985
+      ],
+      "normalized": true,
+      "bufferView": 1,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 213,
+      "normalized": true,
+      "bufferView": 1,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 230,
+      "bufferView": 2,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 230,
+      "max": [
+        375,
+        250,
+        343
+      ],
+      "min": [
+        -343,
+        -5307,
+        -498
+      ],
+      "normalized": true,
+      "bufferView": 2,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 230,
+      "normalized": true,
+      "bufferView": 2,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 540,
+      "bufferView": 3,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 540,
+      "max": [
+        306,
+        752,
+        929
+      ],
+      "min": [
+        -306,
+        -5040,
+        -1057
+      ],
+      "normalized": true,
+      "bufferView": 3,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 540,
+      "normalized": true,
+      "bufferView": 3,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 320,
+      "bufferView": 4,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 320,
+      "max": [
+        287,
+        -2544,
+        287
+      ],
+      "min": [
+        -287,
+        -2924,
+        -345
+      ],
+      "normalized": true,
+      "bufferView": 4,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 320,
+      "normalized": true,
+      "bufferView": 4,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 182,
+      "bufferView": 5,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 182,
+      "max": [
+        1353,
+        -2053,
+        848
+      ],
+      "min": [
+        -1399,
+        -2747,
+        -1576
+      ],
+      "normalized": true,
+      "bufferView": 5,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 182,
+      "normalized": true,
+      "bufferView": 5,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 216,
+      "max": [
+        32767,
+        -2387,
+        21227
+      ],
+      "min": [
+        -32767,
+        -3128,
+        -21227
+      ],
+      "normalized": true,
+      "bufferView": 6,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 216,
+      "normalized": true,
+      "bufferView": 6,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 216,
+      "normalized": true,
+      "bufferView": 6,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2602,
+      "max": [
+        -9749,
+        -1854,
+        18163
+      ],
+      "min": [
+        -23014,
+        -2016,
+        7408
+      ],
+      "normalized": true,
+      "bufferView": 7,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2602,
+      "normalized": true,
+      "bufferView": 7,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 16905,
+      "max": [
+        32443,
+        5307,
+        20902
+      ],
+      "min": [
+        -32443,
+        -2015,
+        -20902
+      ],
+      "normalized": true,
+      "bufferView": 8,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 16905,
+      "normalized": true,
+      "bufferView": 8,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 16905,
+      "normalized": true,
+      "bufferView": 8,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1064,
+      "max": [
+        32443,
+        -1981,
+        20902
+      ],
+      "min": [
+        -32443,
+        -2016,
+        -20902
+      ],
+      "normalized": true,
+      "bufferView": 9,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1064,
+      "normalized": true,
+      "bufferView": 9,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 1064,
+      "normalized": true,
+      "bufferView": 9,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 64,
+      "max": [
+        46,
+        528,
+        -67
+      ],
+      "min": [
+        -46,
+        455,
+        -164
+      ],
+      "normalized": true,
+      "bufferView": 10,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 64,
+      "normalized": true,
+      "bufferView": 10,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 64,
+      "normalized": true,
+      "bufferView": 10,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 540,
+      "normalized": true,
+      "bufferView": 11,
+      "byteOffset": 0
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 229944,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 229944,
+      "byteLength": 5112,
+      "byteStride": 24,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 235056,
+      "byteLength": 5520,
+      "byteStride": 24,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 240576,
+      "byteLength": 12960,
+      "byteStride": 24,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 253536,
+      "byteLength": 7680,
+      "byteStride": 24,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 261216,
+      "byteLength": 4368,
+      "byteStride": 24,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 265584,
+      "byteLength": 4320,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 269904,
+      "byteLength": 41632,
+      "byteStride": 16,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 311536,
+      "byteLength": 338100,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 649636,
+      "byteLength": 21280,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 670916,
+      "byteLength": 1280,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 672196,
+      "byteLength": 4320,
+      "byteStride": 8,
+      "target": 34962
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 2
+        }
+      }
+    },
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 0
+        }
+      }
+    },
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 1
+        }
+      }
+    }
+  ],
+  "images": [
+    {
+      "name": "Terrain_Normal",
+      "mimeType": "image/ktx2",
+      "uri": "normal_1.ktx2"
+    },
+    {
+      "name": "Terrain_ORM",
+      "mimeType": "image/ktx2",
+      "uri": "occlusion_1.ktx2"
+    },
+    {
+      "name": "Terrain_BaseColor",
+      "mimeType": "image/ktx2",
+      "uri": "baseColor_1.ktx2"
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "B_windfarm_terrain.bin",
+      "byteLength": 676516
+    }
+  ],
+  "materials": [
+    {
+      "name": "MAT__BASE_DARK",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.02500000037252903,
+          0.03999999910593033,
+          0.03799999877810478,
+          1
+        ],
+        "roughnessFactor": 0.6200000047683716,
+        "metallicFactor": 0.11999999731779099
+      }
+    },
+    {
+      "name": "MAT__LAKE",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.052000001072883606,
+          0.1550000011920929,
+          0.1850000023841858,
+          1
+        ],
+        "roughnessFactor": 0.28999999165534973,
+        "metallicFactor": 0.1599999964237213
+      }
+    },
+    {
+      "name": "MAT__TERRAIN_PBR",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      },
+      "normalTexture": {
+        "index": 1,
+        "scale": 0.46000000834465027
+      },
+      "occlusionTexture": {
+        "index": 2
+      }
+    },
+    {
+      "name": "MAT__TERRAIN_SKIRT_DARK",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.017999999225139618,
+          0.04500000178813934,
+          0.03799999877810478,
+          1
+        ],
+        "roughnessFactor": 0.7799999713897705,
+        "metallicFactor": 0.03999999910593033
+      }
+    },
+    {
+      "name": "MAT__TURBINE_WHITE",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8199999928474426,
+          0.8600000143051147,
+          0.8399999737739563,
+          1
+        ],
+        "roughnessFactor": 0.30000001192092896,
+        "metallicFactor": 0.11999999731779099
+      }
+    },
+    {
+      "name": "MAT__TURBINE_ACCENT",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.11999999731779099,
+          0.27000001072883606,
+          0.2800000011920929,
+          1
+        ],
+        "roughnessFactor": 0.3799999952316284,
+        "metallicFactor": 0.44999998807907104
+      }
+    },
+    {
+      "name": "MAT__TURBINE_DARK",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.02500000037252903,
+          0.054999999701976776,
+          0.057999998331069946,
+          1
+        ],
+        "roughnessFactor": 0.47999998927116394,
+        "metallicFactor": 0.3400000035762787
+      }
+    },
+    {
+      "name": "MAT__TURBINE_BEACON",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8199999928474426,
+          0.02500000037252903,
+          0.012000000104308128,
+          1
+        ],
+        "roughnessFactor": 0.23999999463558197,
+        "metallicFactor": 0.10000000149011612
+      },
+      "emissiveFactor": [
+        0.2869999926090241,
+        0.008749999981373546,
+        0.004199999964982271
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "name": "立方体",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 27,
+            "NORMAL": 28,
+            "TEXCOORD_0": 29
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 0
+        }
+      ]
+    },
+    {
+      "name": "MESH__PART__LAKE",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 30,
+            "NORMAL": 31
+          },
+          "mode": 4,
+          "material": 1,
+          "indices": 1
+        }
+      ]
+    },
+    {
+      "name": "MESH__PART__TERRAIN",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 32,
+            "NORMAL": 33,
+            "TEXCOORD_0": 34
+          },
+          "mode": 4,
+          "material": 2,
+          "indices": 2
+        },
+        {
+          "attributes": {
+            "POSITION": 35,
+            "NORMAL": 36,
+            "TEXCOORD_0": 37
+          },
+          "mode": 4,
+          "material": 3,
+          "indices": 3
+        }
+      ]
+    },
+    {
+      "name": "锥体",
+      "primitives": [
+        {
+          "attributes": {
+            "TEXCOORD_0": 12,
+            "POSITION": 13,
+            "NORMAL": 14
+          },
+          "mode": 4,
+          "material": 4,
+          "indices": 4
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 15,
+            "POSITION": 16,
+            "NORMAL": 17
+          },
+          "mode": 4,
+          "material": 5,
+          "indices": 5
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 18,
+            "POSITION": 19,
+            "NORMAL": 20
+          },
+          "mode": 4,
+          "material": 6,
+          "indices": 6
+        },
+        {
+          "attributes": {
+            "POSITION": 38,
+            "NORMAL": 39,
+            "TEXCOORD_0": 40
+          },
+          "mode": 4,
+          "material": 7,
+          "indices": 7
+        }
+      ]
+    },
+    {
+      "name": "柱体.004",
+      "primitives": [
+        {
+          "attributes": {
+            "TEXCOORD_0": 21,
+            "POSITION": 22,
+            "NORMAL": 23
+          },
+          "mode": 4,
+          "material": 5,
+          "indices": 8
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 24,
+            "POSITION": 25,
+            "NORMAL": 26
+          },
+          "mode": 4,
+          "material": 4,
+          "indices": 9
+        }
+      ]
+    },
+    {
+      "name": "锥体.002",
+      "primitives": [
+        {
+          "attributes": {
+            "TEXCOORD_0": 12,
+            "POSITION": 13,
+            "NORMAL": 14
+          },
+          "mode": 4,
+          "material": 4,
+          "indices": 4
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 15,
+            "POSITION": 16,
+            "NORMAL": 17
+          },
+          "mode": 4,
+          "material": 5,
+          "indices": 5
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 18,
+            "POSITION": 19,
+            "NORMAL": 20
+          },
+          "mode": 4,
+          "material": 6,
+          "indices": 10
+        },
+        {
+          "attributes": {
+            "POSITION": 38,
+            "NORMAL": 39,
+            "TEXCOORD_0": 40
+          },
+          "mode": 4,
+          "material": 7,
+          "indices": 11
+        }
+      ]
+    },
+    {
+      "name": "柱体.012",
+      "primitives": [
+        {
+          "attributes": {
+            "TEXCOORD_0": 21,
+            "POSITION": 22,
+            "NORMAL": 23
+          },
+          "mode": 4,
+          "material": 5,
+          "indices": 8
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 24,
+            "POSITION": 25,
+            "NORMAL": 26
+          },
+          "mode": 4,
+          "material": 4,
+          "indices": 9
+        }
+      ]
+    },
+    {
+      "name": "锥体.004",
+      "primitives": [
+        {
+          "attributes": {
+            "TEXCOORD_0": 12,
+            "POSITION": 13,
+            "NORMAL": 14
+          },
+          "mode": 4,
+          "material": 4,
+          "indices": 4
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 15,
+            "POSITION": 16,
+            "NORMAL": 17
+          },
+          "mode": 4,
+          "material": 5,
+          "indices": 5
+        },
+        {
+          "attributes": {
+            "NORMAL": 41,
+            "TEXCOORD_0": 18,
+            "POSITION": 19
+          },
+          "mode": 4,
+          "material": 6,
+          "indices": 6
+        },
+        {
+          "attributes": {
+            "POSITION": 38,
+            "NORMAL": 39,
+            "TEXCOORD_0": 40
+          },
+          "mode": 4,
+          "material": 7,
+          "indices": 11
+        }
+      ]
+    },
+    {
+      "name": "柱体.020",
+      "primitives": [
+        {
+          "attributes": {
+            "TEXCOORD_0": 21,
+            "POSITION": 22,
+            "NORMAL": 23
+          },
+          "mode": 4,
+          "material": 5,
+          "indices": 8
+        },
+        {
+          "attributes": {
+            "TEXCOORD_0": 24,
+            "POSITION": 25,
+            "NORMAL": 26
+          },
+          "mode": 4,
+          "material": 4,
+          "indices": 9
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "HOTSPOT__LAKE",
+      "extras": {
+        "target": "PART__LAKE",
+        "display_name": "山地湖泊",
+        "status": "水位正常",
+        "power_kw": 0
+      },
+      "translation": [
+        -3.519629955291748,
+        0.6549999713897705,
+        2.831733465194702
+      ]
+    },
+    {
+      "name": "HOTSPOT__TURBINE_01",
+      "extras": {
+        "target": "PART__TURBINE_01",
+        "display_name": "风机01",
+        "status": "运行",
+        "power_kw": 1680
+      },
+      "translation": [
+        1.229267954826355,
+        2.682209014892578,
+        -3.195913791656494
+      ]
+    },
+    {
+      "name": "HOTSPOT__TURBINE_02",
+      "extras": {
+        "target": "PART__TURBINE_02",
+        "display_name": "风机02",
+        "status": "运行",
+        "power_kw": 1510
+      },
+      "translation": [
+        -0.6973624229431152,
+        2.4055135250091553,
+        0.09426818788051605
+      ]
+    },
+    {
+      "name": "HOTSPOT__TURBINE_03",
+      "extras": {
+        "target": "PART__TURBINE_03",
+        "display_name": "风机03",
+        "status": "运行",
+        "power_kw": 1755
+      },
+      "translation": [
+        5.941929340362549,
+        2.2412357330322266,
+        0.3663007318973541
+      ]
+    },
+    {
+      "name": "PART__BASE",
+      "extras": {
+        "part_type": "base",
+        "interactive": false
+      },
+      "translation": [
+        0,
+        0.6749999672174454,
+        0
+      ],
+      "scale": [
+        7.070000171661377,
+        7.070000171661377,
+        7.070000171661377
+      ],
+      "mesh": 0
+    },
+    {
+      "name": "PART__LAKE",
+      "extras": {
+        "part_type": "water",
+        "interactive": true,
+        "display_name": "山地湖泊",
+        "water_level_m": 0.195
+      },
+      "translation": [
+        0,
+        0.5949999690055847,
+        0
+      ],
+      "scale": [
+        7.070000171661377,
+        7.070000171661377,
+        7.070000171661377
+      ],
+      "mesh": 1
+    },
+    {
+      "name": "PART__TERRAIN",
+      "extras": {
+        "part_type": "terrain",
+        "interactive": true,
+        "display_name": "艺术化风场地形"
+      },
+      "translation": [
+        0,
+        0.5949999690055847,
+        0
+      ],
+      "scale": [
+        7.070000171661377,
+        7.070000171661377,
+        7.070000171661377
+      ],
+      "mesh": 2
+    },
+    {
+      "name": "MESH__TURBINE_BODY_01",
+      "extras": {
+        "component_group": "static_turbine_body"
+      },
+      "translation": [
+        0,
+        1.1450000405311584,
+        0
+      ],
+      "scale": [
+        7.070000171661377,
+        7.070000171661377,
+        7.070000171661377
+      ],
+      "mesh": 3
+    },
+    {
+      "name": "MESH__ROTOR_ASSEMBLY_01",
+      "extras": {
+        "component_group": "hub_spinner_and_three_blades",
+        "airfoil_stations_per_blade": 7
+      },
+      "translation": [
+        0,
+        -7.994351544423093e-8,
+        0.5770003999012486
+      ],
+      "rotation": [
+        0.7071068286895689,
+        0,
+        0,
+        0.7071067336835231
+      ],
+      "scale": [
+        7.070000171661377,
+        7.07000112157858,
+        7.07000112157858
+      ],
+      "mesh": 4
+    },
+    {
+      "name": "ROTOR__TURBINE_01",
+      "extras": {
+        "rotor_axis": "Y",
+        "rpm": 8.2,
+        "rotor_radius_m": 0.34,
+        "hub_height_m": 1.1680000000000001
+      },
+      "translation": [
+        0,
+        1.1679998636245728,
+        0.2049999237060547
+      ],
+      "rotation": [
+        0,
+        0,
+        -0.06975648552179337,
+        0.9975640773773193
+      ],
+      "children": [
+        8
+      ]
+    },
+    {
+      "name": "PART__TURBINE_01",
+      "extras": {
+        "part_type": "turbine",
+        "interactive": true,
+        "display_name": "风机01",
+        "status": "运行",
+        "power_kw": 1680,
+        "detail_level": "web_midpoly_v3",
+        "yaw_axis": "Z",
+        "components": "tower,flange,door,yaw,nacelle,shaft,spinner,blades,anemometer,beacon"
+      },
+      "translation": [
+        1.229267954826355,
+        1.0622090101242065,
+        -3.195913791656494
+      ],
+      "children": [
+        7,
+        9
+      ]
+    },
+    {
+      "name": "MESH__TURBINE_BODY_02",
+      "extras": {
+        "component_group": "static_turbine_body"
+      },
+      "translation": [
+        0,
+        1.144999921321869,
+        0
+      ],
+      "scale": [
+        7.070000171661377,
+        7.070000171661377,
+        7.070000171661377
+      ],
+      "mesh": 5
+    },
+    {
+      "name": "MESH__ROTOR_ASSEMBLY_02",
+      "extras": {
+        "component_group": "hub_spinner_and_three_blades",
+        "airfoil_stations_per_blade": 7
+      },
+      "translation": [
+        0,
+        -7.994351544423093e-8,
+        0.5770000124710576
+      ],
+      "rotation": [
+        0.7071068286895689,
+        0,
+        0,
+        0.7071067336835231
+      ],
+      "scale": [
+        7.070000171661377,
+        7.07000112157858,
+        7.07000112157858
+      ],
+      "mesh": 6
+    },
+    {
+      "name": "ROTOR__TURBINE_02",
+      "extras": {
+        "rotor_axis": "Y",
+        "rpm": 7.1,
+        "rotor_radius_m": 0.34,
+        "hub_height_m": 1.1680000000000001
+      },
+      "translation": [
+        0,
+        1.1679999828338623,
+        0.20499999821186066
+      ],
+      "rotation": [
+        0,
+        0,
+        0.14780940115451813,
+        0.9890158772468567
+      ],
+      "children": [
+        12
+      ]
+    },
+    {
+      "name": "PART__TURBINE_02",
+      "extras": {
+        "part_type": "turbine",
+        "interactive": true,
+        "display_name": "风机02",
+        "status": "运行",
+        "power_kw": 1510,
+        "detail_level": "web_midpoly_v3",
+        "yaw_axis": "Z",
+        "components": "tower,flange,door,yaw,nacelle,shaft,spinner,blades,anemometer,beacon"
+      },
+      "translation": [
+        -0.6973624229431152,
+        0.7855136394500732,
+        0.09426818788051605
+      ],
+      "children": [
+        11,
+        13
+      ]
+    },
+    {
+      "name": "MESH__TURBINE_BODY_03",
+      "extras": {
+        "component_group": "static_turbine_body"
+      },
+      "translation": [
+        0,
+        1.1449999809265137,
+        0
+      ],
+      "scale": [
+        7.070000171661377,
+        7.070000171661377,
+        7.070000171661377
+      ],
+      "mesh": 7
+    },
+    {
+      "name": "MESH__ROTOR_ASSEMBLY_03",
+      "extras": {
+        "component_group": "hub_spinner_and_three_blades",
+        "airfoil_stations_per_blade": 7
+      },
+      "translation": [
+        0,
+        -7.994351544423093e-8,
+        0.57700004227338
+      ],
+      "rotation": [
+        0.7071068286895689,
+        0,
+        0,
+        0.7071067336835231
+      ],
+      "scale": [
+        7.070000171661377,
+        7.07000112157858,
+        7.07000112157858
+      ],
+      "mesh": 8
+    },
+    {
+      "name": "ROTOR__TURBINE_03",
+      "extras": {
+        "rotor_axis": "Y",
+        "rpm": 9.1,
+        "rotor_radius_m": 0.34,
+        "hub_height_m": 1.1680000000000001
+      },
+      "translation": [
+        0,
+        1.1679999828338623,
+        0.20500001311302185
+      ],
+      "rotation": [
+        0,
+        0,
+        -0.1993679404258728,
+        0.9799246788024902
+      ],
+      "children": [
+        16
+      ]
+    },
+    {
+      "name": "PART__TURBINE_03",
+      "extras": {
+        "part_type": "turbine",
+        "interactive": true,
+        "display_name": "风机03",
+        "status": "运行",
+        "power_kw": 1755,
+        "detail_level": "web_midpoly_v3",
+        "yaw_axis": "Z",
+        "components": "tower,flange,door,yaw,nacelle,shaft,spinner,blades,anemometer,beacon"
+      },
+      "translation": [
+        5.941929340362549,
+        0.6212356686592102,
+        0.3663007318973541
+      ],
+      "children": [
+        15,
+        17
+      ]
+    },
+    {
+      "name": "B_WINDFARM_TERRAIN_ROOT",
+      "extras": {
+        "asset_id": "B_ARTISTIC_WINDFARM_TERRAIN_V4_SURFACE_REFINED",
+        "asset_version": "4.0.0",
+        "units": "meters",
+        "source": "locked height/material and solid/wireframe multiview references",
+        "terrain_ratio": 1.5521064301552108
+      },
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10,
+        14,
+        18
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        19
+      ]
+    }
+  ],
+  "scene": 0,
+  "extensionsUsed": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "extensionsRequired": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ]
+}

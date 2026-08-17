@@ -1,0 +1,38 @@
+{
+  "testedAt": "2026-08-17T11:34:14.685Z",
+  "project": "desktop-chrome",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "browser": "Google Chrome headless / ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)",
+  "emulation": "1440x900 desktop, local network",
+  "thresholds": {
+    "trianglesMax": 45000,
+    "drawCallsMax": 28,
+    "modelBytesMax": 5000000,
+    "estimatedVRAMMBMax": 18,
+    "loadMsMax": 10000,
+    "fpsMin": 25
+  },
+  "metrics": {
+    "ready": true,
+    "error": null,
+    "deviceProfile": "desktop",
+    "modelBytes": 3028352,
+    "loadMs": 265,
+    "triangles": 38936,
+    "drawCalls": 23,
+    "geometryBytes": 1591700,
+    "textureBytes": 3495320,
+    "estimatedVRAMMB": 4.85,
+    "parts": 6,
+    "hotspots": 4,
+    "rotors": 3,
+    "wireframe": true,
+    "fps": 120,
+    "fpsSamples": 2,
+    "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)"
+  },
+  "consoleErrors": []
+}

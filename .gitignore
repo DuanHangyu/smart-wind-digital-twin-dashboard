@@ -6,12 +6,14 @@
 
 # JavaScript dependencies and generated bundles
 **/node_modules/
+**/node_modules
 **/dist/
 **/.vite/
 **/.cache/
 
 # Python environments and caches
 **/.venv/
+**/.venv
 **/.venv_*/
 **/__pycache__/
 **/*.py[cod]

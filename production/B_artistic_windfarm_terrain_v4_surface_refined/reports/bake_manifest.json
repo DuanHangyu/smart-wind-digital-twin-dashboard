@@ -1,0 +1,17 @@
+{
+  "normal": {
+    "method": "selected-to-active plus RNM band-limited detail fusion",
+    "source": "321x207 reference-driven high terrain",
+    "target": "161x105 web terrain",
+    "size": 1024,
+    "macro_repeat": false
+  },
+  "ao": {
+    "method": "64-sample selected-to-active plus multiscale cavity fusion",
+    "source": "321x207 reference-driven high terrain",
+    "target": "161x105 web terrain",
+    "size": 1024
+  },
+  "uv_layer": "UVMap",
+  "margin_pixels": 24
+}
