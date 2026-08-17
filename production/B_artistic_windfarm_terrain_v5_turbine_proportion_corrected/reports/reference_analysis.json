@@ -1,0 +1,197 @@
+{
+  "method": "direct perspective rectification from the locked reference height/material panels",
+  "source_resolution": [
+    1536,
+    1024
+  ],
+  "registration_size": [
+    641,
+    413
+  ],
+  "height_quad_px": [
+    [
+      92,
+      25
+    ],
+    [
+      704,
+      25
+    ],
+    [
+      717,
+      488
+    ],
+    [
+      42,
+      488
+    ]
+  ],
+  "material_quad_px": [
+    [
+      827,
+      24
+    ],
+    [
+      1469,
+      24
+    ],
+    [
+      1479,
+      488
+    ],
+    [
+      801,
+      488
+    ]
+  ],
+  "turbines_normalized": [
+    [
+      0.17561,
+      0.708628
+    ],
+    [
+      -0.099623,
+      -0.020902
+    ],
+    [
+      0.848847,
+      -0.08122
+    ]
+  ],
+  "lake_area_ratio": 0.036305,
+  "lake_center_normalized": [
+    -0.500562,
+    -0.629285
+  ],
+  "height_min_m": 0.0,
+  "height_max_m": 1.58,
+  "edge_falloff_ratio": 0.075,
+  "reference_peaks": [
+    {
+      "normalized": [
+        -0.05,
+        -0.529126
+      ],
+      "height_m": 1.58
+    },
+    {
+      "normalized": [
+        0.31875,
+        0.334951
+      ],
+      "height_m": 1.58
+    },
+    {
+      "normalized": [
+        -0.0875,
+        -0.378641
+      ],
+      "height_m": 1.58
+    },
+    {
+      "normalized": [
+        0.05,
+        -0.553398
+      ],
+      "height_m": 1.58
+    },
+    {
+      "normalized": [
+        0.225,
+        0.203883
+      ],
+      "height_m": 1.57418
+    },
+    {
+      "normalized": [
+        0.553125,
+        -0.533981
+      ],
+      "height_m": 1.54084
+    },
+    {
+      "normalized": [
+        -0.76875,
+        0.485437
+      ],
+      "height_m": 1.53968
+    },
+    {
+      "normalized": [
+        0.8125,
+        0.708738
+      ],
+      "height_m": 1.42761
+    },
+    {
+      "normalized": [
+        -0.525,
+        0.145631
+      ],
+      "height_m": 1.42475
+    },
+    {
+      "normalized": [
+        -0.428125,
+        0.31068
+      ],
+      "height_m": 1.36675
+    },
+    {
+      "normalized": [
+        -0.2375,
+        -0.131068
+      ],
+      "height_m": 1.36076
+    },
+    {
+      "normalized": [
+        0.471875,
+        -0.436893
+      ],
+      "height_m": 1.32348
+    },
+    {
+      "normalized": [
+        0.675,
+        -0.470874
+      ],
+      "height_m": 1.29487
+    },
+    {
+      "normalized": [
+        0.515625,
+        -0.723301
+      ],
+      "height_m": 1.25689
+    },
+    {
+      "normalized": [
+        -0.828125,
+        0.728155
+      ],
+      "height_m": 1.18408
+    },
+    {
+      "normalized": [
+        0.540625,
+        0.067961
+      ],
+      "height_m": 1.15767
+    },
+    {
+      "normalized": [
+        0.14375,
+        0.713592
+      ],
+      "height_m": 1.10534
+    },
+    {
+      "normalized": [
+        -0.60625,
+        0.349515
+      ],
+      "height_m": 1.07763
+    }
+  ]
+}

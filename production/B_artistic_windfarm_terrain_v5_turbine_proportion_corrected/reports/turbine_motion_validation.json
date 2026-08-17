@@ -1,0 +1,321 @@
+{
+  "asset": "B_ARTISTIC_WINDFARM_TERRAIN_V5_TURBINE_PROPORTION_CORRECTED",
+  "scene": "/Users/duanhangyu/Documents/ChatGPT/数字孪生/production/B_artistic_windfarm_terrain_v5_turbine_proportion_corrected/blender/B08_export_ready.blend",
+  "world_up": "+Z",
+  "expected_local_rotor_axis": "Y",
+  "thresholds": {
+    "radius_error_max_m": 0.025,
+    "rotor_radius_to_hub_height_range": [
+      0.66,
+      0.7
+    ],
+    "minimum_tip_clearance_m": 0.24,
+    "rpm_min": 0.01
+  },
+  "turbines": [
+    {
+      "id": "01",
+      "hierarchy": {
+        "part": "PART__TURBINE_01",
+        "body_parent": "PART__TURBINE_01",
+        "rotor_parent": "PART__TURBINE_01",
+        "rotor_mesh_parent": "ROTOR__TURBINE_01",
+        "ok": true
+      },
+      "motion": {
+        "local_axis": "Y",
+        "rpm": 8.2,
+        "initial_phase_degrees": 8.0,
+        "samples": [
+          {
+            "rotor_center_world": [
+              1.229268,
+              2.952164,
+              1.938209
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.496226,
+            "phase_degrees": 8.0
+          },
+          {
+            "rotor_center_world": [
+              1.229268,
+              2.952164,
+              1.938209
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.317136,
+            "phase_degrees": 38.0
+          },
+          {
+            "rotor_center_world": [
+              1.229268,
+              2.952164,
+              1.938209
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.287129,
+            "phase_degrees": 68.0
+          },
+          {
+            "rotor_center_world": [
+              1.229268,
+              2.952164,
+              1.938209
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.413123,
+            "phase_degrees": 98.0
+          }
+        ],
+        "axis_ok": true
+      },
+      "geometry": {
+        "expected_radius_m": 0.5962500000000001,
+        "terrain_scene_scale": 0.75,
+        "radius_max_error_m": 0.000217,
+        "hub_height_m": 0.8759999999999999,
+        "rotor_radius_to_hub_height_ratio": 0.6809,
+        "ratio_target_range": [
+          0.66,
+          0.7
+        ],
+        "ratio_ok": true,
+        "clearance_min_m": 0.287129,
+        "body_vertices": 776,
+        "rotor_vertices": 572,
+        "airfoil_stations_per_blade": 14,
+        "materials": [
+          "MAT__TURBINE_ACCENT",
+          "MAT__TURBINE_BEACON",
+          "MAT__TURBINE_DARK",
+          "MAT__TURBINE_WHITE"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "id": "02",
+      "hierarchy": {
+        "part": "PART__TURBINE_02",
+        "body_parent": "PART__TURBINE_02",
+        "rotor_parent": "PART__TURBINE_02",
+        "rotor_mesh_parent": "ROTOR__TURBINE_02",
+        "ok": true
+      },
+      "motion": {
+        "local_axis": "Y",
+        "rpm": 7.1,
+        "initial_phase_degrees": -17.0,
+        "samples": [
+          {
+            "rotor_center_world": [
+              -0.697362,
+              -0.338018,
+              1.661514
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.447656,
+            "phase_degrees": -17.0
+          },
+          {
+            "rotor_center_world": [
+              -0.697362,
+              -0.338018,
+              1.661514
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.457584,
+            "phase_degrees": 13.0
+          },
+          {
+            "rotor_center_world": [
+              -0.697362,
+              -0.338018,
+              1.661514
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.301096,
+            "phase_degrees": 43.0
+          },
+          {
+            "rotor_center_world": [
+              -0.697362,
+              -0.338018,
+              1.661514
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596467,
+            "minimum_clearance_to_part_base_m": 0.29758,
+            "phase_degrees": 73.0
+          }
+        ],
+        "axis_ok": true
+      },
+      "geometry": {
+        "expected_radius_m": 0.5962500000000001,
+        "terrain_scene_scale": 0.75,
+        "radius_max_error_m": 0.000217,
+        "hub_height_m": 0.8759999999999999,
+        "rotor_radius_to_hub_height_ratio": 0.6809,
+        "ratio_target_range": [
+          0.66,
+          0.7
+        ],
+        "ratio_ok": true,
+        "clearance_min_m": 0.29758,
+        "body_vertices": 776,
+        "rotor_vertices": 572,
+        "airfoil_stations_per_blade": 14,
+        "materials": [
+          "MAT__TURBINE_ACCENT",
+          "MAT__TURBINE_BEACON",
+          "MAT__TURBINE_DARK",
+          "MAT__TURBINE_WHITE"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "id": "03",
+      "hierarchy": {
+        "part": "PART__TURBINE_03",
+        "body_parent": "PART__TURBINE_03",
+        "rotor_parent": "PART__TURBINE_03",
+        "rotor_mesh_parent": "ROTOR__TURBINE_03",
+        "ok": true
+      },
+      "motion": {
+        "local_axis": "Y",
+        "rpm": 9.1,
+        "initial_phase_degrees": 23.0,
+        "samples": [
+          {
+            "rotor_center_world": [
+              5.941929,
+              -0.610051,
+              1.497236
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596468,
+            "minimum_clearance_to_part_base_m": 0.390125,
+            "phase_degrees": 23.0
+          },
+          {
+            "rotor_center_world": [
+              5.941929,
+              -0.610051,
+              1.497236
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596468,
+            "minimum_clearance_to_part_base_m": 0.282233,
+            "phase_degrees": 53.0
+          },
+          {
+            "rotor_center_world": [
+              5.941929,
+              -0.610051,
+              1.497236
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596468,
+            "minimum_clearance_to_part_base_m": 0.331576,
+            "phase_degrees": 83.0
+          },
+          {
+            "rotor_center_world": [
+              5.941929,
+              -0.610051,
+              1.497236
+            ],
+            "rotor_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "radial_extent_m": 0.596468,
+            "minimum_clearance_to_part_base_m": 0.526216,
+            "phase_degrees": 113.0
+          }
+        ],
+        "axis_ok": true
+      },
+      "geometry": {
+        "expected_radius_m": 0.5962500000000001,
+        "terrain_scene_scale": 0.75,
+        "radius_max_error_m": 0.000218,
+        "hub_height_m": 0.8759999999999999,
+        "rotor_radius_to_hub_height_ratio": 0.6809,
+        "ratio_target_range": [
+          0.66,
+          0.7
+        ],
+        "ratio_ok": true,
+        "clearance_min_m": 0.282233,
+        "body_vertices": 776,
+        "rotor_vertices": 572,
+        "airfoil_stations_per_blade": 14,
+        "materials": [
+          "MAT__TURBINE_ACCENT",
+          "MAT__TURBINE_BEACON",
+          "MAT__TURBINE_DARK",
+          "MAT__TURBINE_WHITE"
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "pass": true
+}

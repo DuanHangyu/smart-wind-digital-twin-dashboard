@@ -1,0 +1,62 @@
+{
+  "asset": "B_ARTISTIC_WINDFARM_TERRAIN_V5_TURBINE_PROPORTION_CORRECTED",
+  "blender": "5.2.0 LTS",
+  "stages": [
+    "B01_structure_breakdown",
+    "B02_base_shape",
+    "B03_shape_refined",
+    "B04_highpoly_detail",
+    "B05_lowpoly_retopology",
+    "B06_uv_unwrapped",
+    "B07_baked_pbr",
+    "B08_export_ready"
+  ],
+  "parts": 6,
+  "hotspots": 4,
+  "turbines": 3,
+  "turbine_detail": {
+    "tower_height_m": 1.1,
+    "rotor_radius_m": 0.795,
+    "hub_height_m": 1.168,
+    "terrain_scene_scale": 0.75,
+    "display_hub_height_m": 0.876,
+    "display_rotor_radius_m": 0.5963,
+    "rotor_radius_to_hub_height": 0.6807,
+    "airfoil_stations_per_blade": 14,
+    "static_body_meshes": 3,
+    "rotor_assembly_meshes": 3,
+    "rotor_axis": "local Y"
+  },
+  "final": {
+    "objects": 9,
+    "vertices": 22257,
+    "triangles": 43688,
+    "draw_calls": 22
+  },
+  "budgets": {
+    "triangle_budget": 45000,
+    "draw_call_budget": 28,
+    "glb_budget_bytes": 5000000,
+    "vram_budget_mb": 18,
+    "target_fps_desktop": 55,
+    "target_fps_mobile": 30,
+    "load_ms_mobile_max": 10000
+  },
+  "raw_glb": "/Users/duanhangyu/Documents/ChatGPT/数字孪生/production/B_artistic_windfarm_terrain_v5_turbine_proportion_corrected/export/B_windfarm_terrain_low_raw.glb",
+  "raw_glb_bytes": 5252916,
+  "baked_textures": [
+    "Terrain_BaseColor.png",
+    "Terrain_Normal.png",
+    "Terrain_AO.png",
+    "Terrain_Roughness.png",
+    "Terrain_Metallic.png",
+    "Terrain_ORM.png",
+    "Terrain_Normal_BakeRaw.png",
+    "Terrain_AO_BakeRaw.png",
+    "Terrain_RockMask.png",
+    "Terrain_GrassMask.png",
+    "Terrain_Cavity.png",
+    "Terrain_Wetness.png"
+  ],
+  "duration_seconds": 47.49
+}

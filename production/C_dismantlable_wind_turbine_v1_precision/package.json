@@ -1,0 +1,20 @@
+{
+  "name": "c-dismantlable-wind-turbine-v1-precision",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite web --host 127.0.0.1",
+    "build": "vite build web --outDir ../dist --emptyOutDir",
+    "validate:glb": "python3 source/scripts/inspect_glb.py export/C_dismantlable_turbine_low_ktx2.glb",
+    "validate:scene": "'/Applications/Blender.app/Contents/MacOS/Blender' -b blender/C08_export_ready.blend --python source/scripts/inspect_scene.py",
+    "test": "playwright test --config tests/playwright.config.js"
+  },
+  "dependencies": { "three": "0.185.1" },
+  "devDependencies": {
+    "@gltf-transform/cli": "4.4.2",
+    "@playwright/test": "1.62.1",
+    "vite": "7.3.6"
+  },
+  "overrides": { "sharp": "0.35.3" }
+}

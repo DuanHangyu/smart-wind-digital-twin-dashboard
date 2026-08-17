@@ -1,0 +1,22 @@
+{
+  "version": "5.0.0",
+  "texture_size": 1024,
+  "source": "rectified material reference with low-frequency illumination separation",
+  "base_color_source_mae": 0.021203,
+  "rock_coverage": 0.188352,
+  "grass_coverage": 0.811648,
+  "wetness_coverage": 0.319221,
+  "slope_degrees_p50": 28.924,
+  "slope_degrees_p95": 59.746,
+  "detail_normal_xy_p50": 0.032518,
+  "detail_normal_xy_p95": 0.223711,
+  "ao_range": [
+    0.52,
+    1.0
+  ],
+  "roughness_range": [
+    0.657828,
+    0.875
+  ],
+  "metallic": 0.0
+}

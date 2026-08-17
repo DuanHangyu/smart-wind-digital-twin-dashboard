@@ -1,0 +1,54 @@
+{
+  "blender_version": "5.2.0 LTS",
+  "parts": 15,
+  "hotspots": 9,
+  "rotors": 1,
+  "triangles": 21032,
+  "drivetrain_centers": {
+    "PART__MAIN_SHAFT": [
+      0.0,
+      0.3,
+      6.55
+    ],
+    "PART__MAIN_BEARING": [
+      0.0,
+      0.22,
+      6.55
+    ],
+    "PART__GEARBOX": [
+      0.0,
+      0.78,
+      6.58
+    ],
+    "PART__GENERATOR": [
+      0.0,
+      1.55,
+      6.58
+    ]
+  },
+  "axis_x_deviation_m": 0.0,
+  "axis_z_deviation_m": 0.02,
+  "blade_radii_m": [
+    2.3242,
+    2.3242,
+    2.3242
+  ],
+  "uv_range": [
+    0.0,
+    0.99125
+  ],
+  "checks": {
+    "part_count": true,
+    "hotspot_count": true,
+    "rotor_count": true,
+    "rotor_parenting": true,
+    "drivetrain_axis_x_deviation_le_5cm": true,
+    "drivetrain_axis_z_deviation_le_8cm": true,
+    "blade_radius_spread_le_1cm": true,
+    "uv_in_unit_square": true,
+    "metadata_complete": true,
+    "triangles_under_budget": true,
+    "hotspots_target_valid": true
+  },
+  "pass": true
+}

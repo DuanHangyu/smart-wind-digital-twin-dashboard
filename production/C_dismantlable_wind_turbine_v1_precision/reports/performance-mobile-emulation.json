@@ -1,0 +1,37 @@
+{
+  "testedAt": "2026-08-17T12:25:39.555Z",
+  "project": "mobile-emulation",
+  "viewport": {
+    "width": 412,
+    "height": 839
+  },
+  "emulation": "Pixel 7 + 4x CPU + 4 Mbps/80 ms",
+  "thresholds": {
+    "trianglesMax": 45000,
+    "drawCallsMax": 30,
+    "modelBytesMax": 5000000,
+    "estimatedVRAMMBMax": 18,
+    "loadMsMax": 10000,
+    "fpsMin": 25
+  },
+  "metrics": {
+    "ready": true,
+    "error": null,
+    "parts": 15,
+    "hotspots": 9,
+    "rotors": 1,
+    "triangles": 22544,
+    "drawCalls": 3,
+    "modelBytes": 1443676,
+    "estimatedVRAMMB": 5.05,
+    "loadMs": 4356,
+    "fps": 117.5,
+    "fpsSamples": 4,
+    "wireframe": true,
+    "cutaway": true,
+    "explode": 1,
+    "selected": "PART__GEARBOX",
+    "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)"
+  },
+  "consoleErrors": []
+}

@@ -1,0 +1,38 @@
+{
+  "validation_basis": "locked V4 reference panels and exact-camera V3 baseline",
+  "metrics": {
+    "base_color_source_mae": 0.021203,
+    "source_broad_illumination_std": 0.045787,
+    "v4_broad_illumination_std": 0.031999,
+    "broad_illumination_std_ratio": 0.698867,
+    "normal_xy_p50": 0.057901,
+    "normal_xy_p95": 0.243074,
+    "normal_xy_p99": 0.375038,
+    "ao_min_mean_max": [
+      0.501961,
+      0.871616,
+      1.0
+    ],
+    "roughness_min_mean_max": [
+      0.654902,
+      0.772163,
+      0.87451
+    ],
+    "metallic_mean": 0.0
+  },
+  "thresholds": {
+    "base_color_source_mae_max": 0.06,
+    "broad_illumination_std_ratio_max": 0.96,
+    "normal_xy_p95_range": [
+      0.035,
+      0.7
+    ],
+    "ao_min": 0.4,
+    "roughness_range": [
+      0.5,
+      0.95
+    ],
+    "metallic_mean_max": 0.01
+  },
+  "pass": true
+}

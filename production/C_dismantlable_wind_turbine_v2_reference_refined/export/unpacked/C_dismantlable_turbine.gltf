@@ -1,0 +1,1604 @@
+{
+  "asset": {
+    "generator": "glTF-Transform v4.4.2",
+    "version": "2.0"
+  },
+  "accessors": [
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 8460,
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 1584,
+      "bufferView": 0,
+      "byteOffset": 16920
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 6012,
+      "bufferView": 0,
+      "byteOffset": 20088
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 5544,
+      "bufferView": 0,
+      "byteOffset": 32112
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 4236,
+      "bufferView": 0,
+      "byteOffset": 43200
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 4668,
+      "bufferView": 0,
+      "byteOffset": 51672
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 3216,
+      "bufferView": 0,
+      "byteOffset": 61008
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 3900,
+      "bufferView": 0,
+      "byteOffset": 67440
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 9360,
+      "bufferView": 0,
+      "byteOffset": 75240
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 648,
+      "bufferView": 0,
+      "byteOffset": 93960
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 12060,
+      "bufferView": 0,
+      "byteOffset": 95256
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 3960,
+      "bufferView": 0,
+      "byteOffset": 119376
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 2484,
+      "bufferView": 0,
+      "byteOffset": 127296
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 3728,
+      "max": [
+        6089,
+        -17083,
+        8951
+      ],
+      "min": [
+        -1093,
+        -18615,
+        -3195
+      ],
+      "normalized": true,
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 3728,
+      "normalized": true,
+      "bufferView": 1,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 3728,
+      "normalized": true,
+      "bufferView": 1,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 944,
+      "max": [
+        1072,
+        -16450,
+        5439
+      ],
+      "min": [
+        -3733,
+        -19671,
+        238
+      ],
+      "normalized": true,
+      "bufferView": 2,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 944,
+      "normalized": true,
+      "bufferView": 2,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 944,
+      "normalized": true,
+      "bufferView": 2,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2512,
+      "max": [
+        2181,
+        -15763,
+        5344
+      ],
+      "min": [
+        -1727,
+        -20040,
+        686
+      ],
+      "normalized": true,
+      "bufferView": 3,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2512,
+      "normalized": true,
+      "bufferView": 3,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 2512,
+      "normalized": true,
+      "bufferView": 3,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2904,
+      "max": [
+        2458,
+        -15367,
+        5888
+      ],
+      "min": [
+        -2004,
+        -20410,
+        238
+      ],
+      "normalized": true,
+      "bufferView": 4,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2904,
+      "normalized": true,
+      "bufferView": 4,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 2904,
+      "normalized": true,
+      "bufferView": 4,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1367,
+      "max": [
+        2313,
+        -16819,
+        4647
+      ],
+      "min": [
+        -1859,
+        -19565,
+        871
+      ],
+      "normalized": true,
+      "bufferView": 5,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1367,
+      "normalized": true,
+      "bufferView": 5,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 1367,
+      "normalized": true,
+      "bufferView": 5,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 992,
+      "max": [
+        4225,
+        20209,
+        4832
+      ],
+      "min": [
+        -3770,
+        13112,
+        -10113
+      ],
+      "normalized": true,
+      "bufferView": 6,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 992,
+      "normalized": true,
+      "bufferView": 6,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 992,
+      "normalized": true,
+      "bufferView": 6,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1016,
+      "max": [
+        4346,
+        -2720,
+        7050
+      ],
+      "min": [
+        -3892,
+        -32767,
+        -1188
+      ],
+      "normalized": true,
+      "bufferView": 7,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1016,
+      "normalized": true,
+      "bufferView": 7,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 1016,
+      "normalized": true,
+      "bufferView": 7,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1722,
+      "max": [
+        3765,
+        -16872,
+        6469
+      ],
+      "min": [
+        -3311,
+        -19539,
+        -607
+      ],
+      "normalized": true,
+      "bufferView": 8,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1722,
+      "normalized": true,
+      "bufferView": 8,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 1722,
+      "normalized": true,
+      "bufferView": 8,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 5408,
+      "max": [
+        3572,
+        -17796,
+        6276
+      ],
+      "min": [
+        -3118,
+        -18588,
+        -415
+      ],
+      "normalized": true,
+      "bufferView": 9,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 5408,
+      "normalized": true,
+      "bufferView": 9,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 5408,
+      "normalized": true,
+      "bufferView": 9,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 110,
+      "max": [
+        1640,
+        32767,
+        7417
+      ],
+      "min": [
+        -802,
+        18509,
+        6178
+      ],
+      "normalized": true,
+      "bufferView": 10,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 110,
+      "normalized": true,
+      "bufferView": 10,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 110,
+      "normalized": true,
+      "bufferView": 10,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 110,
+      "max": [
+        14237,
+        15800,
+        7417
+      ],
+      "min": [
+        1777,
+        7715,
+        6178
+      ],
+      "normalized": true,
+      "bufferView": 11,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 110,
+      "normalized": true,
+      "bufferView": 11,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 110,
+      "max": [
+        -1337,
+        15824,
+        7417
+      ],
+      "min": [
+        -14237,
+        8502,
+        6178
+      ],
+      "normalized": true,
+      "bufferView": 12,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 110,
+      "normalized": true,
+      "bufferView": 12,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2310,
+      "max": [
+        3326,
+        -15209,
+        5149
+      ],
+      "min": [
+        -2872,
+        -20614,
+        713
+      ],
+      "normalized": true,
+      "bufferView": 13,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 2310,
+      "normalized": true,
+      "bufferView": 13,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 2310,
+      "normalized": true,
+      "bufferView": 13,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1161,
+      "max": [
+        2023,
+        -13862,
+        4726
+      ],
+      "min": [
+        -1568,
+        -22219,
+        1135
+      ],
+      "normalized": true,
+      "bufferView": 14,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 1161,
+      "normalized": true,
+      "bufferView": 14,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 1161,
+      "normalized": true,
+      "bufferView": 14,
+      "byteOffset": 16
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 448,
+      "max": [
+        2392,
+        18562,
+        10113
+      ],
+      "min": [
+        -1938,
+        14232,
+        6733
+      ],
+      "normalized": true,
+      "bufferView": 15,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5122,
+      "count": 448,
+      "normalized": true,
+      "bufferView": 15,
+      "byteOffset": 8
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5123,
+      "count": 448,
+      "normalized": true,
+      "bufferView": 15,
+      "byteOffset": 16
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 132264,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 132264,
+      "byteLength": 74560,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 206824,
+      "byteLength": 18880,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 225704,
+      "byteLength": 50240,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 275944,
+      "byteLength": 58080,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 334024,
+      "byteLength": 27340,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 361364,
+      "byteLength": 19840,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 381204,
+      "byteLength": 20320,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 401524,
+      "byteLength": 34440,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 435964,
+      "byteLength": 108160,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 544124,
+      "byteLength": 2200,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 546324,
+      "byteLength": 1760,
+      "byteStride": 16,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 548084,
+      "byteLength": 1760,
+      "byteStride": 16,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 549844,
+      "byteLength": 46200,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 596044,
+      "byteLength": 23220,
+      "byteStride": 20,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 619264,
+      "byteLength": 8960,
+      "byteStride": 20,
+      "target": 34962
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 2
+        }
+      }
+    },
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 0
+        }
+      }
+    },
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 1
+        }
+      }
+    }
+  ],
+  "images": [
+    {
+      "name": "C_Turbine_Normal",
+      "mimeType": "image/ktx2",
+      "uri": "normal_1.ktx2"
+    },
+    {
+      "name": "C_Turbine_ORM",
+      "mimeType": "image/ktx2",
+      "uri": "occlusion_1.ktx2"
+    },
+    {
+      "name": "C_Turbine_BaseColor",
+      "mimeType": "image/ktx2",
+      "uri": "baseColor_1.ktx2"
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "C_dismantlable_turbine.bin",
+      "byteLength": 628224
+    }
+  ],
+  "materials": [
+    {
+      "name": "MAT__C_TURBINE_PBR",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      },
+      "normalTexture": {
+        "index": 1,
+        "scale": 0.23999999463558197
+      },
+      "occlusionTexture": {
+        "index": 2
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Cube.065",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 13,
+            "NORMAL": 14,
+            "TEXCOORD_0": 15
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 0
+        }
+      ]
+    },
+    {
+      "name": "Cube.094",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 16,
+            "NORMAL": 17,
+            "TEXCOORD_0": 18
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 1
+        }
+      ]
+    },
+    {
+      "name": "Cube.077",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 19,
+            "NORMAL": 20,
+            "TEXCOORD_0": 21
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 2
+        }
+      ]
+    },
+    {
+      "name": "Cube.082",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 22,
+            "NORMAL": 23,
+            "TEXCOORD_0": 24
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 3
+        }
+      ]
+    },
+    {
+      "name": "Torus.008",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 25,
+            "NORMAL": 26,
+            "TEXCOORD_0": 27
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 4
+        }
+      ]
+    },
+    {
+      "name": "nacelle_shell",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 28,
+            "NORMAL": 29,
+            "TEXCOORD_0": 30
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 5
+        }
+      ]
+    },
+    {
+      "name": "Cone",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 31,
+            "NORMAL": 32,
+            "TEXCOORD_0": 33
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 6
+        }
+      ]
+    },
+    {
+      "name": "Cylinder.002",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 34,
+            "NORMAL": 35,
+            "TEXCOORD_0": 36
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 7
+        }
+      ]
+    },
+    {
+      "name": "Torus",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 37,
+            "NORMAL": 38,
+            "TEXCOORD_0": 39
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 8
+        }
+      ]
+    },
+    {
+      "name": "part__blade_a",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 40,
+            "NORMAL": 41,
+            "TEXCOORD_0": 42
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 9
+        }
+      ]
+    },
+    {
+      "name": "part__blade_b",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 43,
+            "NORMAL": 44,
+            "TEXCOORD_0": 42
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 9
+        }
+      ]
+    },
+    {
+      "name": "part__blade_c",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 45,
+            "NORMAL": 46,
+            "TEXCOORD_0": 42
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 9
+        }
+      ]
+    },
+    {
+      "name": "Sphere",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 47,
+            "NORMAL": 48,
+            "TEXCOORD_0": 49
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 10
+        }
+      ]
+    },
+    {
+      "name": "Cylinder.016",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 50,
+            "NORMAL": 51,
+            "TEXCOORD_0": 52
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 11
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 53,
+            "NORMAL": 54,
+            "TEXCOORD_0": 55
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 12
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "HOTSPOT__BRAKE_UNIT",
+      "extras": {
+        "target": "PART__BRAKE_UNIT",
+        "display_name": "制动与控制单元",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__GEARBOX",
+      "extras": {
+        "target": "PART__GEARBOX",
+        "display_name": "齿轮箱",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__GENERATOR",
+      "extras": {
+        "target": "PART__GENERATOR",
+        "display_name": "发电机",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__HUB",
+      "extras": {
+        "target": "PART__HUB",
+        "display_name": "三叶轮毂",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__MAIN_BEARING",
+      "extras": {
+        "target": "PART__MAIN_BEARING",
+        "display_name": "主轴承座",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__MAIN_SHAFT",
+      "extras": {
+        "target": "PART__MAIN_SHAFT",
+        "display_name": "主轴与法兰",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__NACELLE_SHELL",
+      "extras": {
+        "target": "PART__NACELLE_SHELL",
+        "display_name": "圆角胶囊机舱壳",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__TOWER",
+      "extras": {
+        "target": "PART__TOWER",
+        "display_name": "锥形塔筒",
+        "interactive": true
+      }
+    },
+    {
+      "name": "HOTSPOT__YAW_GEAR",
+      "extras": {
+        "target": "PART__YAW_GEAR",
+        "display_name": "偏航齿圈",
+        "interactive": true
+      }
+    },
+    {
+      "name": "PART__BEDPLATE",
+      "extras": {
+        "asset_zone": "silver_plate",
+        "canonical_name": "PART__BEDPLATE",
+        "interactive": true,
+        "display_name": "阶梯式机舱底板",
+        "part_type": "support",
+        "explode_vector": [
+          0,
+          0,
+          0.42
+        ],
+        "assembly_order": 4,
+        "material_zone": "silver_plate",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.4729999899864197,
+        9.565000176429749,
+        -1.4950000047683716
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 0
+    },
+    {
+      "name": "PART__BRAKE_UNIT",
+      "extras": {
+        "asset_zone": "red_transmission",
+        "canonical_name": "PART__BRAKE_UNIT",
+        "interactive": true,
+        "display_name": "制动与控制单元",
+        "part_type": "drivetrain",
+        "explode_vector": [
+          0.68,
+          0.62,
+          0.22
+        ],
+        "assembly_order": 5,
+        "material_zone": "red_transmission",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        0.47699999809265137,
+        9.99500048160553,
+        -2.074999988079071
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 1
+    },
+    {
+      "name": "PART__GEARBOX",
+      "extras": {
+        "asset_zone": "blue_machine",
+        "canonical_name": "PART__GEARBOX",
+        "interactive": true,
+        "display_name": "齿轮箱",
+        "part_type": "drivetrain",
+        "explode_vector": [
+          0,
+          0.4,
+          0.28
+        ],
+        "assembly_order": 7,
+        "material_zone": "blue_machine",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        10.025000214576721,
+        -1.3149999976158142
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 2
+    },
+    {
+      "name": "PART__GENERATOR",
+      "extras": {
+        "asset_zone": "blue_machine",
+        "canonical_name": "PART__GENERATOR",
+        "interactive": true,
+        "display_name": "发电机",
+        "part_type": "drivetrain",
+        "explode_vector": [
+          0,
+          0.82,
+          0.34
+        ],
+        "assembly_order": 6,
+        "material_zone": "blue_machine",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        10.05500042438507,
+        -2.1350000500679016
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 3
+    },
+    {
+      "name": "PART__MAIN_BEARING",
+      "extras": {
+        "asset_zone": "blue_machine",
+        "canonical_name": "PART__MAIN_BEARING",
+        "interactive": true,
+        "display_name": "主轴承座",
+        "part_type": "drivetrain",
+        "explode_vector": [
+          -0.55,
+          0,
+          0.18
+        ],
+        "assembly_order": 8,
+        "material_zone": "blue_machine",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        5.994999158929178,
+        -3.665000003625958
+      ],
+      "rotation": [
+        -0.7071068882942237,
+        0,
+        0,
+        0.7071066740788552
+      ],
+      "scale": [
+        6.205000281333923,
+        6.20500006894592,
+        6.20500006894592
+      ],
+      "mesh": 4
+    },
+    {
+      "name": "PART__NACELLE_SHELL",
+      "extras": {
+        "asset_zone": "white_composite",
+        "canonical_name": "PART__NACELLE_SHELL",
+        "interactive": true,
+        "display_name": "圆角胶囊机舱壳",
+        "part_type": "shell",
+        "explode_vector": [
+          0,
+          0.72,
+          0.86
+        ],
+        "assembly_order": 12,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        3.4450002908706665,
+        -0.5550000071525574
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 5
+    },
+    {
+      "name": "PART__TOWER",
+      "extras": {
+        "asset_zone": "white_composite",
+        "canonical_name": "PART__TOWER",
+        "interactive": true,
+        "display_name": "锥形塔筒",
+        "part_type": "structure",
+        "explode_vector": [
+          0,
+          0,
+          -1.2
+        ],
+        "assembly_order": 1,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        6.205000281333923,
+        -0.5550000071525574
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 6
+    },
+    {
+      "name": "PART__YAW_BASE",
+      "extras": {
+        "asset_zone": "white_composite",
+        "canonical_name": "PART__YAW_BASE",
+        "interactive": true,
+        "display_name": "偏航承载座",
+        "part_type": "yaw",
+        "explode_vector": [
+          0,
+          0,
+          -0.72
+        ],
+        "assembly_order": 2,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        9.235000252723694,
+        -0.7350000143051147
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 7
+    },
+    {
+      "name": "PART__YAW_GEAR",
+      "extras": {
+        "asset_zone": "black_steel",
+        "canonical_name": "PART__YAW_GEAR",
+        "interactive": true,
+        "display_name": "偏航齿圈",
+        "part_type": "yaw",
+        "explode_vector": [
+          0,
+          0,
+          -0.42
+        ],
+        "assembly_order": 3,
+        "material_zone": "black_steel",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        9.525000214576721,
+        -0.7350000143051147
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 8
+    },
+    {
+      "name": "PART__BLADE_A",
+      "extras": {
+        "asset_zone": "white_composite",
+        "airfoil_stations": 11,
+        "twist_root_degrees": 23,
+        "blade_angle_degrees": 0,
+        "canonical_name": "PART__BLADE_A",
+        "interactive": true,
+        "display_name": "叶片 A",
+        "part_type": "rotor",
+        "explode_vector": [
+          0,
+          -0.58,
+          0
+        ],
+        "assembly_order": 10,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        3.4450002908706665,
+        -0.5550000071525574
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 9
+    },
+    {
+      "name": "PART__BLADE_B",
+      "extras": {
+        "asset_zone": "white_composite",
+        "airfoil_stations": 11,
+        "twist_root_degrees": 23,
+        "blade_angle_degrees": 120,
+        "canonical_name": "PART__BLADE_B",
+        "interactive": true,
+        "display_name": "叶片 B",
+        "part_type": "rotor",
+        "explode_vector": [
+          0,
+          -0.58,
+          0
+        ],
+        "assembly_order": 10,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        3.4450002908706665,
+        -0.5550000071525574
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 10
+    },
+    {
+      "name": "PART__BLADE_C",
+      "extras": {
+        "asset_zone": "white_composite",
+        "airfoil_stations": 11,
+        "twist_root_degrees": 23,
+        "blade_angle_degrees": 240,
+        "canonical_name": "PART__BLADE_C",
+        "interactive": true,
+        "display_name": "叶片 C",
+        "part_type": "rotor",
+        "explode_vector": [
+          0,
+          -0.58,
+          0
+        ],
+        "assembly_order": 10,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        3.4450002908706665,
+        -0.5550000071525574
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 11
+    },
+    {
+      "name": "PART__HUB",
+      "extras": {
+        "asset_zone": "white_composite",
+        "canonical_name": "PART__HUB",
+        "interactive": true,
+        "display_name": "三叶轮毂",
+        "part_type": "rotor",
+        "explode_vector": [
+          0,
+          -0.58,
+          0
+        ],
+        "assembly_order": 10,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        9.99500048160553,
+        0.16500002145767212
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 12
+    },
+    {
+      "name": "PART__MAIN_SHAFT",
+      "extras": {
+        "asset_zone": "red_transmission",
+        "canonical_name": "PART__MAIN_SHAFT",
+        "interactive": true,
+        "display_name": "主轴与法兰",
+        "part_type": "drivetrain",
+        "explode_vector": [
+          0,
+          -0.24,
+          0
+        ],
+        "assembly_order": 9,
+        "material_zone": "red_transmission",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        5.994999158929178,
+        -3.7450000167389796
+      ],
+      "rotation": [
+        -0.7071068882942237,
+        0,
+        0,
+        0.7071066740788552
+      ],
+      "scale": [
+        6.205000281333923,
+        6.20500006894592,
+        6.20500006894592
+      ],
+      "mesh": 13
+    },
+    {
+      "name": "PART__SPINNER",
+      "extras": {
+        "asset_zone": "white_composite",
+        "canonical_name": "PART__SPINNER",
+        "interactive": true,
+        "display_name": "导流罩",
+        "part_type": "rotor",
+        "explode_vector": [
+          0,
+          -0.98,
+          0
+        ],
+        "assembly_order": 11,
+        "material_zone": "white_composite",
+        "detail_level": "web_low"
+      },
+      "translation": [
+        -0.042999982833862305,
+        3.4450002908706665,
+        -0.5550000071525574
+      ],
+      "scale": [
+        6.205000281333923,
+        6.205000281333923,
+        6.205000281333923
+      ],
+      "mesh": 14
+    },
+    {
+      "name": "ROTOR__ASSEMBLY",
+      "extras": {
+        "display_name": "转子总成",
+        "rotation_axis": "Y",
+        "rpm": 8.5
+      },
+      "children": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "C_TURBINE_ROOT",
+      "extras": {
+        "asset_id": "C_dismantlable_wind_turbine_v2_reference_refined",
+        "units": "meter",
+        "up_axis": "+Z",
+        "rotor_axis": "+Y"
+      },
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        24
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        25
+      ]
+    }
+  ],
+  "scene": 0,
+  "extensionsUsed": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "extensionsRequired": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ]
+}

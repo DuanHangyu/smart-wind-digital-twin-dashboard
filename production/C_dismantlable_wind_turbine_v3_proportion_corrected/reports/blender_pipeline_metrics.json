@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-08-17T23:38:31+0800",
+  "elapsed_seconds": 18.56,
+  "blender_version": "5.2.0 LTS",
+  "stages": [
+    "C01_structure_breakdown",
+    "C02_base_shape",
+    "C03_shape_refined",
+    "C04_highpoly_detail",
+    "C05_lowpoly_retopology",
+    "C06_uv_unwrapped",
+    "C07_baked_pbr",
+    "C08_export_ready"
+  ],
+  "metrics": {
+    "mesh_objects": 15,
+    "vertices": 11606,
+    "triangles": 22656,
+    "draw_calls": 15
+  },
+  "parts": 15,
+  "hotspots": 9,
+  "rotor_axis": "+Y",
+  "raw_glb": "export/C_dismantlable_turbine_v3_low_raw.glb",
+  "bake": {
+    "method": "Cycles selected-to-active, real high/low turbine assemblies",
+    "success": true
+  }
+}

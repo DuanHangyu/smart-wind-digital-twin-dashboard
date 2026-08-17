@@ -1,0 +1,84 @@
+{
+  "asset": "C_dismantlable_wind_turbine_v3_proportion_corrected",
+  "version": "3.0.0",
+  "units": "meter",
+  "coordinate_system": {
+    "up": "+Z",
+    "rotor_axis": "+Y",
+    "rotor_plane": "XZ",
+    "front": "-Y"
+  },
+  "reference_files": [
+    "01_cutaway_six_views.png",
+    "02_exploded_six_views.png",
+    "03_component_details.png",
+    "04_wireframe_six_views.png",
+    "05_exterior_six_views.png",
+    "06_exterior_proportion_lock.png",
+    "07_v2_current_comparison.png"
+  ],
+  "dimensions": {
+    "hub_center": [0.0, -0.72, 6.55],
+    "rotor_radius": 4.45,
+    "hub_radius": 0.36,
+    "tower_height": 5.72,
+    "tower_bottom_radius": 0.60,
+    "tower_top_radius": 0.33,
+    "nacelle_length": 3.22,
+    "nacelle_width": 1.36,
+    "nacelle_height": 1.12,
+    "bedplate_length": 2.65,
+    "bedplate_width": 1.24
+  },
+  "ratios": {
+    "rotor_radius_to_hub_height": 0.679,
+    "nacelle_length_to_rotor_radius": 0.724,
+    "nacelle_width_to_length": 0.422,
+    "hub_radius_to_rotor_radius": 0.081,
+    "hub_height_to_rotor_radius": 1.472
+  },
+  "symmetry": {
+    "blade_count": 3,
+    "blade_step_degrees": 120,
+    "tower_axial": true,
+    "rotor_radial": true,
+    "nacelle_axial": false
+  },
+  "parts": [
+    {"name": "PART__TOWER", "display_name": "锥形塔筒", "type": "structure", "explode_vector": [0, 0, -1.2], "assembly_order": 1, "material_zone": "white_composite"},
+    {"name": "PART__YAW_BASE", "display_name": "偏航承载座", "type": "yaw", "explode_vector": [0, 0, -0.72], "assembly_order": 2, "material_zone": "white_composite"},
+    {"name": "PART__YAW_GEAR", "display_name": "偏航齿圈", "type": "yaw", "explode_vector": [0, 0, -0.42], "assembly_order": 3, "material_zone": "black_steel"},
+    {"name": "PART__BEDPLATE", "display_name": "阶梯式机舱底板", "type": "support", "explode_vector": [0, 0, 0.42], "assembly_order": 4, "material_zone": "silver_plate"},
+    {"name": "PART__NACELLE_SHELL", "display_name": "圆角胶囊机舱壳", "type": "shell", "explode_vector": [0, 0.72, 0.86], "assembly_order": 12, "material_zone": "white_composite"},
+    {"name": "PART__SPINNER", "display_name": "导流罩", "type": "rotor", "explode_vector": [0, -0.98, 0], "assembly_order": 11, "material_zone": "white_composite"},
+    {"name": "PART__HUB", "display_name": "三叶轮毂", "type": "rotor", "explode_vector": [0, -0.58, 0], "assembly_order": 10, "material_zone": "white_composite"},
+    {"name": "PART__BLADE_A", "display_name": "叶片 A", "type": "rotor", "explode_vector": [0, -0.58, 0], "assembly_order": 10, "material_zone": "white_composite"},
+    {"name": "PART__BLADE_B", "display_name": "叶片 B", "type": "rotor", "explode_vector": [0, -0.58, 0], "assembly_order": 10, "material_zone": "white_composite"},
+    {"name": "PART__BLADE_C", "display_name": "叶片 C", "type": "rotor", "explode_vector": [0, -0.58, 0], "assembly_order": 10, "material_zone": "white_composite"},
+    {"name": "PART__MAIN_SHAFT", "display_name": "主轴与法兰", "type": "drivetrain", "explode_vector": [0, -0.24, 0], "assembly_order": 9, "material_zone": "red_transmission"},
+    {"name": "PART__MAIN_BEARING", "display_name": "主轴承座", "type": "drivetrain", "explode_vector": [-0.55, 0, 0.18], "assembly_order": 8, "material_zone": "blue_machine"},
+    {"name": "PART__GEARBOX", "display_name": "齿轮箱", "type": "drivetrain", "explode_vector": [0, 0.40, 0.28], "assembly_order": 7, "material_zone": "blue_machine"},
+    {"name": "PART__GENERATOR", "display_name": "发电机", "type": "drivetrain", "explode_vector": [0, 0.82, 0.34], "assembly_order": 6, "material_zone": "blue_machine"},
+    {"name": "PART__BRAKE_UNIT", "display_name": "制动与控制单元", "type": "drivetrain", "explode_vector": [0.68, 0.62, 0.22], "assembly_order": 5, "material_zone": "red_transmission"}
+  ],
+  "hotspots": [
+    ["HOTSPOT__HUB", "PART__HUB", [0.34, -1.02, 6.82]],
+    ["HOTSPOT__MAIN_SHAFT", "PART__MAIN_SHAFT", [-0.38, 0.02, 6.78]],
+    ["HOTSPOT__MAIN_BEARING", "PART__MAIN_BEARING", [0.35, 0.26, 6.88]],
+    ["HOTSPOT__GEARBOX", "PART__GEARBOX", [-0.34, 0.78, 6.98]],
+    ["HOTSPOT__GENERATOR", "PART__GENERATOR", [0.33, 1.82, 7.02]],
+    ["HOTSPOT__BRAKE_UNIT", "PART__BRAKE_UNIT", [0.57, 1.84, 6.62]],
+    ["HOTSPOT__YAW_GEAR", "PART__YAW_GEAR", [-0.50, 0.58, 5.84]],
+    ["HOTSPOT__NACELLE_SHELL", "PART__NACELLE_SHELL", [0.66, 1.12, 7.18]],
+    ["HOTSPOT__TOWER", "PART__TOWER", [0.40, 0.0, 3.35]]
+  ],
+  "performance_budgets": {
+    "triangles_max": 45000,
+    "draw_calls_max": 30,
+    "glb_bytes_max": 5000000,
+    "estimated_vram_mb_max": 18,
+    "desktop_fps_min": 45,
+    "mobile_fps_min": 25,
+    "load_ms_max": 10000
+  }
+}

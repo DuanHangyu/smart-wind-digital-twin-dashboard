@@ -1,0 +1,33 @@
+{
+  "path": "export/C_dismantlable_turbine_v3_low_ktx2.glb",
+  "file_bytes": 1463660,
+  "nodes": 26,
+  "parts": 15,
+  "hotspots": 9,
+  "rotors": 1,
+  "meshes": 15,
+  "materials": 1,
+  "textures": 3,
+  "triangles": 22656,
+  "extensions_used": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "extensions_required": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "mesh_quantized": true,
+  "basisu": true,
+  "part_metadata_complete": true,
+  "hotspot_targets_valid": true,
+  "budgets": {
+    "triangles": 45000,
+    "file_bytes": 5000000,
+    "parts": 15,
+    "hotspots": 9,
+    "rotors": 1,
+    "materials_max": 2
+  },
+  "pass": true
+}

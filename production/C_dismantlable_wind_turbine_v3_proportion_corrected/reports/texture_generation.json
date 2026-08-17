@@ -1,0 +1,123 @@
+{
+  "size": 1024,
+  "grid": 4,
+  "cell_size": 256,
+  "zones": {
+    "white_composite": {
+      "cell": [
+        0,
+        0
+      ],
+      "color": [
+        218,
+        224,
+        225
+      ],
+      "roughness": 126,
+      "metallic": 0
+    },
+    "blue_machine": {
+      "cell": [
+        1,
+        0
+      ],
+      "color": [
+        42,
+        98,
+        174
+      ],
+      "roughness": 104,
+      "metallic": 28
+    },
+    "red_transmission": {
+      "cell": [
+        2,
+        0
+      ],
+      "color": [
+        176,
+        50,
+        47
+      ],
+      "roughness": 112,
+      "metallic": 34
+    },
+    "black_steel": {
+      "cell": [
+        3,
+        0
+      ],
+      "color": [
+        25,
+        31,
+        34
+      ],
+      "roughness": 92,
+      "metallic": 210
+    },
+    "silver_plate": {
+      "cell": [
+        0,
+        1
+      ],
+      "color": [
+        151,
+        158,
+        159
+      ],
+      "roughness": 96,
+      "metallic": 192
+    },
+    "dark_steel": {
+      "cell": [
+        1,
+        1
+      ],
+      "color": [
+        55,
+        64,
+        68
+      ],
+      "roughness": 80,
+      "metallic": 230
+    },
+    "cyan_glass_guide": {
+      "cell": [
+        2,
+        1
+      ],
+      "color": [
+        35,
+        174,
+        183
+      ],
+      "roughness": 34,
+      "metallic": 12
+    },
+    "rubber_seal": {
+      "cell": [
+        3,
+        1
+      ],
+      "color": [
+        19,
+        24,
+        27
+      ],
+      "roughness": 176,
+      "metallic": 0
+    }
+  },
+  "maps": [
+    "C_Turbine_AO.png",
+    "C_Turbine_AO_Source.png",
+    "C_Turbine_BaseColor.png",
+    "C_Turbine_Metallic.png",
+    "C_Turbine_Normal.png",
+    "C_Turbine_Normal_Source.png",
+    "C_Turbine_ORM.png",
+    "C_Turbine_ORM_Source.png",
+    "C_Turbine_Roughness.png",
+    "C_Turbine_UV_Checker.png"
+  ]
+}

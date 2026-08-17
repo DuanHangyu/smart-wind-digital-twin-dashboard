@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#020b0d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23020b0d' stroke='%2346eee5'/%3E%3Cpath d='M32 30V8M34 33l19 11M29 34L11 48' stroke='%2346eee5' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%2346eee5'/%3E%3C/svg%3E" />
+  <title>C | 可拆解风机数字孪生</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <main id="app">
+    <canvas id="viewport" aria-label="可拆解风机三维视图"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+    <header class="topbar panel-line">
+      <div><span class="eyebrow">C / DISMANTLABLE TURBINE</span><h1>风机数字样机</h1></div>
+      <div class="top-stats"><span><b id="stat-parts">--</b> 部件</span><span><b id="stat-tris">--</b> 三角面</span><span><b id="stat-fps">--</b> FPS</span></div>
+    </header>
+    <aside class="left-panel glass-panel">
+      <div class="panel-title"><span>总成树</span><small>15 PARTS</small></div>
+      <div id="part-list" class="part-list"></div>
+    </aside>
+    <aside class="right-panel glass-panel">
+      <div class="panel-title"><span>部件详情</span><small>INSPECTOR</small></div>
+      <div class="part-glyph" id="part-glyph">C</div>
+      <h2 id="detail-name">选择部件</h2>
+      <dl>
+        <div><dt>节点</dt><dd id="detail-node">--</dd></div>
+        <div><dt>类型</dt><dd id="detail-type">--</dd></div>
+        <div><dt>材质分区</dt><dd id="detail-material">--</dd></div>
+        <div><dt>装配顺序</dt><dd id="detail-order">--</dd></div>
+      </dl>
+      <p id="detail-copy">可拖动旋转视角，滚轮或双指缩放，点击模型或左侧列表查看部件。</p>
+    </aside>
+    <section class="mode-bar glass-panel" aria-label="模型模式">
+      <button id="mode-exterior" class="active">外观</button>
+      <button id="mode-cutaway">透视</button>
+      <button id="mode-explode">爆炸</button>
+      <button id="toggle-wire">网格</button>
+      <button id="reset-view">复位</button>
+      <label><span>拆解距离</span><input id="explode-range" type="range" min="0" max="1.45" step="0.01" value="0" /></label>
+    </section>
+    <div id="loader" class="loader"><div class="loader-ring"></div><p>正在加载 KTX2 可拆解风机</p><span id="loader-progress">0%</span></div>
+    <div id="error" class="error" hidden></div>
+    <footer><span>ROTOR AXIS +Y / WEBGL2</span><span id="model-size">-- MB</span></footer>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

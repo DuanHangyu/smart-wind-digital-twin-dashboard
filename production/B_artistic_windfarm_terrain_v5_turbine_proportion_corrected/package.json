@@ -1,0 +1,20 @@
+{
+  "name": "b-artistic-windfarm-terrain-v5-turbine-proportion-corrected",
+  "version": "5.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite web --host 127.0.0.1",
+    "build": "vite build web --outDir ../dist --emptyOutDir",
+    "validate:glb": "python3 source/scripts/inspect_glb.py export/B_windfarm_terrain_low_ktx2.glb",
+    "validate:fidelity": ".venv/bin/python source/scripts/validate_fidelity.py",
+    "test": "playwright test --config tests/playwright.config.js"
+  },
+  "dependencies": { "three": "0.185.1" },
+  "devDependencies": {
+    "@gltf-transform/cli": "4.4.2",
+    "@playwright/test": "1.62.1",
+    "vite": "7.3.6"
+  },
+  "overrides": { "sharp": "0.35.3" }
+}

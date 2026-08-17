@@ -1,0 +1,342 @@
+{
+  "blender": [
+    {
+      "path": "blender/C01_structure_breakdown.blend",
+      "bytes": 372899,
+      "sha256": "673bb8d65fba3031923bfc624d957d6ad56e3b38c355334d391029f97b23b4e2"
+    },
+    {
+      "path": "blender/C02_base_shape.blend",
+      "bytes": 357860,
+      "sha256": "905b17cfca22d4e995350d1cfb3fa618ae005cc41316a849e5a277696a7e45f8"
+    },
+    {
+      "path": "blender/C03_shape_refined.blend",
+      "bytes": 370926,
+      "sha256": "9ca8a52d0d01b367c19a76d34a5a6460301a59133bbae102a16993d3cddcfb94"
+    },
+    {
+      "path": "blender/C04_highpoly_detail.blend",
+      "bytes": 468915,
+      "sha256": "c15c4036f3c6ea4a318b53a4b6085d4529e9e8080ddbfd2a90f39e595d13e04b"
+    },
+    {
+      "path": "blender/C05_lowpoly_retopology.blend",
+      "bytes": 366082,
+      "sha256": "be34f351fc56ad014e79594d5b3110257d2e21d9ab1e605f0c6dc1af90749b04"
+    },
+    {
+      "path": "blender/C06_uv_unwrapped.blend",
+      "bytes": 366043,
+      "sha256": "b9b69d7882353bcdb5593d4295925146ccd47253f6b7bc3933302791cf8423cb"
+    },
+    {
+      "path": "blender/C07_baked_pbr.blend",
+      "bytes": 371724,
+      "sha256": "f3b9ef705a15a37ecfd71cd3f41bf4c720cbda667294e8a7e02a4f401f354fc9"
+    },
+    {
+      "path": "blender/C08_export_ready.blend",
+      "bytes": 371622,
+      "sha256": "a5f5a7e164be6484f2672733f564a3da7b0afab9c6e49ae841f61ced4d9d013c"
+    }
+  ],
+  "glb": [
+    {
+      "path": "export/C_dismantlable_turbine_v2_low_ktx2.glb",
+      "bytes": 1462072,
+      "sha256": "5d46e51c3396a134b60d13892cd0b279644c46495fd134f9953454e30f109bf9"
+    },
+    {
+      "path": "export/C_dismantlable_turbine_v2_low_normal_uastc.glb",
+      "bytes": 1430744,
+      "sha256": "3958699457a6b576eace285456a5b855a408f7204241196c3b61fe793a859c6a"
+    },
+    {
+      "path": "export/C_dismantlable_turbine_v2_low_quantized.glb",
+      "bytes": 1283624,
+      "sha256": "bc669f1bec481985660e83a600b046519d13cc96755c2132544ca27d2041e79e"
+    },
+    {
+      "path": "export/C_dismantlable_turbine_v2_low_raw.glb",
+      "bytes": 1583488,
+      "sha256": "b63c03c1c47586531b895ef655b88a726002ed04777fd99707dd86e2cedb3554"
+    },
+    {
+      "path": "export/C_dismantlable_turbine_v2_low_uastc.glb",
+      "bytes": 1536904,
+      "sha256": "cf23ee53a8b7217e9af526c1e1e50328fc05413ea6f8c405b495a54a6b81ce90"
+    }
+  ],
+  "textures_png": [
+    {
+      "path": "textures/png/C_Turbine_AO.png",
+      "bytes": 57488,
+      "sha256": "d20428083ad4de58374e0d02c43258607dadbfd875b3c49c4d1fdd5de7261e03"
+    },
+    {
+      "path": "textures/png/C_Turbine_AO_BakeRaw.png",
+      "bytes": 123731,
+      "sha256": "9b7a064f20069519f54cb26b64dbbea59504b02468f4de4bdf3429cb20eda2a0"
+    },
+    {
+      "path": "textures/png/C_Turbine_AO_Source.png",
+      "bytes": 57488,
+      "sha256": "d20428083ad4de58374e0d02c43258607dadbfd875b3c49c4d1fdd5de7261e03"
+    },
+    {
+      "path": "textures/png/C_Turbine_BaseColor.png",
+      "bytes": 129887,
+      "sha256": "3182fae98f0a926cd9e869a841f420f366fccc58d08cd6cc686ceb01a5988f76"
+    },
+    {
+      "path": "textures/png/C_Turbine_Metallic.png",
+      "bytes": 1767,
+      "sha256": "a69f2b326e47cffdb53a78cd066a15a35a7b92e1429589855376a950c822b04a"
+    },
+    {
+      "path": "textures/png/C_Turbine_Normal.png",
+      "bytes": 338841,
+      "sha256": "3f78d4f29b87a5324bacf77e99610bc470655d0700b2197f21f3d051040920ea"
+    },
+    {
+      "path": "textures/png/C_Turbine_Normal_BakeRaw.png",
+      "bytes": 295130,
+      "sha256": "5e5442cb23eb8bedea837861d948a92e651295f844c11c06a4b608a0aa37224e"
+    },
+    {
+      "path": "textures/png/C_Turbine_Normal_Source.png",
+      "bytes": 338841,
+      "sha256": "3f78d4f29b87a5324bacf77e99610bc470655d0700b2197f21f3d051040920ea"
+    },
+    {
+      "path": "textures/png/C_Turbine_ORM.png",
+      "bytes": 168051,
+      "sha256": "2bf0519b08d9ef535a68bc686e2cc03ae01ff77fab636f9a58c65ac328071833"
+    },
+    {
+      "path": "textures/png/C_Turbine_ORM_Source.png",
+      "bytes": 168051,
+      "sha256": "2bf0519b08d9ef535a68bc686e2cc03ae01ff77fab636f9a58c65ac328071833"
+    },
+    {
+      "path": "textures/png/C_Turbine_Roughness.png",
+      "bytes": 89738,
+      "sha256": "9a659bda2d62605c48e23cd1ea9d578c4edc9511071b9fde08f2cefb352060f6"
+    },
+    {
+      "path": "textures/png/C_Turbine_UV_Checker.png",
+      "bytes": 5140,
+      "sha256": "7b5f81270158656ed81f7cf07fbb70128ff66f320665e8af6505d8eede75d388"
+    }
+  ],
+  "textures_ktx2": [
+    {
+      "path": "textures/ktx2/baseColor_1.ktx2",
+      "bytes": 55013,
+      "sha256": "9da3e16f217e5bfbcbaab23f396716f4150cd93811b3b6a2ac18a71a6b625970"
+    },
+    {
+      "path": "textures/ktx2/normal_1.ktx2",
+      "bytes": 485882,
+      "sha256": "60af30ffc211e1f0eec2fa378605ca144c490d55d91be866642db94a6ec27b44"
+    },
+    {
+      "path": "textures/ktx2/occlusion_1.ktx2",
+      "bytes": 274174,
+      "sha256": "93472eb9ae604ed42e609201e64f19bb64e4df1be4000755f8833d6971cc55fb"
+    }
+  ],
+  "renders": [
+    {
+      "path": "renders/C01_structure_breakdown.png",
+      "bytes": 887587,
+      "sha256": "bc2673e7120c6355406e13a80d9ac712dca328d6010e7e600bd63b75836ce469"
+    },
+    {
+      "path": "renders/C02_base_shape.png",
+      "bytes": 738425,
+      "sha256": "e60b637ab8f0c2c06f2b6ce21ba26d1aaca4faaec61413ca7c4e31581b0fd6d2"
+    },
+    {
+      "path": "renders/C03_shape_refined.png",
+      "bytes": 741079,
+      "sha256": "a6ea470356a3d469d46c0d1c1106a01b457ef61d7906be4bc88e0c23fb593917"
+    },
+    {
+      "path": "renders/C04_highpoly_detail.png",
+      "bytes": 831667,
+      "sha256": "10d9a027f4827f73e7f8650955da1554e28e580a993ae4c6e90a772a3c84166f"
+    },
+    {
+      "path": "renders/C05_lowpoly_retopology.png",
+      "bytes": 975099,
+      "sha256": "40dceb85aa80ff0623561895729591188e4230ea07ad2d01630b60590219cc59"
+    },
+    {
+      "path": "renders/C06_uv_unwrapped.png",
+      "bytes": 885620,
+      "sha256": "c6ccc65347df450ad7b5d2cb9482324bd6a4f842a15659589112b9552b345344"
+    },
+    {
+      "path": "renders/C07_baked_pbr.png",
+      "bytes": 832373,
+      "sha256": "41bddb2d88074569f15bca2eae4f81d5b8e015bc299ad11f03ee3e8c617b4abc"
+    },
+    {
+      "path": "renders/C08_cutaway_detail.png",
+      "bytes": 832376,
+      "sha256": "7e2e72e40806e85b166670a2fdc52558e4aadc247799e72d2c885ecd038766a9"
+    },
+    {
+      "path": "renders/C08_cutaway_side.png",
+      "bytes": 959834,
+      "sha256": "1760fe5e75d53336da14e580af68f992032e108dc50ef5e8c5b924dfa3b544dd"
+    },
+    {
+      "path": "renders/C08_export_ready.png",
+      "bytes": 740756,
+      "sha256": "da82771f318cb415d5501e8d6ce31a4162a6430d9a09a5ccaa6a581fca12bbbd"
+    },
+    {
+      "path": "renders/C08_view_front.png",
+      "bytes": 762461,
+      "sha256": "ab1d1b9ef71ae8be1ca21b89a1e0457eeb770d4b6b260263bab03ab3d52b0ea7"
+    },
+    {
+      "path": "renders/C08_view_rear.png",
+      "bytes": 762921,
+      "sha256": "08ae1192a33ccc5f1b777cf85b5039181f46376ff8eb471c4ca404af6545910d"
+    },
+    {
+      "path": "renders/C08_view_side.png",
+      "bytes": 768776,
+      "sha256": "d1b844eb4da7b39977f165bf8664e7417de9853f5bc16f1e10db49be0d50bf7b"
+    },
+    {
+      "path": "renders/C08_view_top.png",
+      "bytes": 718846,
+      "sha256": "2c702114a692eedbae170f1d31fdc4dbc09514c2d8692f0dc07b112fd372e0d8"
+    }
+  ],
+  "web": [
+    {
+      "path": "web/index.html",
+      "bytes": 2827,
+      "sha256": "bc4148ef0e8379111aaae207b5ba85053910fb1bf071aa596243672c9ec9aebc"
+    },
+    {
+      "path": "web/public/basis/basis_transcoder.js",
+      "bytes": 57529,
+      "sha256": "8478b5b6d6b74e7d3082b89f6417321d8d1dc0307f2b30d4484bb11b441696a1"
+    },
+    {
+      "path": "web/public/basis/basis_transcoder.wasm",
+      "bytes": 527333,
+      "sha256": "6cf17dc889352c42e9acf8897107978d127005fe3386c36a0e3845e27967630a"
+    },
+    {
+      "path": "web/public/models/C_dismantlable_turbine_v2_low_ktx2.glb",
+      "bytes": 1462072,
+      "sha256": "5d46e51c3396a134b60d13892cd0b279644c46495fd134f9953454e30f109bf9"
+    },
+    {
+      "path": "web/src/main.js",
+      "bytes": 11119,
+      "sha256": "c5ceeec58ba7fe8669da082b44d293d0f1f2a7c8d602bdcf50cdfa1c5b597551"
+    },
+    {
+      "path": "web/src/style.css",
+      "bytes": 5315,
+      "sha256": "5d3bf84d43a481e8eead42c9708d7710ace895b5cd5fbe6a59f3b6adef589b44"
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/C_V2_参考图锁定与建模流水线.md",
+      "bytes": 4373,
+      "sha256": "aea010ef63e7bdc1af9464c60eec06119b193bad159f86e2f240e10bd003bf15"
+    },
+    {
+      "path": "docs/ThreeJS_接入说明.md",
+      "bytes": 933,
+      "sha256": "dbeed57026dfa827352fe9864fa581ffc87e43f942fda8787c29a28e75e46d63"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2107,
+      "sha256": "ad3061a4c4b5ab70023d4ea07cd9dddf42b9131cc998cf10dd492b4041d92a75"
+    }
+  ],
+  "reports": [
+    {
+      "path": "reports/bake_manifest.json",
+      "bytes": 97,
+      "sha256": "59bac468913c9d098a9599e9e7b0c3f3adc8e722e87eae105a19037955d2ef86"
+    },
+    {
+      "path": "reports/blender_pipeline_metrics.json",
+      "bytes": 674,
+      "sha256": "5393392dcc2279a4ef8b6318b057d43a3d2a9914a5f539c2806f825a270f13fc"
+    },
+    {
+      "path": "reports/final_six_view_board.png",
+      "bytes": 862744,
+      "sha256": "bb440cca61b01dc517e9e18a88122994a42c3413c4e312a1a994df28e935f7d2"
+    },
+    {
+      "path": "reports/glb_validation.json",
+      "bytes": 664,
+      "sha256": "2e2d547f496e82a5cdd6fd17114c11dd36da7aa830691eda025d6d54ae3aac11"
+    },
+    {
+      "path": "reports/material_atlas_breakdown.png",
+      "bytes": 104036,
+      "sha256": "2e63d2767c705b1690c683ff449cbec7e4c62cbf40915ce0540ed31924560824"
+    },
+    {
+      "path": "reports/performance-desktop-chrome.json",
+      "bytes": 820,
+      "sha256": "d381f33fdc4ea6fbd9956b111b8901f6eb5e29301bc2ac9f8ba19a3a971082b7"
+    },
+    {
+      "path": "reports/performance-mobile-emulation.json",
+      "bytes": 836,
+      "sha256": "b4168fe1519ab22c12fc8e042696cba4f37a6ea1f9efd50926e256625f89191f"
+    },
+    {
+      "path": "reports/pipeline_eight_stage_overview.png",
+      "bytes": 676040,
+      "sha256": "5fca9e70fa96c5b1420acfa1cf540b868d4559b6b975b63a565e88563e1da98f"
+    },
+    {
+      "path": "reports/reference_vs_model_contact_sheet.png",
+      "bytes": 3544085,
+      "sha256": "af8c81c8e693b4ca4beca0129768a4efeb5c9bccf4e3bfce71540110d968df69"
+    },
+    {
+      "path": "reports/scene_validation.json",
+      "bytes": 1130,
+      "sha256": "8b436602b9d9f50af710961c00ab3f0caa3673504a32358c2665917c8539ce50"
+    },
+    {
+      "path": "reports/texture_generation.json",
+      "bytes": 1846,
+      "sha256": "0ee8a0ee053475db35d071da839c52c480b2b364ec2ab53b9ddfa1f81f0c3184"
+    },
+    {
+      "path": "reports/web-desktop-chrome.png",
+      "bytes": 454257,
+      "sha256": "8e59ae22cd022f56cffe2a0266d765d749b8d7abb9a1ed456cdcabf2de3f7931"
+    },
+    {
+      "path": "reports/web-mobile-emulation.png",
+      "bytes": 816085,
+      "sha256": "75b037f61f58f80d5f962d773191eee9c0e3dd6a4be00314c4d9c66ab4942f03"
+    }
+  ],
+  "summary": {
+    "files": 64,
+    "total_bytes": 32906867
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "asset": "B_ARTISTIC_WINDFARM_TERRAIN_V5_TURBINE_PROPORTION_CORRECTED",
+  "version": "5.0.0",
+  "reference_registration": {
+    "source_image": "reference_height_material_structure.png",
+    "height_quad_px": [[92, 25], [704, 25], [717, 488], [42, 488]],
+    "material_quad_px": [[827, 24], [1469, 24], [1479, 488], [801, 488]],
+    "height_turbine_markers_px": [[450, 87], [357, 250], [662, 264]],
+    "material_turbine_markers_px": [[1209, 89], [1123, 253], [1437, 265]],
+    "registration_size": [641, 413]
+  },
+  "dimensions": {
+    "width_m": 14.0,
+    "depth_m": 9.02,
+    "base_height_m": 0.16,
+    "terrain_relief_m": 1.58,
+    "lake_surface_m": 0.195,
+    "turbine_tower_m": 1.1,
+    "turbine_hub_height_m": 1.168,
+    "turbine_scene_scale": 0.75,
+    "turbine_rotor_radius_m": 0.795,
+    "turbine_tower_bottom_radius_m": 0.107,
+    "turbine_tower_top_radius_m": 0.059,
+    "turbine_hub_radius_m": 0.064,
+    "turbine_nacelle_length_m": 0.575,
+    "turbine_nacelle_width_m": 0.243,
+    "turbine_nacelle_height_m": 0.2
+  },
+  "turbine_proportion_lock": {
+    "reference": "v5_exterior_turbine_proportion_reference.png",
+    "rotor_radius_to_hub_height": 0.681,
+    "target_range": [0.66, 0.7],
+    "nacelle_length_to_rotor_radius": 0.723,
+    "nacelle_width_to_length": 0.423,
+    "hub_radius_to_rotor_radius": 0.081,
+    "blade_count": 3,
+    "blade_step_degrees": 120,
+    "scene_scale_policy": "uniform 0.75 scale after reference-locked local proportions"
+  },
+  "grids": {
+    "master": [641, 413],
+    "high": [321, 207],
+    "low": [161, 105],
+    "base": [81, 53]
+  },
+  "texture_size": 1024,
+  "surface_pipeline": {
+    "base_color": "reference colour with 34 px low-frequency illumination separation",
+    "material_masks": ["rock", "grass", "multiscale cavity", "wet valley"],
+    "normal": "band-limited 2.2-11 px erosion detail plus high-to-low RNM fusion",
+    "ao": "64-sample Cycles bake fused with 2.2/9/28 px cavity bands",
+    "roughness": "slope/height/material-aware, non-metal terrain"
+  },
+  "performance": {
+    "triangle_budget": 45000,
+    "draw_call_budget": 28,
+    "glb_budget_bytes": 5000000,
+    "vram_budget_mb": 18,
+    "target_fps_desktop": 55,
+    "target_fps_mobile": 30,
+    "load_ms_mobile_max": 10000
+  }
+}
