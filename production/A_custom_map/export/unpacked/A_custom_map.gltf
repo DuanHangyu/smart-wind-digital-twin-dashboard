@@ -1,0 +1,1549 @@
+{
+  "asset": {
+    "generator": "glTF-Transform v4.4.2",
+    "version": "2.0"
+  },
+  "accessors": [
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 461,
+      "max": [
+        1.234392762184143,
+        0.5011405348777771,
+        0.9401984810829163
+      ],
+      "min": [
+        -1.9685002565383911,
+        -0.02114056795835495,
+        -1.0285744667053223
+      ],
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 461,
+      "bufferView": 0,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 461,
+      "bufferView": 0,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 461,
+      "bufferView": 0,
+      "byteOffset": 32
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 816,
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 924,
+      "bufferView": 1,
+      "byteOffset": 1632
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 876,
+      "bufferView": 1,
+      "byteOffset": 3480
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 996,
+      "bufferView": 1,
+      "byteOffset": 5232
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 768,
+      "bufferView": 1,
+      "byteOffset": 7224
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 828,
+      "bufferView": 1,
+      "byteOffset": 8760
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 888,
+      "bufferView": 1,
+      "byteOffset": 10416
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 948,
+      "bufferView": 1,
+      "byteOffset": 12192
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 792,
+      "bufferView": 1,
+      "byteOffset": 14088
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 852,
+      "bufferView": 1,
+      "byteOffset": 15672
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 960,
+      "bufferView": 1,
+      "byteOffset": 17376
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 840,
+      "bufferView": 1,
+      "byteOffset": 19296
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 912,
+      "bufferView": 1,
+      "byteOffset": 20976
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5123,
+      "count": 924,
+      "bufferView": 1,
+      "byteOffset": 22800
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 527,
+      "max": [
+        1.5367695093154907,
+        0.5050034523010254,
+        1.3330119848251343
+      ],
+      "min": [
+        -1.8064063787460327,
+        -0.025003472343087196,
+        -1.1680614948272705
+      ],
+      "bufferView": 2,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 527,
+      "bufferView": 2,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 527,
+      "bufferView": 2,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 527,
+      "bufferView": 2,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 484,
+      "max": [
+        1.7976646423339844,
+        0.505003809928894,
+        1.388195514678955
+      ],
+      "min": [
+        -1.5401642322540283,
+        -0.02500380203127861,
+        -1.1593523025512695
+      ],
+      "bufferView": 3,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 484,
+      "bufferView": 3,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 484,
+      "bufferView": 3,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 484,
+      "bufferView": 3,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 533,
+      "max": [
+        1.3560413122177124,
+        0.49501827359199524,
+        1.0811854600906372
+      ],
+      "min": [
+        -1.544421672821045,
+        -0.015018277801573277,
+        -1.0805271863937378
+      ],
+      "bufferView": 4,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 533,
+      "bufferView": 4,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 533,
+      "bufferView": 4,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 533,
+      "bufferView": 4,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 424,
+      "max": [
+        1.309952974319458,
+        0.4810900092124939,
+        0.9719198942184448
+      ],
+      "min": [
+        -1.1375259160995483,
+        -0.0010900069028139114,
+        -1.3428236246109009
+      ],
+      "bufferView": 5,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 424,
+      "bufferView": 5,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 424,
+      "bufferView": 5,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 424,
+      "bufferView": 5,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 481,
+      "max": [
+        1.403090238571167,
+        0.4801441729068756,
+        1.138564109802246
+      ],
+      "min": [
+        -1.299465298652649,
+        -0.00014417406055144966,
+        -1.6319564580917358
+      ],
+      "bufferView": 6,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 481,
+      "bufferView": 6,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 481,
+      "bufferView": 6,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 481,
+      "bufferView": 6,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 493,
+      "max": [
+        1.7234982252120972,
+        0.4831804037094116,
+        0.8923650979995728
+      ],
+      "min": [
+        -1.6788203716278076,
+        -0.0031804111786186695,
+        -1.3863469362258911
+      ],
+      "bufferView": 7,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 493,
+      "bufferView": 7,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 493,
+      "bufferView": 7,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 493,
+      "bufferView": 7,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 528,
+      "max": [
+        1.2967205047607422,
+        0.4826785922050476,
+        1.4965933561325073
+      ],
+      "min": [
+        -1.4822384119033813,
+        -0.0026786052621901035,
+        -0.85660320520401
+      ],
+      "bufferView": 8,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 528,
+      "bufferView": 8,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 528,
+      "bufferView": 8,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 528,
+      "bufferView": 8,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 426,
+      "max": [
+        1.308371901512146,
+        0.505003809928894,
+        1.378657341003418
+      ],
+      "min": [
+        -1.3058668375015259,
+        -0.025003807619214058,
+        -1.0634232759475708
+      ],
+      "bufferView": 9,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 426,
+      "bufferView": 9,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 426,
+      "bufferView": 9,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 426,
+      "bufferView": 9,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 470,
+      "max": [
+        1.3708456754684448,
+        0.505001962184906,
+        1.4775813817977905
+      ],
+      "min": [
+        -1.3650188446044922,
+        -0.02500346302986145,
+        -1.0942341089248657
+      ],
+      "bufferView": 10,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 470,
+      "bufferView": 10,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 470,
+      "bufferView": 10,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 470,
+      "bufferView": 10,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 513,
+      "max": [
+        1.6490223407745361,
+        0.482645183801651,
+        1.673504114151001
+      ],
+      "min": [
+        -1.7588452100753784,
+        -0.002645197557285428,
+        -1.145018219947815
+      ],
+      "bufferView": 11,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 513,
+      "bufferView": 11,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 513,
+      "bufferView": 11,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 513,
+      "bufferView": 11,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 482,
+      "max": [
+        1.3230210542678833,
+        0.4803367555141449,
+        1.0513744354248047
+      ],
+      "min": [
+        -1.7965673208236694,
+        -0.00033676507882773876,
+        -1.1983046531677246
+      ],
+      "bufferView": 12,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 482,
+      "bufferView": 12,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 482,
+      "bufferView": 12,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 482,
+      "bufferView": 12,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 499,
+      "max": [
+        1.525499701499939,
+        0.5050036311149597,
+        1.1022390127182007
+      ],
+      "min": [
+        -1.4929627180099487,
+        -0.02500305324792862,
+        -1.4391611814498901
+      ],
+      "bufferView": 13,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 499,
+      "bufferView": 13,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 499,
+      "bufferView": 13,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 499,
+      "bufferView": 13,
+      "byteOffset": 32
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 504,
+      "max": [
+        2.095102071762085,
+        0.48733270168304443,
+        1.0623791217803955
+      ],
+      "min": [
+        -1.4520615339279175,
+        -0.007332716602832079,
+        -1.456705093383789
+      ],
+      "bufferView": 14,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 504,
+      "bufferView": 14,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 504,
+      "bufferView": 14,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 504,
+      "bufferView": 14,
+      "byteOffset": 32
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 22128,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 22128,
+      "byteLength": 24648,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 46776,
+      "byteLength": 25296,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 72072,
+      "byteLength": 23232,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 95304,
+      "byteLength": 25584,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 120888,
+      "byteLength": 20352,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 141240,
+      "byteLength": 23088,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 164328,
+      "byteLength": 23664,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 187992,
+      "byteLength": 25344,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 213336,
+      "byteLength": 20448,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 233784,
+      "byteLength": 22560,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 256344,
+      "byteLength": 24624,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 280968,
+      "byteLength": 23136,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 304104,
+      "byteLength": 23952,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 328056,
+      "byteLength": 24192,
+      "byteStride": 48,
+      "target": 34962
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 0
+        }
+      }
+    },
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 1
+        }
+      }
+    },
+    {
+      "sampler": 0,
+      "extensions": {
+        "KHR_texture_basisu": {
+          "source": 2
+        }
+      }
+    }
+  ],
+  "images": [
+    {
+      "name": "Map_BaseColor",
+      "mimeType": "image/ktx2",
+      "uri": "baseColor_1.ktx2"
+    },
+    {
+      "name": "Map_Normal",
+      "mimeType": "image/ktx2",
+      "uri": "normal_1.ktx2"
+    },
+    {
+      "name": "Map_ORM",
+      "mimeType": "image/ktx2",
+      "uri": "occlusion_1.ktx2"
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "A_custom_map.bin",
+      "byteLength": 352248
+    }
+  ],
+  "materials": [
+    {
+      "name": "MAT__MAP_PBR",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      },
+      "emissiveFactor": [
+        0.18000000715255737,
+        0.18000000715255737,
+        0.18000000715255737
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "normalTexture": {
+        "index": 1,
+        "scale": 0.75
+      },
+      "occlusionTexture": {
+        "index": 2
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "MESH__REGION_01",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "TANGENT": 3
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 4
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_02",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 18,
+            "NORMAL": 19,
+            "TEXCOORD_0": 20,
+            "TANGENT": 21
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 5
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_03",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 22,
+            "NORMAL": 23,
+            "TEXCOORD_0": 24,
+            "TANGENT": 25
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 6
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_04",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 26,
+            "NORMAL": 27,
+            "TEXCOORD_0": 28,
+            "TANGENT": 29
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 7
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_05",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 30,
+            "NORMAL": 31,
+            "TEXCOORD_0": 32,
+            "TANGENT": 33
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 8
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_06",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 34,
+            "NORMAL": 35,
+            "TEXCOORD_0": 36,
+            "TANGENT": 37
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 9
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_07",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 38,
+            "NORMAL": 39,
+            "TEXCOORD_0": 40,
+            "TANGENT": 41
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 10
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_08",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 42,
+            "NORMAL": 43,
+            "TEXCOORD_0": 44,
+            "TANGENT": 45
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 11
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_09",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 46,
+            "NORMAL": 47,
+            "TEXCOORD_0": 48,
+            "TANGENT": 49
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 12
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_10",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 50,
+            "NORMAL": 51,
+            "TEXCOORD_0": 52,
+            "TANGENT": 53
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 13
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_11",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 54,
+            "NORMAL": 55,
+            "TEXCOORD_0": 56,
+            "TANGENT": 57
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 14
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_12",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 58,
+            "NORMAL": 59,
+            "TEXCOORD_0": 60,
+            "TANGENT": 61
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 15
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_13",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 62,
+            "NORMAL": 63,
+            "TEXCOORD_0": 64,
+            "TANGENT": 65
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 16
+        }
+      ]
+    },
+    {
+      "name": "MESH__REGION_14",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 66,
+            "NORMAL": 67,
+            "TEXCOORD_0": 68,
+            "TANGENT": 69
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 17
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "HOTSPOT__REGION_01",
+      "extras": {
+        "target": "PART__REGION_01",
+        "region_id": "01",
+        "display_name": "北岭",
+        "data_value": 82
+      },
+      "translation": [
+        -3.6188199520111084,
+        0.699999988079071,
+        -2.0998570919036865
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_02",
+      "extras": {
+        "target": "PART__REGION_02",
+        "region_id": "02",
+        "display_name": "云川",
+        "data_value": 74
+      },
+      "translation": [
+        -0.7868300080299377,
+        0.699999988079071,
+        -2.580359935760498
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_03",
+      "extras": {
+        "target": "PART__REGION_03",
+        "region_id": "03",
+        "display_name": "东岚",
+        "data_value": 91
+      },
+      "translation": [
+        2.2606470584869385,
+        0.699999988079071,
+        -2.528588056564331
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_04",
+      "extras": {
+        "target": "PART__REGION_04",
+        "region_id": "04",
+        "display_name": "西港",
+        "data_value": 66
+      },
+      "translation": [
+        -4.181542873382568,
+        0.699999988079071,
+        -0.6864420175552368
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_05",
+      "extras": {
+        "target": "PART__REGION_05",
+        "region_id": "05",
+        "display_name": "河源",
+        "data_value": 88
+      },
+      "translation": [
+        -1.7219129800796509,
+        0.699999988079071,
+        -0.9130380153656006
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_06",
+      "extras": {
+        "target": "PART__REGION_06",
+        "region_id": "06",
+        "display_name": "中州",
+        "data_value": 95
+      },
+      "translation": [
+        0.8600630164146423,
+        0.699999988079071,
+        -1.15687096118927
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_07",
+      "extras": {
+        "target": "PART__REGION_07",
+        "region_id": "07",
+        "display_name": "临海",
+        "data_value": 79
+      },
+      "translation": [
+        3.9042749404907227,
+        0.699999988079071,
+        -0.9170169830322266
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_08",
+      "extras": {
+        "target": "PART__REGION_08",
+        "region_id": "08",
+        "display_name": "南岳",
+        "data_value": 71
+      },
+      "translation": [
+        -4.107574939727783,
+        0.699999988079071,
+        1.0854949951171875
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_09",
+      "extras": {
+        "target": "PART__REGION_09",
+        "region_id": "09",
+        "display_name": "青原",
+        "data_value": 86
+      },
+      "translation": [
+        -1.6418190002441406,
+        0.699999988079071,
+        0.8802980184555054
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_10",
+      "extras": {
+        "target": "PART__REGION_10",
+        "region_id": "10",
+        "display_name": "新城",
+        "data_value": 93
+      },
+      "translation": [
+        0.9544469714164734,
+        0.699999988079071,
+        0.7763739824295044
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_11",
+      "extras": {
+        "target": "PART__REGION_11",
+        "region_id": "11",
+        "display_name": "东泽",
+        "data_value": 77
+      },
+      "translation": [
+        4.007994174957275,
+        0.699999988079071,
+        0.9837449789047241
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_12",
+      "extras": {
+        "target": "PART__REGION_12",
+        "region_id": "12",
+        "display_name": "星湾",
+        "data_value": 68
+      },
+      "translation": [
+        -3.174138069152832,
+        0.699999988079071,
+        2.5607059001922607
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_13",
+      "extras": {
+        "target": "PART__REGION_13",
+        "region_id": "13",
+        "display_name": "湖心",
+        "data_value": 84
+      },
+      "translation": [
+        -0.4338020086288452,
+        0.699999988079071,
+        2.6282520294189453
+      ]
+    },
+    {
+      "name": "HOTSPOT__REGION_14",
+      "extras": {
+        "target": "PART__REGION_14",
+        "region_id": "14",
+        "display_name": "南海",
+        "data_value": 90
+      },
+      "translation": [
+        2.4804930686950684,
+        0.699999988079071,
+        2.4623301029205322
+      ]
+    },
+    {
+      "name": "PART__REGION_01",
+      "extras": {
+        "part_type": "region",
+        "region_id": "01",
+        "display_name": "北岭",
+        "data_value": 82,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_01"
+      },
+      "translation": [
+        -3.6188199520111084,
+        0,
+        -2.0998570919036865
+      ],
+      "mesh": 0
+    },
+    {
+      "name": "PART__REGION_02",
+      "extras": {
+        "part_type": "region",
+        "region_id": "02",
+        "display_name": "云川",
+        "data_value": 74,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_02"
+      },
+      "translation": [
+        -0.7868300080299377,
+        0,
+        -2.580359935760498
+      ],
+      "mesh": 1
+    },
+    {
+      "name": "PART__REGION_03",
+      "extras": {
+        "part_type": "region",
+        "region_id": "03",
+        "display_name": "东岚",
+        "data_value": 91,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_03"
+      },
+      "translation": [
+        2.2606470584869385,
+        0,
+        -2.528588056564331
+      ],
+      "mesh": 2
+    },
+    {
+      "name": "PART__REGION_04",
+      "extras": {
+        "part_type": "region",
+        "region_id": "04",
+        "display_name": "西港",
+        "data_value": 66,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_04"
+      },
+      "translation": [
+        -4.181542873382568,
+        0,
+        -0.6864420175552368
+      ],
+      "mesh": 3
+    },
+    {
+      "name": "PART__REGION_05",
+      "extras": {
+        "part_type": "region",
+        "region_id": "05",
+        "display_name": "河源",
+        "data_value": 88,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_05"
+      },
+      "translation": [
+        -1.7219129800796509,
+        0,
+        -0.9130380153656006
+      ],
+      "mesh": 4
+    },
+    {
+      "name": "PART__REGION_06",
+      "extras": {
+        "part_type": "region",
+        "region_id": "06",
+        "display_name": "中州",
+        "data_value": 95,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_06"
+      },
+      "translation": [
+        0.8600630164146423,
+        0,
+        -1.15687096118927
+      ],
+      "mesh": 5
+    },
+    {
+      "name": "PART__REGION_07",
+      "extras": {
+        "part_type": "region",
+        "region_id": "07",
+        "display_name": "临海",
+        "data_value": 79,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_07"
+      },
+      "translation": [
+        3.9042749404907227,
+        0,
+        -0.9170169830322266
+      ],
+      "mesh": 6
+    },
+    {
+      "name": "PART__REGION_08",
+      "extras": {
+        "part_type": "region",
+        "region_id": "08",
+        "display_name": "南岳",
+        "data_value": 71,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_08"
+      },
+      "translation": [
+        -4.107574939727783,
+        0,
+        1.0854949951171875
+      ],
+      "mesh": 7
+    },
+    {
+      "name": "PART__REGION_09",
+      "extras": {
+        "part_type": "region",
+        "region_id": "09",
+        "display_name": "青原",
+        "data_value": 86,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_09"
+      },
+      "translation": [
+        -1.6418190002441406,
+        0,
+        0.8802980184555054
+      ],
+      "mesh": 8
+    },
+    {
+      "name": "PART__REGION_10",
+      "extras": {
+        "part_type": "region",
+        "region_id": "10",
+        "display_name": "新城",
+        "data_value": 93,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_10"
+      },
+      "translation": [
+        0.9544469714164734,
+        0,
+        0.7763739824295044
+      ],
+      "mesh": 9
+    },
+    {
+      "name": "PART__REGION_11",
+      "extras": {
+        "part_type": "region",
+        "region_id": "11",
+        "display_name": "东泽",
+        "data_value": 77,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_11"
+      },
+      "translation": [
+        4.007994174957275,
+        0,
+        0.9837449789047241
+      ],
+      "mesh": 10
+    },
+    {
+      "name": "PART__REGION_12",
+      "extras": {
+        "part_type": "region",
+        "region_id": "12",
+        "display_name": "星湾",
+        "data_value": 68,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_12"
+      },
+      "translation": [
+        -3.174138069152832,
+        0,
+        2.5607059001922607
+      ],
+      "mesh": 11
+    },
+    {
+      "name": "PART__REGION_13",
+      "extras": {
+        "part_type": "region",
+        "region_id": "13",
+        "display_name": "湖心",
+        "data_value": 84,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_13"
+      },
+      "translation": [
+        -0.4338020086288452,
+        0,
+        2.6282520294189453
+      ],
+      "mesh": 12
+    },
+    {
+      "name": "PART__REGION_14",
+      "extras": {
+        "part_type": "region",
+        "region_id": "14",
+        "display_name": "南海",
+        "data_value": 90,
+        "interactive": true,
+        "hotspot": "HOTSPOT__REGION_14"
+      },
+      "translation": [
+        2.4804930686950684,
+        0,
+        2.4623301029205322
+      ],
+      "mesh": 13
+    },
+    {
+      "name": "A_CUSTOM_MAP_ROOT",
+      "extras": {
+        "asset_id": "A_CUSTOM_MAP",
+        "asset_version": "1.0.0",
+        "interactive_regions": 14,
+        "units": "meters",
+        "triangle_budget": 12000,
+        "texture_size": 1024,
+        "pipeline_stage": "export_ready"
+      },
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        28
+      ]
+    }
+  ],
+  "scene": 0,
+  "extensionsUsed": [
+    "KHR_texture_basisu"
+  ],
+  "extensionsRequired": [
+    "KHR_texture_basisu"
+  ]
+}

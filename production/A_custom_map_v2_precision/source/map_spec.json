@@ -1,0 +1,28 @@
+{
+  "asset": "A_CUSTOM_MAP_V2_PRECISION",
+  "version": "2.0.0",
+  "dimensions": {
+    "width_m": 12.0,
+    "depth_m": 0.80,
+    "region_gap_m": 0.032,
+    "high_bevel_m": 0.032,
+    "low_bevel_m": 0.018,
+    "outline_radius_m": 0.011,
+    "outline_height_m": 0.014
+  },
+  "uv": {
+    "min": 0.08,
+    "max": 0.92,
+    "side_v_min": 0.012,
+    "side_v_max": 0.052
+  },
+  "texture_size": 1024,
+  "performance": {
+    "triangle_budget": 30000,
+    "draw_call_budget": 32,
+    "glb_budget_bytes": 2500000,
+    "vram_budget_mb": 10,
+    "target_fps_desktop": 55,
+    "target_fps_mobile": 30
+  }
+}

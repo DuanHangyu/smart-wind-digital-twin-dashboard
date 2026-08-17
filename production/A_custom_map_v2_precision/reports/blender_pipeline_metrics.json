@@ -1,0 +1,63 @@
+{
+  "asset": "A_CUSTOM_MAP_V2_PRECISION",
+  "blender": "5.2.0 LTS",
+  "stages": [
+    "A01_structure_breakdown",
+    "A02_base_shape",
+    "A03_shape_refined",
+    "A04_highpoly_detail",
+    "A05_lowpoly_retopology",
+    "A06_uv_unwrapped",
+    "A07_baked_pbr",
+    "A08_export_ready"
+  ],
+  "regions": 14,
+  "hotspots": 14,
+  "source_trace": {
+    "image_size": [
+      1683,
+      935
+    ],
+    "network_crop_size": [
+      492,
+      349
+    ],
+    "regions": 14,
+    "outline_points_high": 631,
+    "outline_points_low": 356,
+    "region_points_high_total": 2171,
+    "region_points_low_total": 1332,
+    "aspect_ratio": 1.43072
+  },
+  "lowpoly": {
+    "objects": 28,
+    "vertices": 13336,
+    "triangles": 26616,
+    "draw_calls": 28
+  },
+  "final": {
+    "objects": 28,
+    "vertices": 13336,
+    "triangles": 26616,
+    "draw_calls": 28
+  },
+  "budgets": {
+    "triangle_budget": 30000,
+    "draw_call_budget": 32,
+    "glb_budget_bytes": 2500000,
+    "vram_budget_mb": 10,
+    "target_fps_desktop": 55,
+    "target_fps_mobile": 30
+  },
+  "raw_glb": "/Users/duanhangyu/Documents/ChatGPT/数字孪生/production/A_custom_map_v2_precision/export/A_custom_map_v2_low_raw.glb",
+  "raw_glb_bytes": 1616552,
+  "baked_textures": [
+    "Map_BaseColor.png",
+    "Map_Normal.png",
+    "Map_AO.png",
+    "Map_Roughness.png",
+    "Map_Metallic.png",
+    "Map_ORM.png"
+  ],
+  "duration_seconds": 20.749
+}

@@ -1,0 +1,71 @@
+{
+  "reference_images": 3,
+  "reference_resolution": [
+    1536,
+    1024
+  ],
+  "terrain_ratio": 1.555556,
+  "high_grid": [
+    257,
+    193
+  ],
+  "master_grid": [
+    513,
+    385
+  ],
+  "low_grid": [
+    129,
+    97
+  ],
+  "height_min_m": 0.0,
+  "height_max_m": 2.35,
+  "lake_area_ratio_high": 0.029701,
+  "turbines": [
+    {
+      "id": "01",
+      "name": "风机01",
+      "normalized": [
+        -0.18,
+        0.06
+      ],
+      "position": [
+        -1.26,
+        0.27,
+        1.76229
+      ],
+      "status": "运行",
+      "power_kw": 1680
+    },
+    {
+      "id": "02",
+      "name": "风机02",
+      "normalized": [
+        0.16,
+        0.66
+      ],
+      "position": [
+        1.12,
+        2.97,
+        1.685564
+      ],
+      "status": "待检",
+      "power_kw": 1420
+    },
+    {
+      "id": "03",
+      "name": "风机03",
+      "normalized": [
+        0.67,
+        0.08
+      ],
+      "position": [
+        4.69,
+        0.36,
+        1.298435
+      ],
+      "status": "运行",
+      "power_kw": 1755
+    }
+  ],
+  "dominant_ridge_groups": 4
+}

@@ -1,0 +1,34 @@
+{
+  "source": "locked procedural master reconstructed from three multiview references",
+  "master_grid": [
+    513,
+    385
+  ],
+  "web_grid": [
+    129,
+    97
+  ],
+  "normalized_height_rmse": 0.004286,
+  "normalized_height_mae": 0.002326,
+  "normalized_height_p95": 0.008799,
+  "front_silhouette_rmse": 0.015529,
+  "side_silhouette_rmse": 0.021221,
+  "terrain_aspect": 1.555556,
+  "lake_area_ratio": 0.03006,
+  "lake_area_error": 0.00106,
+  "lake_center_normalized": [
+    -0.579383,
+    -0.570199
+  ],
+  "lake_center_error": 0.000649,
+  "turbine_normalized_position_max_error": 0.0,
+  "relief_m": 2.35,
+  "thresholds": {
+    "normalized_height_rmse_max": 0.025,
+    "silhouette_rmse_max": 0.035,
+    "lake_area_error_max": 0.003,
+    "lake_center_error_max": 0.012,
+    "turbine_position_error_max": 1e-06
+  },
+  "pass": true
+}

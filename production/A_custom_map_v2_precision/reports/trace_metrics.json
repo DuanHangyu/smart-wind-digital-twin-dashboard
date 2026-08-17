@@ -1,0 +1,16 @@
+{
+  "image_size": [
+    1683,
+    935
+  ],
+  "network_crop_size": [
+    492,
+    349
+  ],
+  "regions": 14,
+  "outline_points_high": 631,
+  "outline_points_low": 356,
+  "region_points_high_total": 2171,
+  "region_points_low_total": 1332,
+  "aspect_ratio": 1.43072
+}

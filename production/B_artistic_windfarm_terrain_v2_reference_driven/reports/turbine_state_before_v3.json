@@ -1,0 +1,896 @@
+{
+  "scene": "/Users/duanhangyu/Documents/ChatGPT/数字孪生/production/B_artistic_windfarm_terrain_v2_reference_driven/blender/B08_export_ready.blend",
+  "world_up": "+Z",
+  "rotor_axis_expected": "+/-Y",
+  "object_count": 27,
+  "objects": [
+    {
+      "name": "HOTSPOT__TURBINE_01",
+      "type": "EMPTY",
+      "parent": "B_WINDFARM_TERRAIN_ROOT",
+      "location_local": [
+        1.229268,
+        3.195914,
+        2.522209
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "target": "PART__TURBINE_01",
+        "display_name": "风机01",
+        "status": "运行",
+        "power_kw": 1680
+      }
+    },
+    {
+      "name": "HOTSPOT__TURBINE_02",
+      "type": "EMPTY",
+      "parent": "B_WINDFARM_TERRAIN_ROOT",
+      "location_local": [
+        -0.697362,
+        -0.094268,
+        2.245514
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "target": "PART__TURBINE_02",
+        "display_name": "风机02",
+        "status": "运行",
+        "power_kw": 1510
+      }
+    },
+    {
+      "name": "HOTSPOT__TURBINE_03",
+      "type": "EMPTY",
+      "parent": "B_WINDFARM_TERRAIN_ROOT",
+      "location_local": [
+        5.941929,
+        -0.366301,
+        2.081236
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "target": "PART__TURBINE_03",
+        "display_name": "风机03",
+        "status": "运行",
+        "power_kw": 1755
+      }
+    },
+    {
+      "name": "MESH__BLADE_01_1",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_01",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          1.207268,
+          3.083914,
+          2.058409
+        ],
+        "max": [
+          1.251268,
+          3.101914,
+          2.287209
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_01_2",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_01",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        2.094395,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          1.245288,
+          3.083914,
+          1.878156
+        ],
+        "max": [
+          1.465435,
+          3.101914,
+          2.030662
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_01_3",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_01",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        4.18879,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          0.993101,
+          3.083914,
+          1.878157
+        ],
+        "max": [
+          1.213248,
+          3.101914,
+          2.030662
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_02_1",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_02",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          -0.719362,
+          -0.206268,
+          1.781714
+        ],
+        "max": [
+          -0.675362,
+          -0.188268,
+          2.010514
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_02_2",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_02",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        2.094395,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          -0.681342,
+          -0.206268,
+          1.601461
+        ],
+        "max": [
+          -0.461196,
+          -0.188268,
+          1.753966
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_02_3",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_02",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        4.18879,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          -0.933529,
+          -0.206268,
+          1.601461
+        ],
+        "max": [
+          -0.713382,
+          -0.188268,
+          1.753966
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_03_1",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_03",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          5.91993,
+          -0.478301,
+          1.617436
+        ],
+        "max": [
+          5.963929,
+          -0.460301,
+          1.846236
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_03_2",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_03",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        2.094395,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          5.957949,
+          -0.478301,
+          1.437183
+        ],
+        "max": [
+          6.178096,
+          -0.460301,
+          1.589688
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__BLADE_03_3",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_03",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        4.18879,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          5.705763,
+          -0.478301,
+          1.437183
+        ],
+        "max": [
+          5.92591,
+          -0.460301,
+          1.589688
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__HUB_01",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_01",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          1.185268,
+          3.048914,
+          1.983209
+        ],
+        "max": [
+          1.273268,
+          3.136914,
+          2.071209
+        ]
+      },
+      "vertices": 62,
+      "triangles": 120,
+      "extras": {}
+    },
+    {
+      "name": "MESH__HUB_02",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_02",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          -0.741362,
+          -0.241268,
+          1.706514
+        ],
+        "max": [
+          -0.653362,
+          -0.153268,
+          1.794514
+        ]
+      },
+      "vertices": 62,
+      "triangles": 120,
+      "extras": {}
+    },
+    {
+      "name": "MESH__HUB_03",
+      "type": "MESH",
+      "parent": "ROTOR__TURBINE_03",
+      "location_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          5.897929,
+          -0.513301,
+          1.542236
+        ],
+        "max": [
+          5.985929,
+          -0.425301,
+          1.630236
+        ]
+      },
+      "vertices": 62,
+      "triangles": 120,
+      "extras": {}
+    },
+    {
+      "name": "MESH__NACELLE_01",
+      "type": "MESH",
+      "parent": "PART__TURBINE_01",
+      "location_local": [
+        0.0,
+        0.035,
+        0.965
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          1.164268,
+          3.115914,
+          1.982209
+        ],
+        "max": [
+          1.294268,
+          3.345914,
+          2.072209
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__NACELLE_02",
+      "type": "MESH",
+      "parent": "PART__TURBINE_02",
+      "location_local": [
+        0.0,
+        0.035,
+        0.965
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          -0.762362,
+          -0.174268,
+          1.705514
+        ],
+        "max": [
+          -0.632362,
+          0.055732,
+          1.795514
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__NACELLE_03",
+      "type": "MESH",
+      "parent": "PART__TURBINE_03",
+      "location_local": [
+        0.0,
+        0.035,
+        0.965
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          5.876929,
+          -0.446301,
+          1.541236
+        ],
+        "max": [
+          6.006929,
+          -0.216301,
+          1.631236
+        ]
+      },
+      "vertices": 8,
+      "triangles": 12,
+      "extras": {}
+    },
+    {
+      "name": "MESH__TOWER_01",
+      "type": "MESH",
+      "parent": "PART__TURBINE_01",
+      "location_local": [
+        0.0,
+        0.0,
+        0.47
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          1.178572,
+          3.143914,
+          1.062209
+        ],
+        "max": [
+          1.279964,
+          3.247914,
+          2.002209
+        ]
+      },
+      "vertices": 28,
+      "triangles": 52,
+      "extras": {}
+    },
+    {
+      "name": "MESH__TOWER_02",
+      "type": "MESH",
+      "parent": "PART__TURBINE_02",
+      "location_local": [
+        0.0,
+        0.0,
+        0.47
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          -0.748059,
+          -0.146268,
+          0.785514
+        ],
+        "max": [
+          -0.646666,
+          -0.042268,
+          1.725514
+        ]
+      },
+      "vertices": 28,
+      "triangles": 52,
+      "extras": {}
+    },
+    {
+      "name": "MESH__TOWER_03",
+      "type": "MESH",
+      "parent": "PART__TURBINE_03",
+      "location_local": [
+        0.0,
+        0.0,
+        0.47
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": {
+        "min": [
+          5.891233,
+          -0.418301,
+          0.621236
+        ],
+        "max": [
+          5.992626,
+          -0.314301,
+          1.561236
+        ]
+      },
+      "vertices": 28,
+      "triangles": 52,
+      "extras": {}
+    },
+    {
+      "name": "PART__TURBINE_01",
+      "type": "EMPTY",
+      "parent": "B_WINDFARM_TERRAIN_ROOT",
+      "location_local": [
+        1.229268,
+        3.195914,
+        1.062209
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "part_type": "turbine",
+        "interactive": true,
+        "display_name": "风机01",
+        "status": "运行",
+        "power_kw": 1680
+      }
+    },
+    {
+      "name": "PART__TURBINE_02",
+      "type": "EMPTY",
+      "parent": "B_WINDFARM_TERRAIN_ROOT",
+      "location_local": [
+        -0.697362,
+        -0.094268,
+        0.785514
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "part_type": "turbine",
+        "interactive": true,
+        "display_name": "风机02",
+        "status": "运行",
+        "power_kw": 1510
+      }
+    },
+    {
+      "name": "PART__TURBINE_03",
+      "type": "EMPTY",
+      "parent": "B_WINDFARM_TERRAIN_ROOT",
+      "location_local": [
+        5.941929,
+        -0.366301,
+        0.621236
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "part_type": "turbine",
+        "interactive": true,
+        "display_name": "风机03",
+        "status": "运行",
+        "power_kw": 1755
+      }
+    },
+    {
+      "name": "ROTOR__TURBINE_01",
+      "type": "EMPTY",
+      "parent": "PART__TURBINE_01",
+      "location_local": [
+        0.0,
+        -0.103,
+        0.965
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "rotor_axis": "Y",
+        "rpm": 8.2
+      }
+    },
+    {
+      "name": "ROTOR__TURBINE_02",
+      "type": "EMPTY",
+      "parent": "PART__TURBINE_02",
+      "location_local": [
+        0.0,
+        -0.103,
+        0.965
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "rotor_axis": "Y",
+        "rpm": 0.0
+      }
+    },
+    {
+      "name": "ROTOR__TURBINE_03",
+      "type": "EMPTY",
+      "parent": "PART__TURBINE_03",
+      "location_local": [
+        0.0,
+        -0.103,
+        0.965
+      ],
+      "rotation_euler_local": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale_local": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bounds_world": null,
+      "vertices": 0,
+      "triangles": 0,
+      "extras": {
+        "rotor_axis": "Y",
+        "rpm": 9.1
+      }
+    }
+  ]
+}

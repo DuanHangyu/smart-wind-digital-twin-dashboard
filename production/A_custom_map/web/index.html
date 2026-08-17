@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#020b0d" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23020b0d%22/><path d=%22M7 23 16 7l9 16-9-4z%22 fill=%22%234dfff0%22/></svg>" />
+    <title>A 自定义区域地图｜数字孪生模型验证</title>
+  </head>
+  <body>
+    <main id="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">DIGITAL TWIN · ASSET A</p>
+          <h1>自定义区域地图</h1>
+        </div>
+        <div class="live"><span></span> 模型在线</div>
+      </header>
+
+      <section id="viewport" aria-label="三维地图查看器">
+        <canvas id="scene"></canvas>
+        <div id="hotspots" class="hotspots" aria-label="地图热点"></div>
+        <div id="loader" class="loader">
+          <div class="loader-ring"></div>
+          <span>正在加载 KTX2 / GLB</span>
+        </div>
+
+        <aside class="intro-panel glass-panel">
+          <span class="panel-index">A / 01</span>
+          <h2>区域运行态势</h2>
+          <p>拖动旋转 · 滚轮缩放 · 点击区域或热点查看状态</p>
+          <div class="legend">
+            <span><i class="legend-dot normal"></i>运行</span>
+            <span><i class="legend-dot selected"></i>选中</span>
+          </div>
+        </aside>
+
+        <aside id="detail" class="detail-panel glass-panel" aria-live="polite">
+          <span class="panel-index">REGION DETAIL</span>
+          <h2 id="detail-name">请选择区域</h2>
+          <div class="metric-row"><span>综合指数</span><strong id="detail-value">--</strong></div>
+          <div class="metric-bar"><i id="detail-bar"></i></div>
+          <p id="detail-id">HOTSPOT / PART 节点均已就绪</p>
+        </aside>
+
+        <aside id="performance" class="performance glass-panel">
+          <span class="panel-index">REALTIME BUDGET</span>
+          <dl>
+            <div><dt>GLB</dt><dd id="m-size">--</dd></div>
+            <div><dt>三角面</dt><dd id="m-tris">--</dd></div>
+            <div><dt>Draw Calls</dt><dd id="m-draws">--</dd></div>
+            <div><dt>估算显存</dt><dd id="m-vram">--</dd></div>
+            <div><dt>FPS</dt><dd id="m-fps">--</dd></div>
+          </dl>
+        </aside>
+
+        <div class="controls">
+          <button id="reset-camera" type="button">复位视角</button>
+          <button id="toggle-rotate" class="active" type="button">自动巡航</button>
+        </div>
+      </section>
+
+      <nav id="region-list" class="region-list" aria-label="区域列表"></nav>
+      <footer>WEB LOW-POLY · PBR 1024 · KTX2 · GLB · THREE.JS</footer>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

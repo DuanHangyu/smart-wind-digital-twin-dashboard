@@ -1,0 +1,16 @@
+{
+  "normal": {
+    "method": "selected-to-active",
+    "source": "257x193 high terrain",
+    "target": "129x97 web terrain",
+    "size": 1024
+  },
+  "ao": {
+    "method": "selected-to-active",
+    "source": "257x193 high terrain",
+    "target": "129x97 web terrain",
+    "size": 1024
+  },
+  "uv_layer": "UVMap",
+  "margin_pixels": 16
+}

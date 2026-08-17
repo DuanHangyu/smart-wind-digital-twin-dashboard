@@ -1,0 +1,30 @@
+{
+  "path": "export/B_windfarm_terrain_low_ktx2.glb",
+  "file_bytes": 2830632,
+  "nodes": 20,
+  "parts": 6,
+  "hotspots": 4,
+  "rotors": 3,
+  "meshes": 9,
+  "materials": 8,
+  "triangles": 41120,
+  "extensions_used": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "extensions_required": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "mesh_quantized": true,
+  "basisu": true,
+  "hotspots_target_parts": true,
+  "budgets": {
+    "triangles": 45000,
+    "file_bytes": 5000000,
+    "parts": 6,
+    "hotspots": 4,
+    "rotors": 3
+  },
+  "pass": true
+}

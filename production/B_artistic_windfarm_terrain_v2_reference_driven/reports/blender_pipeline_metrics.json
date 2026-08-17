@@ -1,0 +1,43 @@
+{
+  "asset": "B_ARTISTIC_WINDFARM_TERRAIN_V2_REFERENCE_DRIVEN",
+  "blender": "5.2.0 LTS",
+  "stages": [
+    "B01_structure_breakdown",
+    "B02_base_shape",
+    "B03_shape_refined",
+    "B04_highpoly_detail",
+    "B05_lowpoly_retopology",
+    "B06_uv_unwrapped",
+    "B07_baked_pbr",
+    "B08_export_ready"
+  ],
+  "parts": 6,
+  "hotspots": 4,
+  "turbines": 3,
+  "final": {
+    "objects": 21,
+    "vertices": 18579,
+    "triangles": 36548,
+    "draw_calls": 22
+  },
+  "budgets": {
+    "triangle_budget": 45000,
+    "draw_call_budget": 28,
+    "glb_budget_bytes": 5000000,
+    "vram_budget_mb": 18,
+    "target_fps_desktop": 55,
+    "target_fps_mobile": 30,
+    "load_ms_mobile_max": 10000
+  },
+  "raw_glb": "/Users/duanhangyu/Documents/ChatGPT/数字孪生/production/B_artistic_windfarm_terrain_v2_reference_driven/export/B_windfarm_terrain_low_raw.glb",
+  "raw_glb_bytes": 4836332,
+  "baked_textures": [
+    "Terrain_BaseColor.png",
+    "Terrain_Normal.png",
+    "Terrain_AO.png",
+    "Terrain_Roughness.png",
+    "Terrain_Metallic.png",
+    "Terrain_ORM.png"
+  ],
+  "duration_seconds": 15.29
+}

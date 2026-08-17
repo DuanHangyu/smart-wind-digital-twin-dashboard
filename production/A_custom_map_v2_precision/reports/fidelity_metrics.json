@@ -1,0 +1,22 @@
+{
+  "outline_iou_high_vs_low": 0.99639,
+  "region_iou_mean_high_gap_vs_low_gap": 0.989418,
+  "region_iou_min_high_gap_vs_low_gap": 0.983641,
+  "boundary_symmetric_mean_error_reference_px": 0.1199,
+  "reference_side_ratio": 0.072093,
+  "reference_side_bbox_px": [
+    31,
+    237,
+    430,
+    31
+  ],
+  "model_depth_width_ratio": 0.066667,
+  "depth_width_ratio_absolute_error": 0.005426,
+  "thresholds": {
+    "outline_iou_min": 0.99,
+    "region_iou_mean_min": 0.97,
+    "boundary_error_reference_px_max": 1.25,
+    "depth_width_ratio_error_max": 0.015
+  },
+  "pass": true
+}

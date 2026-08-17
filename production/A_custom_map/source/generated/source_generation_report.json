@@ -1,0 +1,17 @@
+{
+  "asset": "A_CUSTOM_MAP",
+  "regions": 14,
+  "source_area": 65.795076,
+  "texture_size": 1024,
+  "outputs": [
+    "source/generated/map_regions.json",
+    "source/generated/map_outline.svg",
+    "textures/png/Map_BaseColor.png",
+    "textures/png/Map_Roughness.png",
+    "textures/png/Map_Metallic.png",
+    "textures/png/Map_AO_Source.png",
+    "textures/png/Map_Normal_Source.png",
+    "textures/png/Map_ORM_Source.png",
+    "textures/png/Map_UV_Layout.png"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "asset": "B_ARTISTIC_WINDFARM_TERRAIN_V1_PRECISION",
+  "version": "1.0.0",
+  "reference_targets": {
+    "width_depth_ratio": 1.555556,
+    "lake_center_normalized": [-0.58, -0.57],
+    "lake_area_ratio": 0.029,
+    "turbines_normalized": [
+      [-0.18, 0.06],
+      [0.16, 0.66],
+      [0.67, 0.08]
+    ],
+    "dominant_ridge_groups": 4
+  },
+  "dimensions": {
+    "width_m": 14.0,
+    "depth_m": 9.0,
+    "base_height_m": 0.18,
+    "terrain_relief_m": 2.35,
+    "lake_surface_m": 0.27,
+    "turbine_tower_m": 1.28,
+    "turbine_rotor_radius_m": 0.34
+  },
+  "grids": {
+    "master": [513, 385],
+    "high": [257, 193],
+    "low": [129, 97],
+    "base": [65, 49]
+  },
+  "texture_size": 1024,
+  "performance": {
+    "triangle_budget": 45000,
+    "draw_call_budget": 28,
+    "glb_budget_bytes": 5000000,
+    "vram_budget_mb": 18,
+    "target_fps_desktop": 55,
+    "target_fps_mobile": 30,
+    "load_ms_mobile_max": 10000
+  }
+}

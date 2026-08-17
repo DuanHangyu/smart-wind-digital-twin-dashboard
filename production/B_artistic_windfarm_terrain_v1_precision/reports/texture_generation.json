@@ -1,0 +1,11 @@
+{
+  "texture_size": 1024,
+  "base_color": "Terrain_BaseColor.png",
+  "normal_source": "Terrain_Normal_Source.png",
+  "ao_source": "Terrain_AO_Source.png",
+  "roughness": "Terrain_Roughness.png",
+  "metallic": "Terrain_Metallic.png",
+  "orm_source": "Terrain_ORM_Source.png",
+  "uv_checker": "Terrain_UV_Checker.png",
+  "rock_coverage": 0.2118
+}

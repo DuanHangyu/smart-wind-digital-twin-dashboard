@@ -1,0 +1,43 @@
+{
+  "validation_basis": "locked reference panels registered in source/terrain_spec.json",
+  "source_to_model": {
+    "macro_height_pearson_correlation": 0.99906,
+    "lake_polygon_iou": 0.991731,
+    "turbine_marker_max_error_normalized": 0.0,
+    "base_color_mae_normalized": 0.043174
+  },
+  "high_to_web_low": {
+    "normalized_height_rmse": 0.00224,
+    "normalized_height_mae": 0.001512,
+    "normalized_height_p95": 0.00492,
+    "front_silhouette_rmse": 0.008278,
+    "side_silhouette_rmse": 0.008334
+  },
+  "structure": {
+    "terrain_aspect": 1.552106,
+    "lake_area_ratio": 0.036305,
+    "turbines_normalized": [
+      [
+        0.17561,
+        0.708628
+      ],
+      [
+        -0.099623,
+        -0.020902
+      ],
+      [
+        0.848847,
+        -0.08122
+      ]
+    ]
+  },
+  "thresholds": {
+    "macro_height_correlation_min": 0.96,
+    "lake_polygon_iou_min": 0.97,
+    "turbine_marker_error_max": 1e-06,
+    "base_color_mae_max": 0.06,
+    "lowpoly_height_rmse_max": 0.025,
+    "silhouette_rmse_max": 0.035
+  },
+  "pass": true
+}

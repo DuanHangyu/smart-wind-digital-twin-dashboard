@@ -1,0 +1,288 @@
+{
+  "asset": "B_ARTISTIC_WINDFARM_TERRAIN_V3_TURBINE_REFINED",
+  "version": "3.0.0",
+  "files": [
+    {
+      "path": "blender/B01_structure_breakdown.blend",
+      "bytes": 953200,
+      "sha256": "662792a4955d324ebec3e9dde197c1de474a0fb9ea8808780f5ebad54c41d959"
+    },
+    {
+      "path": "blender/B02_base_shape.blend",
+      "bytes": 301168,
+      "sha256": "7e219c43701518cb34ab9821e48d7b10b2748852227d1b856f954807b24ba17a"
+    },
+    {
+      "path": "blender/B03_shape_refined.blend",
+      "bytes": 3377475,
+      "sha256": "2250a357879f624417042f287e3ba9297084b300b297167b67dc9be5206d1010"
+    },
+    {
+      "path": "blender/B04_highpoly_detail.blend",
+      "bytes": 3420339,
+      "sha256": "1ab1a0080ce21ac867e779c68cc8a948af7b4a17fcb52666d4b0395f3ee030c5"
+    },
+    {
+      "path": "blender/B05_lowpoly_retopology.blend",
+      "bytes": 949037,
+      "sha256": "a88c980a599f3cbc02edce5d8af172c9636a479aa047f036e87fdb3dd91830ff"
+    },
+    {
+      "path": "blender/B06_uv_unwrapped.blend",
+      "bytes": 910384,
+      "sha256": "eebbe1a1213a497ee03ed0ac92605995e111bb3cfb10a663d153ddcefa47d70b"
+    },
+    {
+      "path": "blender/B07_baked_pbr.blend",
+      "bytes": 937764,
+      "sha256": "022d85f0cee25e8c7b436b1641cccab990a0d673f678616e106c7e6d6273a211"
+    },
+    {
+      "path": "blender/B08_export_ready.blend",
+      "bytes": 958742,
+      "sha256": "2fd59e3138a78200ac7054f9350994c27061a420d00bc8ebbd86aed256a17c7c"
+    },
+    {
+      "path": "docs/B_艺术化风场地形_V2_制作与交付说明.md",
+      "bytes": 12973,
+      "sha256": "6a85009d7243431b00a529f47cb909e81fa2d511fc7d852e7791254a8a49ca75"
+    },
+    {
+      "path": "docs/B_艺术化风场地形_V3_风机精修交付说明.md",
+      "bytes": 6925,
+      "sha256": "61906c62f0b09030ffd90c0058ce416acf49dada6612f2dfb1ed0387cc682ea2"
+    },
+    {
+      "path": "export/B_windfarm_terrain_low_ktx2.glb",
+      "bytes": 2830632,
+      "sha256": "3878c7726784e8a8eae46a44af0cada908dd6c5ca422ce948736695a2465442a"
+    },
+    {
+      "path": "renders/B08_export_ready.png",
+      "bytes": 1288067,
+      "sha256": "1954f466487ca8f01b0daf30011be75e6781822d5cf6d47098a5e22f2a6edfe4"
+    },
+    {
+      "path": "renders/B08_turbine_detail_front.png",
+      "bytes": 784317,
+      "sha256": "756b3b0dba0c9a76f1507691e2597e065e58ca0635a6ae0fcda1e7ebfa49362c"
+    },
+    {
+      "path": "renders/B08_turbine_detail_side.png",
+      "bytes": 789141,
+      "sha256": "2191238d3caa99880c450defc8bc5e4bc8de6ddc473cbdb84ec4a14f04faa926"
+    },
+    {
+      "path": "renders/B08_turbine_detail_threequarter.png",
+      "bytes": 857280,
+      "sha256": "71231d35bd7cd6db2eef3cc7fd67fd461eb16b97bddece313841c4dbbd1e950d"
+    },
+    {
+      "path": "renders/B08_view_front.png",
+      "bytes": 989633,
+      "sha256": "79f87369b57d91b3859d8a29eebe182a2a4a61acf34484984fa4e549b35a0cdf"
+    },
+    {
+      "path": "renders/B08_view_rear.png",
+      "bytes": 1333398,
+      "sha256": "4e26fd641658dc5fbed20938318f6904291b4426333cf84b075049afa6d394de"
+    },
+    {
+      "path": "renders/B08_view_side.png",
+      "bytes": 1137067,
+      "sha256": "e770955500a86c8d2a533a144e81810758e1c36a761a6855934a6bf5c9c2d811"
+    },
+    {
+      "path": "renders/B08_view_top.png",
+      "bytes": 1514144,
+      "sha256": "10551ac32025578a47109d924f212fc20f26c3f97da37a22a96d0ebef35cf82f"
+    },
+    {
+      "path": "reports/bake_manifest.json",
+      "bytes": 372,
+      "sha256": "f7f6fe8e6d259796f0cdaadde4b340c0c7418b381f23661852f824cfc4b82c44"
+    },
+    {
+      "path": "reports/blender_pipeline_metrics.json",
+      "bytes": 1301,
+      "sha256": "9efa36800dc82f6330d23a1191e7615bc51a5cc2a1d32f03b0c03d371a1d46d2"
+    },
+    {
+      "path": "reports/fidelity_metrics.json",
+      "bytes": 1047,
+      "sha256": "ed7fe81db1710d619c8934d7a3dac859d6cb4825f36766bfc2a8dbd511f2d729"
+    },
+    {
+      "path": "reports/glb_validation.json",
+      "bytes": 579,
+      "sha256": "7314533280e6039ccadd429745705ac7df576a7c72d9c0433c78b23be62c96b5"
+    },
+    {
+      "path": "reports/performance-desktop-chrome.json",
+      "bytes": 959,
+      "sha256": "150281319fa067072f7087492d4ce31f918e117720debb942ab39e7ebb34f965"
+    },
+    {
+      "path": "reports/performance-mobile-emulation.json",
+      "bytes": 977,
+      "sha256": "9940b4b96433e8010edbd4763395513b00c1e1a5a44063b276cb61dd9b218ef3"
+    },
+    {
+      "path": "reports/reference_analysis.json",
+      "bytes": 2747,
+      "sha256": "3954a10e018737450a8fdaf4d9c818eb226ec80e6e307d4995a13d1ee030fa22"
+    },
+    {
+      "path": "reports/texture_generation.json",
+      "bytes": 136,
+      "sha256": "69bea1dd7ddff65b2b818ba3530a59f6894de9c06e84178ba280995a312e9ba1"
+    },
+    {
+      "path": "reports/turbine_detail_three_views.png",
+      "bytes": 754157,
+      "sha256": "7fa6d864dbacf594176a4e11efc691a74a73016ffa437b527ab97872a37bfcfa"
+    },
+    {
+      "path": "reports/turbine_motion_validation.json",
+      "bytes": 7586,
+      "sha256": "9b4a61e651ecf14d8d01c607a18741ed6e3fa2daa78da6f7c1680c6dcc5b8172"
+    },
+    {
+      "path": "reports/turbine_nacelle_detail_three_views.png",
+      "bytes": 273884,
+      "sha256": "41b95dc39361a8508d40b14bad34644770f54903759fd4ff0456a09243008d44"
+    },
+    {
+      "path": "source/scripts/build_blender_pipeline.py",
+      "bytes": 44379,
+      "sha256": "c45d2f3dcd3d20ee923b21137abdf79fada5fbc7a6b6b941ab3c3db9c4d926f0"
+    },
+    {
+      "path": "source/scripts/create_manifest.py",
+      "bytes": 1606,
+      "sha256": "fb86d29ccad0840fd7bd6532faf0b3206ef83818108bfedf53b21821d42f6162"
+    },
+    {
+      "path": "source/scripts/create_turbine_montage.py",
+      "bytes": 2658,
+      "sha256": "55895c5c3a2d653f3d6314438bb2de41e9259a5ea3f16201842676069d6a4f57"
+    },
+    {
+      "path": "source/scripts/generate_terrain_data.py",
+      "bytes": 13280,
+      "sha256": "3e8e726d4034725051870c244473f52631af463b446c6edb0750dfb12c2ef882"
+    },
+    {
+      "path": "source/scripts/generate_textures.py",
+      "bytes": 4252,
+      "sha256": "c2301df3e9ea7e3a422f45b1dc5b8b56c8eb48558566934854fa0bb42dce82bc"
+    },
+    {
+      "path": "source/scripts/inspect_glb.py",
+      "bytes": 2880,
+      "sha256": "4084d1e5ff6c8c1c2d79829698b483f76ad3e8d151226455df744a94efd317f2"
+    },
+    {
+      "path": "source/scripts/inspect_turbine_state.py",
+      "bytes": 5200,
+      "sha256": "78f43f645f8b188c5bd4b15b6272f7fddf618358d62e68a7816d9b81bd8734dd"
+    },
+    {
+      "path": "source/scripts/optimize_glb.sh",
+      "bytes": 1542,
+      "sha256": "cf7c4719d833431d3aa2be2d16bc7c9cba48c73645d12d60be4b158e2ce4eadc"
+    },
+    {
+      "path": "source/scripts/validate_fidelity.py",
+      "bytes": 8740,
+      "sha256": "0717baf3ffdf6c73534a2c63b9406a5dfbbcc0affc61e9cbfca1e645a175fa43"
+    },
+    {
+      "path": "source/terrain_spec.json",
+      "bytes": 1089,
+      "sha256": "f524fb1d1515358fd04e8ef2b30e0fb78822c09f50722b9c872a3c05ec7802b4"
+    },
+    {
+      "path": "textures/ktx2/baseColor_1.ktx2",
+      "bytes": 249945,
+      "sha256": "70c49531ea36e8da2fe1be3c5a526e9fac4999364e5270982b531b776f02f9b4"
+    },
+    {
+      "path": "textures/ktx2/normal_1.ktx2",
+      "bytes": 1136208,
+      "sha256": "fbdcb5f9f4b85e72f4313f99cc53cdb34ecf8791b54576c7eb896a2ea6efac8e"
+    },
+    {
+      "path": "textures/ktx2/occlusion_1.ktx2",
+      "bytes": 756567,
+      "sha256": "92291623e9d5eaa8976a6f803eba4095241b70b40e2d0cd1a32869ef7331a86c"
+    },
+    {
+      "path": "textures/png/Terrain_AO.png",
+      "bytes": 776043,
+      "sha256": "19377ecfa29419aa5a1ea25f470987365d3840174bd0c525cebb00da122f20da"
+    },
+    {
+      "path": "textures/png/Terrain_AO_Source.png",
+      "bytes": 128426,
+      "sha256": "f38464e76db71a733aa66456889255ec904c58b49c03c4e552becd2b179041df"
+    },
+    {
+      "path": "textures/png/Terrain_BaseColor.png",
+      "bytes": 1812799,
+      "sha256": "a8b5b75848ac410e3dbc9ea61ae50585897dfc778fe115b71ab1569e72e5664a"
+    },
+    {
+      "path": "textures/png/Terrain_Metallic.png",
+      "bytes": 2386,
+      "sha256": "a2557e874459079f1472f384092065e5cd71a949e282027f11b8c49572ce53c3"
+    },
+    {
+      "path": "textures/png/Terrain_Normal.png",
+      "bytes": 1112446,
+      "sha256": "e403f7b0e02aea7109f573e977e55277acd877170e13f033d50b64b18e7d3d7c"
+    },
+    {
+      "path": "textures/png/Terrain_Normal_Source.png",
+      "bytes": 1125781,
+      "sha256": "dc8ae5f25929195991b16cc5870deeb71a5f434c22de317ff9acf2fc6ddc5972"
+    },
+    {
+      "path": "textures/png/Terrain_ORM.png",
+      "bytes": 989259,
+      "sha256": "8625e14a66f301679a4e6d5bc02af5593c7d0e3abb1092d23697955488b81f0d"
+    },
+    {
+      "path": "textures/png/Terrain_ORM_Source.png",
+      "bytes": 301769,
+      "sha256": "6827f2ff6d86a8799487f998c41f27196a6bd69140350812fa3f018c5a72430c"
+    },
+    {
+      "path": "textures/png/Terrain_Roughness.png",
+      "bytes": 122801,
+      "sha256": "e3701c7cc541e87306edf0df44ee0ccc3446c5b95bb00006ddced04816b1f28a"
+    },
+    {
+      "path": "textures/png/Terrain_UV_Checker.png",
+      "bytes": 5013,
+      "sha256": "098f1e3bcf1be0adac56df06ff263029a5c8643a8c3fb04dd65f27ad2d2cb200"
+    },
+    {
+      "path": "web/index.html",
+      "bytes": 3088,
+      "sha256": "6a619a52e34164c6e70b4acf5b75870c99acb1d148be721c3821e398bc3c22bb"
+    },
+    {
+      "path": "web/src/main.js",
+      "bytes": 13753,
+      "sha256": "c58382068e15eeb90fca0e5c7c05bba976e0c37370283c1d71b830930a6f6fdc"
+    },
+    {
+      "path": "web/src/style.css",
+      "bytes": 7521,
+      "sha256": "f1971988b6441249b4f263f5ff5c982c70189c0d09cef092d8991ecffca6242d"
+    }
+  ],
+  "file_count": 56,
+  "total_bytes": 33024862
+}

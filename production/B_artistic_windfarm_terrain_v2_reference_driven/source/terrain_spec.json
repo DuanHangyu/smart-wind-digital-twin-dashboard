@@ -1,0 +1,37 @@
+{
+  "asset": "B_ARTISTIC_WINDFARM_TERRAIN_V2_REFERENCE_DRIVEN",
+  "version": "2.0.0",
+  "reference_registration": {
+    "source_image": "reference_height_material_structure.png",
+    "height_quad_px": [[92, 25], [704, 25], [717, 488], [42, 488]],
+    "material_quad_px": [[827, 24], [1469, 24], [1479, 488], [801, 488]],
+    "height_turbine_markers_px": [[450, 87], [357, 250], [662, 264]],
+    "material_turbine_markers_px": [[1209, 89], [1123, 253], [1437, 265]],
+    "registration_size": [641, 413]
+  },
+  "dimensions": {
+    "width_m": 14.0,
+    "depth_m": 9.02,
+    "base_height_m": 0.16,
+    "terrain_relief_m": 1.58,
+    "lake_surface_m": 0.195,
+    "turbine_tower_m": 0.94,
+    "turbine_rotor_radius_m": 0.26
+  },
+  "grids": {
+    "master": [641, 413],
+    "high": [321, 207],
+    "low": [161, 105],
+    "base": [81, 53]
+  },
+  "texture_size": 1024,
+  "performance": {
+    "triangle_budget": 45000,
+    "draw_call_budget": 28,
+    "glb_budget_bytes": 5000000,
+    "vram_budget_mb": 18,
+    "target_fps_desktop": 55,
+    "target_fps_mobile": 30,
+    "load_ms_mobile_max": 10000
+  }
+}

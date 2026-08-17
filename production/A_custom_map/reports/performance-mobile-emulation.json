@@ -1,0 +1,36 @@
+{
+  "testedAt": "2026-08-16T18:39:00.814Z",
+  "project": "mobile-emulation",
+  "viewport": {
+    "width": 412,
+    "height": 839
+  },
+  "browser": "Google Chrome headless / ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)",
+  "emulation": "Pixel 7 viewport/touch/user-agent + 4x CPU slowdown + 4 Mbps/80 ms network",
+  "thresholds": {
+    "trianglesMax": 12000,
+    "drawCallsMax": 20,
+    "modelBytesMax": 1500000,
+    "estimatedVRAMMBMax": 8,
+    "loadMsMax": 8000,
+    "fpsMin": 25
+  },
+  "metrics": {
+    "ready": true,
+    "error": null,
+    "deviceProfile": "mobile",
+    "modelBytes": 1018232,
+    "loadMs": 3420,
+    "triangles": 4108,
+    "drawCalls": 15,
+    "geometryBytes": 1335048,
+    "textureBytes": 3495320,
+    "estimatedVRAMMB": 4.61,
+    "parts": 14,
+    "hotspots": 14,
+    "fps": 120,
+    "fpsSamples": 2,
+    "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)"
+  },
+  "consoleErrors": []
+}

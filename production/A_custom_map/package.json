@@ -1,0 +1,26 @@
+{
+  "name": "a-custom-map-digital-twin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite web --host 127.0.0.1",
+    "build": "vite build web --outDir ../dist --emptyOutDir",
+    "preview": "vite preview web --host 127.0.0.1",
+    "gltf:inspect": "gltf-transform inspect export/A_custom_map_low_ktx2.glb",
+    "test": "playwright test --config tests/playwright.config.js",
+    "test:performance": "playwright test --config tests/playwright.config.js --reporter=list",
+    "validate:glb": "python3 source/scripts/inspect_glb.py export/A_custom_map_low_ktx2.glb"
+  },
+  "dependencies": {
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "4.4.2",
+    "@playwright/test": "1.62.1",
+    "vite": "7.3.6"
+  },
+  "overrides": {
+    "sharp": "0.35.3"
+  }
+}

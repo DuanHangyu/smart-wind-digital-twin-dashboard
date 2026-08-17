@@ -1,0 +1,17 @@
+{
+  "size": 1024,
+  "uv_safe_area": [
+    0.08,
+    0.92
+  ],
+  "side_strip_rows": 66,
+  "textures": [
+    "Map_BaseColor.png",
+    "Map_Roughness.png",
+    "Map_Metallic.png",
+    "Map_AO_Source.png",
+    "Map_Normal_Source.png",
+    "Map_ORM_Source.png",
+    "Map_UV_Layout.png"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "normal": {
+    "method": "selected-to-active",
+    "source": "HIGH__BOUNDARY_AND_DOTS",
+    "target": "BAKE_TARGET__MAP_TOP",
+    "size": 1024
+  },
+  "ao": {
+    "method": "selected-to-active",
+    "source": "HIGH__BOUNDARY_AND_DOTS",
+    "target": "BAKE_TARGET__MAP_TOP",
+    "size": 1024
+  },
+  "uv_layer": "UVMap",
+  "margin_pixels": 12
+}

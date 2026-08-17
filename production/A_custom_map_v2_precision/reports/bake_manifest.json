@@ -1,0 +1,16 @@
+{
+  "normal": {
+    "method": "selected-to-active",
+    "source": "14 high-contour beveled PART meshes",
+    "target": "BAKE_TARGET__PRECISION_TOP",
+    "size": 1024
+  },
+  "ao": {
+    "method": "selected-to-active",
+    "source": "14 high-contour beveled PART meshes",
+    "target": "BAKE_TARGET__PRECISION_TOP",
+    "size": 1024
+  },
+  "uv_layer": "UVMap",
+  "margin_pixels": 16
+}

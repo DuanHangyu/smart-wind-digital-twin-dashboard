@@ -1,0 +1,24 @@
+{
+  "path": "export/A_custom_map_v2_low_ktx2.glb",
+  "file_bytes": 1244496,
+  "nodes": 57,
+  "parts": 14,
+  "hotspots": 14,
+  "outline_nodes": 14,
+  "meshes": 28,
+  "materials": 2,
+  "triangles": 26616,
+  "extensions_used": [
+    "KHR_materials_emissive_strength",
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "extensions_required": [
+    "KHR_mesh_quantization",
+    "KHR_texture_basisu"
+  ],
+  "mesh_quantized": true,
+  "all_parts_interactive": true,
+  "all_hotspots_target_parts": true,
+  "pass": true
+}
