@@ -16,6 +16,7 @@ import {
   TrendChart,
 } from "./components/dashboard/Telemetry";
 import { CustomRegionMapScene } from "./components/scenes/CustomRegionMapScene";
+import { TurbineTwinScene } from "./components/scenes/TurbineTwinScene";
 import { WindFarmTerrainScene } from "./components/scenes/WindFarmTerrainScene";
 import { useMockDashboard } from "./hooks/useMockDashboard";
 import { useTweenNumber } from "./hooks/useTweenNumber";
@@ -112,7 +113,7 @@ function LayerControls({
   return (
     <div className="layer-controls operations" aria-label="风机显示模式">
       {modes.map(([label, mode]) => (
-        <button aria-pressed={operations.viewMode === mode} className={operations.viewMode === mode ? "active" : ""} key={mode} onClick={() => onOperationsChange({ viewMode: mode })} type="button"><span>{label}</span></button>
+        <button aria-pressed={operations.viewMode === mode} className={operations.viewMode === mode ? "active" : ""} key={mode} onClick={() => onOperationsChange({ selectedPartId: null, viewMode: mode })} type="button"><span>{label}</span></button>
       ))}
       <button aria-pressed={operations.animationEnabled} className={operations.animationEnabled ? "active" : ""} onClick={() => onOperationsChange({ animationEnabled: !operations.animationEnabled })} type="button"><span>动画</span></button>
     </div>
@@ -270,8 +271,12 @@ function WindfarmPage({
   );
 }
 
-function OperationsPage({ data, ui, controls }: PageProps) {
-  const asset = data.assets.find((item) => item.kind === "turbine");
+function OperationsPage({
+  data,
+  ui,
+  controls,
+  onPartSelect,
+}: PageProps & { onPartSelect: (partId: string | null) => void }) {
   return (
     <div className="page-layout page-operations">
       <aside className="column column-left">
@@ -280,7 +285,18 @@ function OperationsPage({ data, ui, controls }: PageProps) {
         <StatusDonut summary={data.summary} status={data.dataStatus} />
       </aside>
       <main className="center-column">
-        <SceneViewport className={`mode-${ui.operations.viewMode} ${ui.operations.animationEnabled ? "animation-on" : "animation-off"}`} controls={controls("operations")} image={asset?.preview ?? "/scenes/turbine.png"} metric={data.turbine.totalGenerationKWh} name={data.turbine.name} page="operations" status={data.dataStatus} unit="kWh">
+        <SceneViewport
+          className={`mode-${ui.operations.viewMode} ${ui.operations.animationEnabled ? "animation-on" : "animation-off"}`}
+          controls={controls("operations")}
+          metric={data.turbine.totalGenerationKWh}
+          name={data.turbine.name}
+          page="operations"
+          scene={<TurbineTwinScene alarms={data.alarms} onPartSelect={onPartSelect} parts={data.parts} state={ui.operations} turbine={data.turbine} />}
+          sceneBadge="W5 REAL GLB"
+          sceneProgress="四模式、拆解与零件故障联动"
+          status={data.dataStatus}
+          unit="kWh"
+        >
           <div className="mode-status"><span>{({ exterior: "外部实体", transparent: "透视结构", wireframe: "全息线框", structure: "结构拆解" } as const)[ui.operations.viewMode]}</span><small>{ui.operations.animationEnabled ? "动画运行中" : "动画已暂停"}</small></div>
           <RealtimeMetricsBar turbine={data.turbine} />
         </SceneViewport>
@@ -404,7 +420,7 @@ export default function Home() {
             />
           ) : null}
           {activePage === "windfarm" ? <WindfarmPage controls={controls} data={data} onTurbineSelect={(turbineId) => updateUi("windfarm", { selectedTurbineId: turbineId })} ui={ui} /> : null}
-          {activePage === "operations" ? <OperationsPage controls={controls} data={data} ui={ui} /> : null}
+          {activePage === "operations" ? <OperationsPage controls={controls} data={data} onPartSelect={(partId) => updateUi("operations", { selectedPartId: partId })} ui={ui} /> : null}
         </div>
         <nav className="bottom-navigation" aria-label="一级页面导航">
           {navigation.map((item) => <button aria-current={activePage === item.id ? "page" : undefined} className={activePage === item.id ? "active" : ""} key={item.id} onClick={() => switchPage(item.id)} type="button"><small>{item.code}</small><span>{item.label}</span></button>)}

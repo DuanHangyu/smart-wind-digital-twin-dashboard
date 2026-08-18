@@ -1,6 +1,6 @@
 [
-  { "id": "ALARM-001", "title": "#001 设备预警", "message": "主风机 A03 齿轮箱温度异常", "status": "pending", "severity": "critical", "turbineId": "T-A03", "partIds": ["PART__GEARBOX"], "createdAt": "2026-08-18T08:42:00+08:00" },
+  { "id": "ALARM-001", "title": "#001 设备预警", "message": "主风机 A01 齿轮箱温度异常", "status": "pending", "severity": "critical", "turbineId": "T-A01", "partIds": ["PART__GEARBOX"], "createdAt": "2026-08-18T08:42:00+08:00" },
   { "id": "ALARM-002", "title": "#002 设备预警", "message": "主风机 A01 振动指标恢复正常", "status": "resolved", "severity": "info", "turbineId": "T-A01", "createdAt": "2026-08-18T08:20:00+08:00", "resolvedAt": "2026-08-18T08:35:00+08:00" },
-  { "id": "ALARM-003", "title": "#003 设备预警", "message": "主风机 A07 偏航系统响应延迟", "status": "pending", "severity": "warning", "turbineId": "T-A07", "partIds": ["PART__YAW_RING"], "createdAt": "2026-08-18T07:58:00+08:00" },
+  { "id": "ALARM-003", "title": "#003 设备预警", "message": "主风机 A07 偏航系统响应延迟", "status": "pending", "severity": "warning", "turbineId": "T-A07", "partIds": ["PART__YAW_GEAR"], "createdAt": "2026-08-18T07:58:00+08:00" },
   { "id": "ALARM-004", "title": "#004 设备预警", "message": "主风机 A05 通讯链路已恢复", "status": "resolved", "severity": "info", "turbineId": "T-A05", "createdAt": "2026-08-18T07:31:00+08:00", "resolvedAt": "2026-08-18T07:46:00+08:00" }
 ]

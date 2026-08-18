@@ -152,3 +152,40 @@ test("integrates the validated B V5 terrain with linked turbine points", async (
   assert.match(telemetry, /linkedTurbineIds/);
   assert.match(telemetry, /selectedTurbineId/);
 });
+
+test("integrates the validated C V3 dismantlable turbine with four exclusive modes", async () => {
+  const [model, scene, page, parts] = await Promise.all([
+    readFile(new URL("../public/models/turbine.glb", import.meta.url)),
+    readFile(new URL("../app/components/scenes/TurbineTwinScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/data/fixtures/turbine-parts.json", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(model.subarray(0, 4).toString("utf8"), "glTF");
+  assert.ok(model.byteLength < 2_000_000);
+  const jsonLength = model.readUInt32LE(12);
+  const gltf = JSON.parse(model.subarray(20, 20 + jsonLength).toString("utf8").trimEnd());
+  const nodeNames = gltf.nodes.map((node) => node.name ?? "");
+  const partNodes = gltf.nodes.filter((node) => (node.name ?? "").startsWith("PART__"));
+  const partRecords = JSON.parse(parts);
+  const rotorNode = gltf.nodes.find((node) => (node.name ?? "").startsWith("ROTOR__"));
+  assert.equal(partNodes.length, 15);
+  assert.equal(nodeNames.filter((name) => name.startsWith("HOTSPOT__")).length, 9);
+  assert.equal(rotorNode?.extras?.rotation_axis, "Y");
+  assert.equal(rotorNode?.extras?.rpm, 8.5);
+  assert.equal(partRecords.length, 15);
+  assert.deepEqual(
+    partRecords.map((part) => part.modelNodeName).sort(),
+    partNodes.map((node) => node.name).sort(),
+  );
+  assert.ok(partNodes.every((node) => Array.isArray(node.extras?.explode_vector) && node.extras.explode_vector.length === 3));
+  assert.match(scene, /KTX2Loader/);
+  assert.match(scene, /blenderVectorToThree/);
+  assert.match(scene, /rotateOnAxis\(rotorAxis/);
+  assert.match(scene, /WireframeGeometry/);
+  assert.match(scene, /mode === "structure"/);
+  assert.match(scene, /forceContextLoss/);
+  assert.match(page, /TurbineTwinScene/);
+  assert.match(page, /W5 REAL GLB/);
+  assert.match(page, /selectedPartId: null, viewMode: mode/);
+});
