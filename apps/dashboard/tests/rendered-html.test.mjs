@@ -184,6 +184,7 @@ test("integrates the validated C V3 dismantlable turbine with four exclusive mod
   assert.match(scene, /RUNTIME__ROTOR_PIVOT/);
   assert.match(scene, /setFromObject\(shaftRuntime\.object\)/);
   assert.match(scene, /sourceRotor\.children\.slice\(\)\.forEach\(\(child\) => runtimeRotor\.attach\(child\)\)/);
+  assert.match(scene, /const EXTERNAL_PARTS[\s\S]*PART__MAIN_SHAFT[\s\S]*PART__YAW_GEAR/);
   assert.match(scene, /rotateOnAxis\(rotorAxis/);
   assert.match(scene, /WireframeGeometry/);
   assert.match(scene, /mode === "structure"/);

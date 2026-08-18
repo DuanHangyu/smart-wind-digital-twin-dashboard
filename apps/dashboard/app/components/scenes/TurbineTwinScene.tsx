@@ -64,10 +64,12 @@ const EXTERNAL_PARTS = new Set([
   "PART__BLADE_B",
   "PART__BLADE_C",
   "PART__HUB",
+  "PART__MAIN_SHAFT",
   "PART__NACELLE_SHELL",
   "PART__SPINNER",
   "PART__TOWER",
   "PART__YAW_BASE",
+  "PART__YAW_GEAR",
 ]);
 
 const HOTSPOT_TARGETS = new Set([
