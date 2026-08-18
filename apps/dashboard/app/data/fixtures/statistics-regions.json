@@ -1,0 +1,16 @@
+[
+  { "rank": 1, "regionCode": "01", "regionName": "北辰", "percentage": 18, "generationKWh": 351.44, "status": "running" },
+  { "rank": 2, "regionCode": "02", "regionName": "云岭", "percentage": 16, "generationKWh": 312.40, "status": "running" },
+  { "rank": 3, "regionCode": "03", "regionName": "西原", "percentage": 12, "generationKWh": 234.30, "status": "normal" },
+  { "rank": 4, "regionCode": "04", "regionName": "苍川", "percentage": 10, "generationKWh": 195.25, "status": "running" },
+  { "rank": 5, "regionCode": "05", "regionName": "中岳", "percentage": 9, "generationKWh": 175.72, "status": "standby" },
+  { "rank": 6, "regionCode": "06", "regionName": "东岚", "percentage": 8, "generationKWh": 156.20, "status": "normal" },
+  { "rank": 7, "regionCode": "07", "regionName": "河源", "percentage": 7, "generationKWh": 136.67, "status": "running" },
+  { "rank": 8, "regionCode": "08", "regionName": "青泽", "percentage": 6, "generationKWh": 117.15, "status": "normal" },
+  { "rank": 9, "regionCode": "09", "regionName": "临海", "percentage": 5, "generationKWh": 97.62, "status": "offline" },
+  { "rank": 10, "regionCode": "10", "regionName": "南川", "percentage": 4, "generationKWh": 78.10, "status": "running" },
+  { "rank": 11, "regionCode": "11", "regionName": "星湾", "percentage": 3, "generationKWh": 58.57, "status": "standby" },
+  { "rank": 12, "regionCode": "12", "regionName": "湖心", "percentage": 2, "generationKWh": 39.05, "status": "normal" },
+  { "rank": 13, "regionCode": "13", "regionName": "新城", "percentage": 1.5, "generationKWh": 29.29, "status": "fault" },
+  { "rank": 14, "regionCode": "14", "regionName": "南港", "percentage": 1, "generationKWh": 19.52, "status": "normal" }
+]

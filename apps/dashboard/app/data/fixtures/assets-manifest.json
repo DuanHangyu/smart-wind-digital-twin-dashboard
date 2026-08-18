@@ -1,0 +1,5 @@
+[
+  { "id": "A-CUSTOM-MAP", "kind": "map", "preview": "/scenes/custom-map.png", "glb": "/models/custom-map.glb", "version": "2.0.0" },
+  { "id": "B-WINDFARM", "kind": "terrain", "preview": "/scenes/windfarm.png", "glb": "/models/windfarm.glb", "version": "5.0.0" },
+  { "id": "C-TURBINE", "kind": "turbine", "preview": "/scenes/turbine.png", "glb": "/models/turbine.glb", "version": "3.0.0" }
+]

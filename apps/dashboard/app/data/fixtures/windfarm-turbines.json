@@ -1,0 +1,12 @@
+[
+  { "id": "T-A01", "code": "A001", "name": "主风机 A", "positionText": "东南方向", "modelPosition": [-2.1, 1.2, 0.8], "status": "running", "windSpeedMS": 12.2, "powerKW": 1502, "totalGenerationKWh": 1548, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A02", "code": "A002", "name": "主风机 B", "positionText": "东北方向", "modelPosition": [0.8, 1.7, -0.6], "status": "standby", "windSpeedMS": 8.4, "powerKW": 0, "totalGenerationKWh": 1420, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A03", "code": "A003", "name": "主风机 C", "positionText": "中心山谷", "modelPosition": [1.7, 1.3, 0.1], "status": "abnormal", "windSpeedMS": 11.7, "powerKW": 1218, "totalGenerationKWh": 1375, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A04", "code": "A004", "name": "主风机 D", "positionText": "西北方向", "modelPosition": [2.8, 0.9, 1.2], "status": "running", "windSpeedMS": 12.5, "powerKW": 1489, "totalGenerationKWh": 1511, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A05", "code": "A005", "name": "主风机 E", "positionText": "西南方向", "modelPosition": [-1.3, 0.6, -1.8], "status": "running", "windSpeedMS": 11.4, "powerKW": 1352, "totalGenerationKWh": 1298, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A06", "code": "A006", "name": "主风机 F", "positionText": "南部山脊", "modelPosition": [0.2, 1.1, -2.2], "status": "normal", "windSpeedMS": 10.9, "powerKW": 1270, "totalGenerationKWh": 1186, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A07", "code": "A007", "name": "主风机 G", "positionText": "北部山脊", "modelPosition": [-0.4, 2.0, 1.9], "status": "fault", "windSpeedMS": 9.7, "powerKW": 640, "totalGenerationKWh": 1104, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A08", "code": "A008", "name": "主风机 H", "positionText": "东部山谷", "modelPosition": [2.2, 0.8, -1.3], "status": "running", "windSpeedMS": 12.0, "powerKW": 1440, "totalGenerationKWh": 1462, "updatedAt": "2026-08-18T09:00:00+08:00" },
+  { "id": "T-A09", "code": "A009", "name": "主风机 I", "positionText": "湖面北侧", "modelPosition": [-2.7, 0.5, -0.8], "status": "offline", "windSpeedMS": null, "powerKW": null, "totalGenerationKWh": 986, "updatedAt": "2026-08-18T08:58:30+08:00" },
+  { "id": "T-A10", "code": "A010", "name": "主风机 J", "positionText": "西部山脊", "modelPosition": [-2.0, 1.5, 1.6], "status": "running", "windSpeedMS": 11.8, "powerKW": 1398, "totalGenerationKWh": 1344, "updatedAt": "2026-08-18T09:00:00+08:00" }
+]

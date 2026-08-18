@@ -1,0 +1,9 @@
+{
+  "temperatureC": 22.4,
+  "humidityPct": 64,
+  "pressureHpa": 1008,
+  "windSpeedMS": 12.1,
+  "windDirectionDeg": 135,
+  "windDirectionText": "东南风",
+  "updatedAt": "2026-08-18T09:00:00+08:00"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "T-A01",
+  "code": "A001",
+  "name": "主风机 A",
+  "positionText": "东南方向",
+  "modelPosition": [-2.1, 1.2, 0.8],
+  "status": "running",
+  "windSpeedMS": 12.2,
+  "powerKW": 1502,
+  "totalGenerationKWh": 1548,
+  "environmentTemperatureC": 20.4,
+  "gearboxTemperatureC": 46.2,
+  "generatorTemperatureC": 52.1,
+  "updatedAt": "2026-08-18T09:00:00+08:00"
+}

@@ -1,0 +1,10 @@
+[
+  { "id": "PART-ROTOR", "name": "叶轮总成", "modelNodeName": "PART__ROTOR", "status": "running", "faultIds": [] },
+  { "id": "PART-HUB", "name": "轮毂", "modelNodeName": "PART__HUB", "status": "normal", "faultIds": [] },
+  { "id": "PART-SHAFT", "name": "低速主轴", "modelNodeName": "PART__LOW_SPEED_SHAFT", "status": "normal", "faultIds": [] },
+  { "id": "PART-BEARING", "name": "主轴承", "modelNodeName": "PART__MAIN_BEARING", "status": "abnormal", "faultIds": ["FAULT-010"] },
+  { "id": "PART-GEARBOX", "name": "齿轮箱", "modelNodeName": "PART__GEARBOX", "status": "fault", "faultIds": ["FAULT-001"] },
+  { "id": "PART-GENERATOR", "name": "发电机", "modelNodeName": "PART__GENERATOR", "status": "running", "faultIds": [] },
+  { "id": "PART-YAW", "name": "偏航连接盘", "modelNodeName": "PART__YAW_RING", "status": "normal", "faultIds": [] },
+  { "id": "PART-TOWER", "name": "塔筒", "modelNodeName": "PART__TOWER", "status": "normal", "faultIds": [] }
+]

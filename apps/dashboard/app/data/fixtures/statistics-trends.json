@@ -1,0 +1,18 @@
+{
+  "monthlyPower": [
+    { "timestamp": "2026-01-01T00:00:00+08:00", "label": "1月", "value": 54, "comparisonValue": 72 },
+    { "timestamp": "2026-02-01T00:00:00+08:00", "label": "2月", "value": 73, "comparisonValue": 87 },
+    { "timestamp": "2026-03-01T00:00:00+08:00", "label": "3月", "value": 61, "comparisonValue": 98 },
+    { "timestamp": "2026-04-01T00:00:00+08:00", "label": "4月", "value": 86, "comparisonValue": 108 },
+    { "timestamp": "2026-05-01T00:00:00+08:00", "label": "5月", "value": 94, "comparisonValue": 114 }
+  ],
+  "generationTrend": [
+    { "timestamp": "2026-01-01T00:00:00+08:00", "label": "1月", "value": 7 },
+    { "timestamp": "2026-02-01T00:00:00+08:00", "label": "2月", "value": 7 },
+    { "timestamp": "2026-03-01T00:00:00+08:00", "label": "3月", "value": 10 },
+    { "timestamp": "2026-04-01T00:00:00+08:00", "label": "4月", "value": 15 },
+    { "timestamp": "2026-05-01T00:00:00+08:00", "label": "5月", "value": 19 },
+    { "timestamp": "2026-06-01T00:00:00+08:00", "label": "6月", "value": 22 },
+    { "timestamp": "2026-07-01T00:00:00+08:00", "label": "7月", "value": 25 }
+  ]
+}

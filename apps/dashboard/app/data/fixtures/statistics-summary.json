@@ -1,0 +1,14 @@
+{
+  "turbineCount": 99,
+  "installedCapacityMW": 77,
+  "monthlyGenerationKWh": 118.32,
+  "availabilityPct": 96.6,
+  "totalGenerationKWh": 1952.47,
+  "updatedAt": "2026-08-18T09:00:00+08:00",
+  "statusCounts": {
+    "normal": 27,
+    "offline": 25,
+    "standby": 18,
+    "fault": 15
+  }
+}
