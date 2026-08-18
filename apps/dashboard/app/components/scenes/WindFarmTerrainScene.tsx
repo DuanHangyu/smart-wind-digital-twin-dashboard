@@ -10,6 +10,7 @@ import type {
   Object3D,
   PerspectiveCamera,
   Texture,
+  Vector3,
 } from "three";
 import type { TurbineRecord, WindfarmSceneState } from "../../types/dashboard";
 
@@ -195,8 +196,15 @@ export function WindFarmTerrainScene({
         const parts: InteractivePart[] = [];
         const partByTarget = new Map<string, InteractivePart>();
         const hotspots = new Map<string, Object3D>();
-        const rotors = new Map<string, Object3D>();
-        const rotorLocalAxis = new THREE.Vector3(0, 1, 0);
+        const rotors = new Map<string, { axis: Vector3; object: Object3D }>();
+        const blenderAxisToGltf = (axis: unknown) => {
+          // Blender exports Z-up coordinates to glTF's Y-up system:
+          // source +X -> glTF +X, source +Y -> glTF -Z, source +Z -> glTF +Y.
+          if (axis === "X") return new THREE.Vector3(1, 0, 0);
+          if (axis === "Y") return new THREE.Vector3(0, 0, -1);
+          if (axis === "Z") return new THREE.Vector3(0, 1, 0);
+          return new THREE.Vector3(0, 0, -1);
+        };
         let lakePart: InteractivePart | null = null;
         let selectedPart: InteractivePart | null = null;
         let hoverPart: InteractivePart | null = null;
@@ -267,7 +275,10 @@ export function WindFarmTerrainScene({
                 if (target) hotspots.set(target, object);
               }
               if (object.name.startsWith("ROTOR__TURBINE_")) {
-                rotors.set(object.name.slice(-2), object);
+                rotors.set(object.name.slice(-2), {
+                  axis: blenderAxisToGltf(object.userData.rotor_axis),
+                  object,
+                });
               }
               const mesh = object as Mesh;
               if (!mesh.isMesh) return;
@@ -388,12 +399,12 @@ export function WindFarmTerrainScene({
           animationFrame = window.requestAnimationFrame(animate);
           const delta = Math.min((now - lastFrame) / 1000, 0.05);
           lastFrame = now;
-          rotors.forEach((rotor, modelCode) => {
+          rotors.forEach(({ axis, object: rotor }, modelCode) => {
             const turbineId = TURBINE_LINKS.find((item) => item.modelCode === modelCode)?.turbineId;
             const turbine = turbinesRef.current.find((item) => item.id === turbineId);
             if (!turbine || turbine.status === "offline") return;
             const sourceRpm = Number(rotor.userData.rpm ?? 0);
-            rotor.rotateOnAxis(rotorLocalAxis, sourceRpm * Math.PI * 2 / 60 * delta);
+            rotor.rotateOnAxis(axis, sourceRpm * Math.PI * 2 / 60 * delta);
           });
           controls?.update(delta);
           renderer.render(scene, camera);

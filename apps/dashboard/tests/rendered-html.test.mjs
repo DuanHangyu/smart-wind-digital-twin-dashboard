@@ -141,7 +141,9 @@ test("integrates the validated B V5 terrain with linked turbine points", async (
   assert.match(scene, /setProjectionEnabled/);
   assert.match(scene, /status === "offline"/);
   assert.doesNotMatch(scene, /status === "standby"\s*\|\|\s*turbine\.status === "fault"/);
-  assert.match(scene, /rotateOnAxis\(rotorLocalAxis/);
+  assert.match(scene, /axis === "Y"[\s\S]*new THREE\.Vector3\(0, 0, -1\)/);
+  assert.match(scene, /rotateOnAxis\(axis/);
+  assert.doesNotMatch(scene, /rotorLocalAxis/);
   assert.match(scene, /sourceRpm \* Math\.PI \* 2 \/ 60 \* delta/);
   assert.match(scene, /5000/);
   assert.match(scene, /forceContextLoss/);
