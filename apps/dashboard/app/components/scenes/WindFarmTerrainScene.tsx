@@ -17,6 +17,12 @@ import type { TurbineRecord, WindfarmSceneState } from "../../types/dashboard";
 type LoadState = "loading" | "ready" | "error" | "unsupported";
 type VisualState = "default" | "hover" | "selected";
 
+// The desktop shot intentionally lets the terrain fill the viewport like a
+// landscape, instead of presenting it as a small tabletop model.
+const WINDFARM_CAMERA_DESKTOP = [0, 3.4, 5.45] as const;
+const WINDFARM_CAMERA_TOUCH = [0, 3.55, 5.75] as const;
+const WINDFARM_CAMERA_TARGET = [0, 0.78, 0] as const;
+
 const TURBINE_LINKS = [
   { modelCode: "01", turbineId: "T-A01", target: "PART__TURBINE_01" },
   { modelCode: "02", turbineId: "T-A02", target: "PART__TURBINE_02" },
@@ -128,7 +134,8 @@ export function WindFarmTerrainScene({
         scene.fog = new THREE.FogExp2(0x02090a, 0.026);
         const camera: PerspectiveCamera = new THREE.PerspectiveCamera(37, 1, 0.05, 100);
         const coarsePointer = matchMedia("(pointer: coarse)").matches;
-        const defaultCamera = coarsePointer ? new THREE.Vector3(0, 8.7, 13.6) : new THREE.Vector3(10.6, 8.3, 12.8);
+        const defaultCamera = new THREE.Vector3(...(coarsePointer ? WINDFARM_CAMERA_TOUCH : WINDFARM_CAMERA_DESKTOP));
+        const defaultTarget = new THREE.Vector3(...WINDFARM_CAMERA_TARGET);
         camera.position.copy(defaultCamera);
 
         renderer = new THREE.WebGLRenderer({
@@ -145,11 +152,11 @@ export function WindFarmTerrainScene({
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
         controls.dampingFactor = 0.065;
-        controls.minDistance = 6;
+        controls.minDistance = 5.9;
         controls.maxDistance = 26;
         controls.minPolarAngle = 0.32;
         controls.maxPolarAngle = 1.42;
-        controls.target.set(0, 0.45, 0);
+        controls.target.copy(defaultTarget);
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.38;
 
@@ -327,7 +334,7 @@ export function WindFarmTerrainScene({
               },
               resetCamera() {
                 camera.position.copy(defaultCamera);
-                controls?.target.set(0, 0.45, 0);
+                controls?.target.copy(defaultTarget);
                 controls?.update();
                 scheduleCruise();
               },

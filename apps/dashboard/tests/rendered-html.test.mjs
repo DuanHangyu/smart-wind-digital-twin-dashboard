@@ -198,3 +198,21 @@ test("integrates the validated C V3 dismantlable turbine with four exclusive mod
   assert.match(page, /W5 REAL GLB/);
   assert.match(page, /selectedPartId: null, viewMode: mode/);
 });
+
+test("locks the three reference-directed opening camera shots", async () => {
+  const [mapScene, windfarmScene, turbineScene] = await Promise.all([
+    readFile(new URL("../app/components/scenes/CustomRegionMapScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/scenes/WindFarmTerrainScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/scenes/TurbineTwinScene.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 5\.25, 8\.25\]/);
+  assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, 0\.18, 0\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_DESKTOP = \[0, 3\.4, 5\.45\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_TARGET = \[0, 0\.78, 0\]/);
+  assert.match(turbineScene, /TURBINE_CAMERA_DESKTOP = \[3\.15, 1\.4, 3\.95\]/);
+  assert.match(turbineScene, /TURBINE_CAMERA_TARGET = \[0, -0\.05, 0\]/);
+  assert.match(mapScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
+  assert.match(windfarmScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
+  assert.match(turbineScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
+});

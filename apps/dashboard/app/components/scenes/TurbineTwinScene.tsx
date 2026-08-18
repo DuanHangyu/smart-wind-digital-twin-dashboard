@@ -26,6 +26,12 @@ import type {
 
 type LoadState = "loading" | "ready" | "error" | "unsupported";
 
+// P03 opens on the hub/nacelle inspection shot from the reference, rather
+// than fitting the complete tower into the viewport.
+const TURBINE_CAMERA_DESKTOP = [3.15, 1.4, 3.95] as const;
+const TURBINE_CAMERA_TOUCH = [4, 2, 5] as const;
+const TURBINE_CAMERA_TARGET = [0, -0.05, 0] as const;
+
 type PartMesh = Mesh & {
   userData: {
     assembly_order?: number;
@@ -178,7 +184,8 @@ export function TurbineTwinScene({
         scene.fog = new THREE.FogExp2(0x02090b, 0.027);
         const camera: PerspectiveCamera = new THREE.PerspectiveCamera(39, 1, 0.03, 100);
         const coarsePointer = matchMedia("(pointer: coarse)").matches;
-        const defaultCamera = coarsePointer ? new THREE.Vector3(8.2, 4.8, 12.2) : new THREE.Vector3(9.4, 5.1, 11.8);
+        const defaultCamera = new THREE.Vector3(...(coarsePointer ? TURBINE_CAMERA_TOUCH : TURBINE_CAMERA_DESKTOP));
+        const defaultTarget = new THREE.Vector3(...TURBINE_CAMERA_TARGET);
         camera.position.copy(defaultCamera);
 
         renderer = new THREE.WebGLRenderer({
@@ -196,11 +203,11 @@ export function TurbineTwinScene({
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
         controls.dampingFactor = 0.065;
-        controls.minDistance = 5;
+        controls.minDistance = 4.6;
         controls.maxDistance = 23;
         controls.minPolarAngle = 0.28;
         controls.maxPolarAngle = 1.55;
-        controls.target.set(0, 0.2, 0);
+        controls.target.copy(defaultTarget);
         controls.autoRotate = stateRef.current.animationEnabled;
         controls.autoRotateSpeed = 0.34;
 
@@ -395,7 +402,7 @@ export function TurbineTwinScene({
             controllerRef.current = {
               resetCamera() {
                 camera.position.copy(defaultCamera);
-                controls?.target.set(0, 0.2, 0);
+                controls?.target.copy(defaultTarget);
                 controls?.update();
               },
               selectPart(partId) { selectPart(partId); },

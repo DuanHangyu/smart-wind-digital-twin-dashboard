@@ -15,6 +15,11 @@ import type { RegionRecord, StatisticsSceneState } from "../../types/dashboard";
 
 type LoadState = "loading" | "ready" | "error" | "unsupported";
 
+// Reference-directed opening shot: the regional plate should occupy roughly
+// four fifths of the scene viewport without changing its world-space scale.
+const MAP_CAMERA_POSITION = [0, 5.25, 8.25] as const;
+const MAP_CAMERA_TARGET = [0, 0.18, 0] as const;
+
 type SceneController = {
   selectRegion: (code: string) => void;
   hoverRegion: (code: string | null) => void;
@@ -104,7 +109,8 @@ export function CustomRegionMapScene({
         const scene = new THREE.Scene();
         scene.fog = new THREE.FogExp2(0x02090b, 0.027);
         const camera: PerspectiveCamera = new THREE.PerspectiveCamera(34, 1, 0.05, 100);
-        const defaultCamera = new THREE.Vector3(0, 7.3, 11.4);
+        const defaultCamera = new THREE.Vector3(...MAP_CAMERA_POSITION);
+        const defaultTarget = new THREE.Vector3(...MAP_CAMERA_TARGET);
         camera.position.copy(defaultCamera);
 
         renderer = new THREE.WebGLRenderer({
@@ -125,7 +131,7 @@ export function CustomRegionMapScene({
         controls.maxDistance = 20;
         controls.minPolarAngle = 0.42;
         controls.maxPolarAngle = 1.38;
-        controls.target.set(0, 0.18, 0);
+        controls.target.copy(defaultTarget);
         controls.autoRotate = sceneStateRef.current.autoHighlightEnabled;
         controls.autoRotateSpeed = 0.38;
 
@@ -286,7 +292,7 @@ export function CustomRegionMapScene({
               hoverRegion,
               setAutoRotate(enabled) { if (controls) controls.autoRotate = enabled; turbineAnimationEnabled = enabled; },
               setTurbinesVisible(visible) { if (turbineGroup) turbineGroup.visible = visible; },
-              resetCamera() { camera.position.copy(defaultCamera); controls?.target.set(0, 0.18, 0); controls?.update(); },
+              resetCamera() { camera.position.copy(defaultCamera); controls?.target.copy(defaultTarget); controls?.update(); },
             };
             setProgress(100);
             setLoadState("ready");
