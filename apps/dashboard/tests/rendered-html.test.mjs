@@ -36,7 +36,7 @@ test("server-renders the W1 digital-twin dashboard shell", async () => {
   assert.match(html, /运维管理/);
   assert.match(html, /自定义区域运行态势/);
   assert.match(html, /实时数据/);
-  assert.match(html, /W2 LIVE MOCK/);
+  assert.match(html, /W3 REAL GLB/);
   assert.match(html, /1952\.47/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
@@ -112,4 +112,35 @@ test("integrates the validated A map GLB with fourteen interactive regions", asy
   assert.match(scene, /dispose\(\)/);
   assert.match(page, /CustomRegionMapScene/);
   assert.match(packageJson, /"three": "0\.185\.1"/);
+});
+
+test("integrates the validated B V5 terrain with linked turbine points", async () => {
+  const [model, scene, page, telemetry] = await Promise.all([
+    readFile(new URL("../public/models/windfarm.glb", import.meta.url)),
+    readFile(new URL("../app/components/scenes/WindFarmTerrainScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/dashboard/Telemetry.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(model.subarray(0, 4).toString("utf8"), "glTF");
+  assert.ok(model.byteLength < 5_000_000);
+  const jsonLength = model.readUInt32LE(12);
+  const gltf = JSON.parse(model.subarray(20, 20 + jsonLength).toString("utf8").trimEnd());
+  const nodeNames = gltf.nodes.map((node) => node.name ?? "");
+  assert.equal(nodeNames.filter((name) => name.startsWith("PART__TURBINE_")).length, 3);
+  assert.equal(nodeNames.filter((name) => name.startsWith("ROTOR__TURBINE_")).length, 3);
+  assert.equal(nodeNames.filter((name) => name.startsWith("HOTSPOT__")).length, 4);
+  assert.ok(nodeNames.includes("PART__TERRAIN"));
+  assert.ok(nodeNames.includes("PART__LAKE"));
+  assert.match(scene, /T-A01[\s\S]*T-A02[\s\S]*T-A04/);
+  assert.match(scene, /WireframeGeometry/);
+  assert.match(scene, /setWaterVisible/);
+  assert.match(scene, /setProjectionEnabled/);
+  assert.match(scene, /status === "offline"[\s\S]*status === "standby"/);
+  assert.match(scene, /5000/);
+  assert.match(scene, /forceContextLoss/);
+  assert.match(page, /WindFarmTerrainScene/);
+  assert.match(page, /W4 REAL GLB/);
+  assert.match(telemetry, /linkedTurbineIds/);
+  assert.match(telemetry, /selectedTurbineId/);
 });

@@ -324,17 +324,37 @@ export function EnvironmentPanel({ data, status }: { data: EnvironmentReading; s
   );
 }
 
-export function EquipmentStatusTable({ turbines, status }: { turbines: TurbineRecord[]; status: DataStatus }) {
+export function EquipmentStatusTable({
+  turbines,
+  status,
+  selectedTurbineId = null,
+  linkedTurbineIds = [],
+  onTurbineSelect,
+}: {
+  turbines: TurbineRecord[];
+  status: DataStatus;
+  selectedTurbineId?: string | null;
+  linkedTurbineIds?: string[];
+  onTurbineSelect?: (turbineId: string) => void;
+}) {
   const { visible, index, setPaused } = useCircularWindow(turbines, 6, 1600);
   return (
     <HudPanel title="设备预警" code="TURBINE STATUS" className="equipment-table-panel" status={status}>
       <div className="equipment-table" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
         <div className="equipment-head"><span>风机编号</span><span>位置</span><span>运行状态</span></div>
         {visible.length ? visible.map((item, offset) => (
-          <div className="equipment-row list-slide-in" key={`${index}-${item.id}`} style={{ animationDelay: `${offset * 35}ms` }}>
+          <button
+            aria-pressed={selectedTurbineId === item.id}
+            className={`equipment-row list-slide-in ${linkedTurbineIds.includes(item.id) ? "model-linked" : ""} ${selectedTurbineId === item.id ? "selected" : ""}`}
+            disabled={!onTurbineSelect || !linkedTurbineIds.includes(item.id)}
+            key={`${index}-${item.id}`}
+            onClick={() => onTurbineSelect?.(item.id)}
+            style={{ animationDelay: `${offset * 35}ms` }}
+            type="button"
+          >
             <span>{item.code}</span><span>{item.positionText}</span>
             <span><i className={`status-dot ${item.status}`} />{statusLabel[item.status]}</span>
-          </div>
+          </button>
         )) : <PanelEmpty compact />}
       </div>
     </HudPanel>

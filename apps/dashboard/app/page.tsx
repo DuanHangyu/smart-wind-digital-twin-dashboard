@@ -16,6 +16,7 @@ import {
   TrendChart,
 } from "./components/dashboard/Telemetry";
 import { CustomRegionMapScene } from "./components/scenes/CustomRegionMapScene";
+import { WindFarmTerrainScene } from "./components/scenes/WindFarmTerrainScene";
 import { useMockDashboard } from "./hooks/useMockDashboard";
 import { useTweenNumber } from "./hooks/useTweenNumber";
 import type {
@@ -32,6 +33,7 @@ import type {
 
 const DESIGN_WIDTH = 2560;
 const DESIGN_HEIGHT = 1080;
+const WINDFARM_MODEL_TURBINE_IDS = ["T-A01", "T-A02", "T-A04"];
 
 const navigation: Array<{ id: PageId; label: string; code: string }> = [
   { id: "windfarm", label: "风场管理", code: "P02" },
@@ -127,6 +129,8 @@ function SceneViewport({
   status,
   className = "",
   controls,
+  sceneBadge = "W2 LIVE MOCK",
+  sceneProgress = "W3–W5 接入三维交互",
   children,
 }: {
   page: PageId;
@@ -138,6 +142,8 @@ function SceneViewport({
   status: DataStatus;
   className?: string;
   controls: ReactNode;
+  sceneBadge?: string;
+  sceneProgress?: string;
   children?: ReactNode;
 }) {
   return (
@@ -157,7 +163,7 @@ function SceneViewport({
       )}
       {controls}
       {children}
-      <div className="scene-placeholder-badge"><span>W2 LIVE MOCK</span><strong>1 Hz 数据驱动 · W3–W5 接入三维交互</strong></div>
+      <div className="scene-placeholder-badge"><span>{sceneBadge}</span><strong>1 Hz 数据驱动 · {sceneProgress}</strong></div>
     </section>
   );
 }
@@ -202,6 +208,8 @@ function StatisticsPage({
           name="自定义区域运行态势"
           page="statistics"
           scene={<CustomRegionMapScene hoveredRegionCode={hoveredRegionCode} onRegionHover={onRegionHover} onRegionSelect={onRegionSelect} regions={data.regions} state={ui.statistics} />}
+          sceneBadge="W3 REAL GLB"
+          sceneProgress="14 区真实节点联动"
           status={data.dataStatus}
           unit="kWh"
         >
@@ -218,11 +226,13 @@ function StatisticsPage({
   );
 }
 
-function WindfarmPage({ data, ui, controls }: PageProps) {
-  const asset = data.assets.find((item) => item.kind === "terrain");
+function WindfarmPage({
+  data,
+  ui,
+  controls,
+  onTurbineSelect,
+}: PageProps & { onTurbineSelect: (turbineId: string | null) => void }) {
   const classes = [ui.windfarm.projectionEnabled ? "projection-mode" : "", ui.windfarm.waterVisible ? "" : "water-hidden"].filter(Boolean).join(" ");
-  const pointIds = ["T-A01", "T-A02", "T-A04"];
-  const points = pointIds.map((id) => data.turbines.find((item) => item.id === id)).filter(Boolean);
   return (
     <div className="page-layout page-windfarm">
       <aside className="column column-left">
@@ -231,15 +241,29 @@ function WindfarmPage({ data, ui, controls }: PageProps) {
         <RankingList regions={data.regions} status={data.dataStatus} />
       </aside>
       <main className="center-column">
-        <SceneViewport className={classes} controls={controls("windfarm")} image={asset?.preview ?? "/scenes/windfarm.png"} metric={data.summary.totalGenerationKWh} name="主风场 A" page="windfarm" status={data.dataStatus} unit="kWh">
-          <div className="turbine-points">
-            {points.map((item, index) => item ? <span className={`point point-${["a", "b", "d"][index]} ${item.status}`} key={item.id}>{item.name} <b>{item.status === "standby" ? "待机" : "运行中"}</b></span> : null)}
-          </div>
+        <SceneViewport
+          className={classes}
+          controls={controls("windfarm")}
+          metric={data.summary.totalGenerationKWh}
+          name="主风场 A"
+          page="windfarm"
+          scene={<WindFarmTerrainScene onTurbineSelect={onTurbineSelect} state={ui.windfarm} turbines={data.turbines} />}
+          sceneBadge="W4 REAL GLB"
+          sceneProgress="地形、湖泊与风机真实联动"
+          status={data.dataStatus}
+          unit="kWh"
+        >
           {!ui.windfarm.waterVisible ? <div className="scene-state-toast">湖面图层已隐藏</div> : null}
         </SceneViewport>
       </main>
       <aside className="column column-right">
-        <EquipmentStatusTable status={data.dataStatus} turbines={data.turbines} />
+        <EquipmentStatusTable
+          linkedTurbineIds={WINDFARM_MODEL_TURBINE_IDS}
+          onTurbineSelect={onTurbineSelect}
+          selectedTurbineId={ui.windfarm.selectedTurbineId}
+          status={data.dataStatus}
+          turbines={data.turbines}
+        />
         <SegmentedBarChart data={data.monthlyPower} status={data.dataStatus} title="设备发电详情" />
       </aside>
     </div>
@@ -379,7 +403,7 @@ export default function Home() {
               ui={ui}
             />
           ) : null}
-          {activePage === "windfarm" ? <WindfarmPage controls={controls} data={data} ui={ui} /> : null}
+          {activePage === "windfarm" ? <WindfarmPage controls={controls} data={data} onTurbineSelect={(turbineId) => updateUi("windfarm", { selectedTurbineId: turbineId })} ui={ui} /> : null}
           {activePage === "operations" ? <OperationsPage controls={controls} data={data} ui={ui} /> : null}
         </div>
         <nav className="bottom-navigation" aria-label="一级页面导航">

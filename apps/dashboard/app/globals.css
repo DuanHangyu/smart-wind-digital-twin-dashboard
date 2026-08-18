@@ -985,14 +985,16 @@ button {
 .scene-statistics .scene-image-wrap img { width: 75%; height: 82%; }
 .scene-operations .scene-image-wrap img { width: 72%; height: 96%; }
 
-.custom-map-scene {
+.custom-map-scene,
+.windfarm-terrain-scene {
   position: absolute;
   z-index: 2;
   inset: 58px 0 54px;
   overflow: hidden;
 }
 
-.custom-map-scene canvas {
+.custom-map-scene canvas,
+.windfarm-terrain-scene canvas {
   display: block;
   width: 100%;
   height: 100%;
@@ -1001,8 +1003,133 @@ button {
   touch-action: none;
 }
 
-.custom-map-scene canvas:active { cursor: grabbing; }
-.custom-map-scene canvas.interactive { cursor: pointer; }
+.custom-map-scene canvas:active,
+.windfarm-terrain-scene canvas:active { cursor: grabbing; }
+.custom-map-scene canvas.interactive,
+.windfarm-terrain-scene canvas.interactive { cursor: pointer; }
+
+.windfarm-terrain-scene {
+  background:
+    radial-gradient(ellipse at 48% 62%, rgba(0, 112, 92, 0.1), transparent 58%),
+    linear-gradient(180deg, rgba(0, 31, 31, 0.12), transparent 32%);
+}
+
+.windfarm-terrain-scene.projection-enabled canvas {
+  filter: drop-shadow(0 0 8px rgba(0, 229, 223, 0.28));
+}
+
+.windfarm-hotspot-layer {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  pointer-events: none;
+}
+
+.windfarm-hotspot-layer button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  min-width: 116px;
+  height: 34px;
+  grid-template-columns: 7px 1fr;
+  align-items: center;
+  gap: 4px 7px;
+  padding: 4px 9px;
+  border: 1px solid rgba(0, 229, 223, 0.5);
+  background: linear-gradient(90deg, rgba(1, 33, 34, 0.94), rgba(1, 18, 21, 0.86));
+  box-shadow: 0 0 13px rgba(0, 229, 223, 0.12);
+  color: #b5eded;
+  pointer-events: auto;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 180ms ease, background 180ms ease, filter 180ms ease;
+}
+
+.windfarm-hotspot-layer button::after {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 1px;
+  height: 25px;
+  content: "";
+  background: linear-gradient(var(--cyan-bright), transparent);
+}
+
+.windfarm-hotspot-layer button i {
+  width: 6px;
+  height: 6px;
+  grid-row: 1 / 3;
+  border-radius: 50%;
+  background: var(--cyan-bright);
+  box-shadow: 0 0 8px var(--cyan-bright);
+}
+
+.windfarm-hotspot-layer button span { font-size: 8px; letter-spacing: 0.5px; }
+.windfarm-hotspot-layer button small { color: #5a8c8d; font: 7px monospace; }
+.windfarm-hotspot-layer button:hover,
+.windfarm-hotspot-layer button.active {
+  border-color: #83fff7;
+  background: linear-gradient(90deg, rgba(0, 92, 89, 0.94), rgba(1, 29, 31, 0.9));
+  filter: drop-shadow(0 0 8px rgba(0, 229, 223, 0.34));
+}
+.windfarm-hotspot-layer button.standby { border-color: rgba(244, 197, 66, 0.62); }
+.windfarm-hotspot-layer button.standby i { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+.windfarm-hotspot-layer button.abnormal,
+.windfarm-hotspot-layer button.fault { border-color: rgba(255, 104, 82, 0.72); }
+.windfarm-hotspot-layer button.abnormal i,
+.windfarm-hotspot-layer button.fault i { background: #ff6852; box-shadow: 0 0 8px #ff6852; }
+.windfarm-hotspot-layer button.offline { border-color: rgba(127, 146, 149, 0.58); filter: grayscale(0.75); }
+.windfarm-hotspot-layer .lake-hotspot { border-color: rgba(63, 176, 255, 0.58); }
+.windfarm-hotspot-layer .lake-hotspot i { background: #42b9ff; box-shadow: 0 0 8px #42b9ff; }
+
+.windfarm-anchor-card {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  left: 0;
+  width: 216px;
+  padding: 12px 13px 10px;
+  border: 1px solid rgba(0, 229, 223, 0.62);
+  background: linear-gradient(135deg, rgba(1, 34, 36, 0.97), rgba(1, 13, 16, 0.94));
+  box-shadow: 0 0 24px rgba(0, 229, 223, 0.16);
+  color: var(--text);
+  pointer-events: auto;
+}
+
+.windfarm-anchor-card::before {
+  position: absolute;
+  top: 51px;
+  right: 100%;
+  width: 34px;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--cyan-bright));
+}
+
+.windfarm-anchor-card > button {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  border: 0;
+  background: transparent;
+  color: #62898b;
+  font-size: 13px;
+  cursor: pointer;
+}
+.windfarm-anchor-card > button:hover { color: var(--cyan-bright); }
+.windfarm-anchor-card header { display: grid; grid-template-columns: 7px 1fr auto; align-items: center; gap: 7px; padding-right: 12px; }
+.windfarm-anchor-card header i { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan-bright); box-shadow: 0 0 8px var(--cyan-bright); }
+.windfarm-anchor-card header i.standby { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+.windfarm-anchor-card header i.abnormal,
+.windfarm-anchor-card header i.fault { background: #ff6852; box-shadow: 0 0 8px #ff6852; }
+.windfarm-anchor-card header i.offline { background: #70888a; box-shadow: none; }
+.windfarm-anchor-card header strong { font-size: 10px; }
+.windfarm-anchor-card header small { color: var(--cyan-bright); font: 8px monospace; }
+.windfarm-anchor-card dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 11px 0 0; }
+.windfarm-anchor-card dl div { padding-top: 7px; border-top: 1px solid rgba(0, 229, 223, 0.14); }
+.windfarm-anchor-card dt { color: #577b7d; font-size: 7px; }
+.windfarm-anchor-card dd { margin: 4px 0 0; color: #c8ffff; font: 8px monospace; white-space: nowrap; }
 
 .map-hotspot-layer {
   position: absolute;
@@ -1422,6 +1549,32 @@ button {
   border-bottom: 1px solid rgba(0, 229, 223, 0.12);
   color: #78a6a8;
   font-size: 9px;
+}
+
+.equipment-row {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.equipment-row:disabled { opacity: 1; }
+.equipment-row.model-linked { cursor: pointer; }
+.equipment-row.model-linked::after {
+  position: absolute;
+  right: 7px;
+  color: #356d70;
+  content: "3D";
+  font: 6px monospace;
+}
+.equipment-row.model-linked:hover,
+.equipment-row.selected {
+  background: linear-gradient(90deg, rgba(0, 229, 223, 0.09), transparent);
+  color: #c8ffff;
 }
 
 .equipment-head {
