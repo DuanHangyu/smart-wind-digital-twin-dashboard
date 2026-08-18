@@ -344,23 +344,28 @@ export function TurbineTwinScene({
             pivot.add(root);
             grid.position.y = -size.y * scale * 0.5 - 0.06;
             halo.position.y = grid.position.y + 0.012;
-            root.updateMatrixWorld(true);
+            scene.updateMatrixWorld(true);
 
-            // Blender's source rotor empty was exported at the turbine root instead of
-            // the drivetrain axis. Rebuild the runtime pivot from the main-shaft center;
-            // its X/Y position defines the glTF -Z rotation line, while Z lies on that line.
+            // Blender's source rotor empty was exported at the turbine root. Rebuild it
+            // from the hub's actual vertex centroid after every ancestor matrix is current.
             const sourceRotor = rotor;
-            const shaftRuntime = partByName.get("PART__MAIN_SHAFT");
-            if (sourceRotor && sourceRotor.parent && shaftRuntime) {
+            const hubRuntime = partByName.get("PART__HUB");
+            if (sourceRotor && sourceRotor.parent && hubRuntime) {
               const rotorParent = sourceRotor.parent;
-              const shaftCenterWorld = new THREE.Box3()
-                .setFromObject(shaftRuntime.object)
-                .getCenter(new THREE.Vector3());
-              const shaftCenterLocal = rotorParent.worldToLocal(shaftCenterWorld.clone());
+              const hubPositions = hubRuntime.object.geometry.getAttribute("position");
+              const hubCenterWorld = new THREE.Vector3();
+              const hubVertex = new THREE.Vector3();
+              for (let index = 0; index < hubPositions.count; index += 1) {
+                hubCenterWorld.add(hubVertex.fromBufferAttribute(hubPositions, index));
+              }
+              hubCenterWorld
+                .multiplyScalar(1 / Math.max(1, hubPositions.count))
+                .applyMatrix4(hubRuntime.object.matrixWorld);
+              const hubCenterLocal = rotorParent.worldToLocal(hubCenterWorld.clone());
               const runtimeRotor = new THREE.Group();
               runtimeRotor.name = "RUNTIME__ROTOR_PIVOT";
-              runtimeRotor.position.copy(shaftCenterLocal);
-              runtimeRotor.userData = { ...sourceRotor.userData, pivot_source: "PART__MAIN_SHAFT" };
+              runtimeRotor.position.copy(hubCenterLocal);
+              runtimeRotor.userData = { ...sourceRotor.userData, pivot_source: "PART__HUB_VERTEX_CENTROID" };
               rotorParent.add(runtimeRotor);
               sourceRotor.children.slice().forEach((child) => runtimeRotor.attach(child));
               rotorParent.remove(sourceRotor);
@@ -368,7 +373,7 @@ export function TurbineTwinScene({
               partRuntimes.forEach((runtime) => {
                 if (runtime.object.parent === runtimeRotor) runtime.basePosition.copy(runtime.object.position);
               });
-              root.updateMatrixWorld(true);
+              scene.updateMatrixWorld(true);
             }
 
             const shellRuntime = partByName.get("PART__NACELLE_SHELL");
