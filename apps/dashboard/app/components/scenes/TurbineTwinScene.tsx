@@ -10,6 +10,7 @@ import type {
   Mesh,
   MeshStandardMaterial,
   Object3D,
+  Plane,
   PerspectiveCamera,
   Texture,
   Vector3,
@@ -188,6 +189,7 @@ export function TurbineTwinScene({
         });
         renderer.setPixelRatio(Math.min(devicePixelRatio, coarsePointer ? 1.25 : 1.8));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.localClippingEnabled = true;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.18;
 
@@ -262,6 +264,7 @@ export function TurbineTwinScene({
         };
         let rotor: Object3D | null = null;
         let rotorAxis = new THREE.Vector3(0, 0, -1);
+        let externalShaftClipPlanes: Plane[] | null = null;
         let selectedRuntime: PartRuntime | null = null;
         let hoveredRuntime: PartRuntime | null = null;
         let pointerDown = { x: 0, y: 0 };
@@ -366,6 +369,13 @@ export function TurbineTwinScene({
                 if (runtime.object.parent === runtimeRotor) runtime.basePosition.copy(runtime.object.position);
               });
               root.updateMatrixWorld(true);
+            }
+
+            const shellRuntime = partByName.get("PART__NACELLE_SHELL");
+            if (shellRuntime) {
+              const shellBoundsWorld = new THREE.Box3().setFromObject(shellRuntime.object);
+              const shaftRevealStartZ = shellBoundsWorld.max.z - 0.08 * scale;
+              externalShaftClipPlanes = [new THREE.Plane(new THREE.Vector3(0, 0, 1), -shaftRevealStartZ)];
             }
 
             rawHotspots.forEach((hotspot) => {
@@ -491,6 +501,13 @@ export function TurbineTwinScene({
             const isHovered = runtime === hoveredRuntime;
             runtime.materials.forEach((entry) => {
               const material = entry.material;
+              const nextClippingPlanes = mode === "exterior" && partName === "PART__MAIN_SHAFT"
+                ? externalShaftClipPlanes
+                : null;
+              if (material.clippingPlanes !== nextClippingPlanes) {
+                material.clippingPlanes = nextClippingPlanes;
+                material.needsUpdate = true;
+              }
               const tintExternal = EXTERNAL_PARTS.has(partName) && (mode === "transparent" || mode === "wireframe" || (mode === "structure" && targetOpacity < 0.5));
               material.color.lerp(tintExternal ? cyanColor : entry.baseColor, materialBlend);
               material.opacity = THREE.MathUtils.damp(material.opacity, targetOpacity * entry.baseOpacity, 7.2, delta);
