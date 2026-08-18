@@ -341,6 +341,31 @@ export function TurbineTwinScene({
             halo.position.y = grid.position.y + 0.012;
             root.updateMatrixWorld(true);
 
+            // Blender's source rotor empty was exported at the turbine root instead of
+            // the drivetrain axis. Rebuild the runtime pivot from the main-shaft center;
+            // its X/Y position defines the glTF -Z rotation line, while Z lies on that line.
+            const sourceRotor = rotor;
+            const shaftRuntime = partByName.get("PART__MAIN_SHAFT");
+            if (sourceRotor && sourceRotor.parent && shaftRuntime) {
+              const rotorParent = sourceRotor.parent;
+              const shaftCenterWorld = new THREE.Box3()
+                .setFromObject(shaftRuntime.object)
+                .getCenter(new THREE.Vector3());
+              const shaftCenterLocal = rotorParent.worldToLocal(shaftCenterWorld.clone());
+              const runtimeRotor = new THREE.Group();
+              runtimeRotor.name = "RUNTIME__ROTOR_PIVOT";
+              runtimeRotor.position.copy(shaftCenterLocal);
+              runtimeRotor.userData = { ...sourceRotor.userData, pivot_source: "PART__MAIN_SHAFT" };
+              rotorParent.add(runtimeRotor);
+              sourceRotor.children.slice().forEach((child) => runtimeRotor.attach(child));
+              rotorParent.remove(sourceRotor);
+              rotor = runtimeRotor;
+              partRuntimes.forEach((runtime) => {
+                if (runtime.object.parent === runtimeRotor) runtime.basePosition.copy(runtime.object.position);
+              });
+              root.updateMatrixWorld(true);
+            }
+
             rawHotspots.forEach((hotspot) => {
               const target = hotspot.userData.target as string | undefined;
               const runtime = target ? partByName.get(target) : null;

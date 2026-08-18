@@ -654,11 +654,14 @@ def build_assembly(quality: int, mode: str, shell_glass: bool = False, exploded:
     root["units"] = "meter"
     root["up_axis"] = "+Z"
     root["rotor_axis"] = "+Y"
-    rotor = create_empty(f"{prefix}ROTOR__ASSEMBLY", HUB)
+    rotor = create_empty(f"{prefix}ROTOR__ASSEMBLY")
     rotor["display_name"] = "转子总成"
     rotor["rotation_axis"] = "Y"
     rotor["rpm"] = 8.5
-    parent_keep_world(rotor, root)
+    rotor.parent = root
+    # The rotor empty is the mechanical pivot, not a grouping helper. Assign its
+    # local transform after parenting so Blender/glTF preserve the hub-axis origin.
+    rotor.location = HUB
     result = {}
     for canonical in [item["name"] for item in SPEC["parts"]]:
         if canonical == "PART__NACELLE_SHELL":
