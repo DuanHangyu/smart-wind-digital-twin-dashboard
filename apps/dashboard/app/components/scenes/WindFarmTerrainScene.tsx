@@ -196,6 +196,7 @@ export function WindFarmTerrainScene({
         const partByTarget = new Map<string, InteractivePart>();
         const hotspots = new Map<string, Object3D>();
         const rotors = new Map<string, Object3D>();
+        const rotorLocalAxis = new THREE.Vector3(0, 1, 0);
         let lakePart: InteractivePart | null = null;
         let selectedPart: InteractivePart | null = null;
         let hoverPart: InteractivePart | null = null;
@@ -390,10 +391,9 @@ export function WindFarmTerrainScene({
           rotors.forEach((rotor, modelCode) => {
             const turbineId = TURBINE_LINKS.find((item) => item.modelCode === modelCode)?.turbineId;
             const turbine = turbinesRef.current.find((item) => item.id === turbineId);
-            if (!turbine || turbine.status === "offline" || turbine.status === "standby" || turbine.status === "fault") return;
+            if (!turbine || turbine.status === "offline") return;
             const sourceRpm = Number(rotor.userData.rpm ?? 0);
-            const powerFactor = turbine.powerKW === null ? 0.45 : Math.max(0.4, Math.min(1.08, turbine.powerKW / 1600));
-            rotor.rotation.y += sourceRpm * powerFactor * Math.PI * 2 / 60 * delta;
+            rotor.rotateOnAxis(rotorLocalAxis, sourceRpm * Math.PI * 2 / 60 * delta);
           });
           controls?.update(delta);
           renderer.render(scene, camera);

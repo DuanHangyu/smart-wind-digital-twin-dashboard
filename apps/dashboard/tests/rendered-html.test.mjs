@@ -127,8 +127,11 @@ test("integrates the validated B V5 terrain with linked turbine points", async (
   const jsonLength = model.readUInt32LE(12);
   const gltf = JSON.parse(model.subarray(20, 20 + jsonLength).toString("utf8").trimEnd());
   const nodeNames = gltf.nodes.map((node) => node.name ?? "");
+  const rotorNodes = gltf.nodes.filter((node) => (node.name ?? "").startsWith("ROTOR__TURBINE_"));
   assert.equal(nodeNames.filter((name) => name.startsWith("PART__TURBINE_")).length, 3);
-  assert.equal(nodeNames.filter((name) => name.startsWith("ROTOR__TURBINE_")).length, 3);
+  assert.equal(rotorNodes.length, 3);
+  assert.deepEqual(rotorNodes.map((node) => node.extras?.rotor_axis), ["Y", "Y", "Y"]);
+  assert.deepEqual(rotorNodes.map((node) => node.extras?.rpm), [8.2, 7.1, 9.1]);
   assert.equal(nodeNames.filter((name) => name.startsWith("HOTSPOT__")).length, 4);
   assert.ok(nodeNames.includes("PART__TERRAIN"));
   assert.ok(nodeNames.includes("PART__LAKE"));
@@ -136,7 +139,10 @@ test("integrates the validated B V5 terrain with linked turbine points", async (
   assert.match(scene, /WireframeGeometry/);
   assert.match(scene, /setWaterVisible/);
   assert.match(scene, /setProjectionEnabled/);
-  assert.match(scene, /status === "offline"[\s\S]*status === "standby"/);
+  assert.match(scene, /status === "offline"/);
+  assert.doesNotMatch(scene, /status === "standby"\s*\|\|\s*turbine\.status === "fault"/);
+  assert.match(scene, /rotateOnAxis\(rotorLocalAxis/);
+  assert.match(scene, /sourceRpm \* Math\.PI \* 2 \/ 60 \* delta/);
   assert.match(scene, /5000/);
   assert.match(scene, /forceContextLoss/);
   assert.match(page, /WindFarmTerrainScene/);
