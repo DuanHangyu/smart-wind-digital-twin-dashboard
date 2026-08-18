@@ -86,3 +86,30 @@ test("ships reproducible W2 fixtures and a one-hertz data adapter", async () => 
   assert.match(page, /autoHighlightEnabled:\s*true/);
   assert.match(page, /projectionEnabled:\s*false/);
 });
+
+test("integrates the validated A map GLB with fourteen interactive regions", async () => {
+  const [model, scene, page, packageJson] = await Promise.all([
+    readFile(new URL("../public/models/custom-map.glb", import.meta.url)),
+    readFile(new URL("../app/components/scenes/CustomRegionMapScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(model.subarray(0, 4).toString("utf8"), "glTF");
+  const jsonLength = model.readUInt32LE(12);
+  const jsonType = model.readUInt32LE(16);
+  assert.equal(jsonType, 0x4e4f534a);
+  const gltf = JSON.parse(model.subarray(20, 20 + jsonLength).toString("utf8").trimEnd());
+  const nodeNames = gltf.nodes.map((node) => node.name ?? "");
+  assert.equal(nodeNames.filter((name) => name.startsWith("PART__REGION_")).length, 14);
+  assert.equal(nodeNames.filter((name) => name.startsWith("HOTSPOT__REGION_")).length, 14);
+  assert.equal(nodeNames.filter((name) => name.startsWith("FX__OUTLINE_")).length, 14);
+  assert.match(scene, /GLTFLoader/);
+  assert.match(scene, /KTX2Loader/);
+  assert.match(scene, /Raycaster/);
+  assert.match(scene, /targetY/);
+  assert.match(scene, /setTurbinesVisible/);
+  assert.match(scene, /dispose\(\)/);
+  assert.match(page, /CustomRegionMapScene/);
+  assert.match(packageJson, /"three": "0\.185\.1"/);
+});

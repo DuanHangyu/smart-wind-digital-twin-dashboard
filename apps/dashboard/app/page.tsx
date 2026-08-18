@@ -15,6 +15,7 @@ import {
   SummaryPanel,
   TrendChart,
 } from "./components/dashboard/Telemetry";
+import { CustomRegionMapScene } from "./components/scenes/CustomRegionMapScene";
 import { useMockDashboard } from "./hooks/useMockDashboard";
 import { useTweenNumber } from "./hooks/useTweenNumber";
 import type {
@@ -122,6 +123,7 @@ function SceneViewport({
   metric,
   unit,
   image,
+  scene,
   status,
   className = "",
   controls,
@@ -131,7 +133,8 @@ function SceneViewport({
   name: string;
   metric: number | null;
   unit: string;
-  image: string;
+  image?: string;
+  scene?: ReactNode;
   status: DataStatus;
   className?: string;
   controls: ReactNode;
@@ -145,11 +148,13 @@ function SceneViewport({
         <p>总发电量 <SceneMetric value={metric} unit={unit} /></p>
       </header>
       <p className="scene-disclaimer">内含模型为技术展示效果，非现实场景及工业效果</p>
-      <div className="scene-image-wrap">
-        <div className="scene-orbit orbit-outer" /><div className="scene-orbit orbit-inner" />
-        <Image src={image} alt={`${name}静态场景预览`} width={1200} height={820} priority={page === "statistics"} unoptimized />
-        <div className="scene-glow" />
-      </div>
+      {scene ?? (
+        <div className="scene-image-wrap">
+          <div className="scene-orbit orbit-outer" /><div className="scene-orbit orbit-inner" />
+          <Image src={image ?? "/scenes/custom-map.png"} alt={`${name}静态场景预览`} width={1200} height={820} unoptimized />
+          <div className="scene-glow" />
+        </div>
+      )}
       {controls}
       {children}
       <div className="scene-placeholder-badge"><span>W2 LIVE MOCK</span><strong>1 Hz 数据驱动 · W3–W5 接入三维交互</strong></div>
@@ -163,9 +168,20 @@ type PageProps = {
   controls: (page: PageId) => ReactNode;
 };
 
-function StatisticsPage({ data, ui, controls }: PageProps) {
-  const selectedRegion = data.regions.find((item) => item.regionCode === ui.statistics.selectedRegionCode) ?? data.regions[0];
-  const asset = data.assets.find((item) => item.kind === "map");
+function StatisticsPage({
+  data,
+  ui,
+  controls,
+  hoveredRegionCode,
+  onRegionHover,
+  onRegionSelect,
+}: PageProps & {
+  hoveredRegionCode: string | null;
+  onRegionHover: (code: string | null) => void;
+  onRegionSelect: (code: string) => void;
+}) {
+  const effectiveRegionCode = hoveredRegionCode ?? ui.statistics.selectedRegionCode;
+  const selectedRegion = data.regions.find((item) => item.regionCode === effectiveRegionCode) ?? data.regions[0];
   const classes = [
     ui.statistics.turbineLayerVisible ? "" : "turbines-hidden",
     ui.statistics.landmarkLayerVisible ? "" : "landmarks-hidden",
@@ -179,7 +195,16 @@ function StatisticsPage({ data, ui, controls }: PageProps) {
         <StatusDonut summary={data.summary} status={data.dataStatus} />
       </aside>
       <main className="center-column">
-        <SceneViewport className={classes} controls={controls("statistics")} image={asset?.preview ?? "/scenes/custom-map.png"} metric={data.summary.totalGenerationKWh} name="自定义区域运行态势" page="statistics" status={data.dataStatus} unit="kWh">
+        <SceneViewport
+          className={classes}
+          controls={controls("statistics")}
+          metric={data.summary.totalGenerationKWh}
+          name="自定义区域运行态势"
+          page="statistics"
+          scene={<CustomRegionMapScene hoveredRegionCode={hoveredRegionCode} onRegionHover={onRegionHover} onRegionSelect={onRegionSelect} regions={data.regions} state={ui.statistics} />}
+          status={data.dataStatus}
+          unit="kWh"
+        >
           <div className="map-status"><span>{selectedRegion?.regionName ?? "--"}</span><small>当前区域 · {selectedRegion ? `${selectedRegion.percentage}%` : "--"}</small></div>
           <div className="region-cycle-status"><i /><span>{ui.statistics.autoHighlightEnabled ? "区域自动轮播中" : "区域轮播已暂停"}</span><small>{ui.statistics.selectedRegionCode}/14</small></div>
         </SceneViewport>
@@ -269,6 +294,7 @@ export default function Home() {
   const [activePage, setActivePage] = useState<PageId>("statistics");
   const [scale, setScale] = useState(1);
   const [ui, setUi] = useState<DashboardUiState>(initialUiState);
+  const [hoveredRegionCode, setHoveredRegionCode] = useState<string | null>(null);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -290,7 +316,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (activePage !== "statistics" || !ui.statistics.autoHighlightEnabled) return;
+    if (activePage !== "statistics" || !ui.statistics.autoHighlightEnabled || hoveredRegionCode) return;
     const timer = window.setInterval(() => {
       setUi((current) => {
         const index = data.regions.findIndex((item) => item.regionCode === current.statistics.selectedRegionCode);
@@ -299,7 +325,7 @@ export default function Home() {
       });
     }, 900);
     return () => window.clearInterval(timer);
-  }, [activePage, data.regions, ui.statistics.autoHighlightEnabled]);
+  }, [activePage, data.regions, hoveredRegionCode, ui.statistics.autoHighlightEnabled]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
@@ -343,7 +369,16 @@ export default function Home() {
         <DashboardHeader meta={data.meta} status={data.dataStatus} updatedAt={data.lastUpdatedAt} />
         <div className="global-line global-line-left" /><div className="global-line global-line-right" />
         <div className="page-stage" key={activePage}>
-          {activePage === "statistics" ? <StatisticsPage controls={controls} data={data} ui={ui} /> : null}
+          {activePage === "statistics" ? (
+            <StatisticsPage
+              controls={controls}
+              data={data}
+              hoveredRegionCode={hoveredRegionCode}
+              onRegionHover={setHoveredRegionCode}
+              onRegionSelect={(code) => updateUi("statistics", { selectedRegionCode: code })}
+              ui={ui}
+            />
+          ) : null}
           {activePage === "windfarm" ? <WindfarmPage controls={controls} data={data} ui={ui} /> : null}
           {activePage === "operations" ? <OperationsPage controls={controls} data={data} ui={ui} /> : null}
         </div>
