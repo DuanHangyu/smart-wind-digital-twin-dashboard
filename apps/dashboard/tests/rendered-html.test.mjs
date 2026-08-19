@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
@@ -112,6 +113,29 @@ test("integrates the validated A map GLB with fourteen interactive regions", asy
   assert.match(scene, /dispose\(\)/);
   assert.match(page, /CustomRegionMapScene/);
   assert.match(packageJson, /"three": "0\.185\.1"/);
+});
+
+test("polishes the P01 holographic presentation without modifying the map asset", async () => {
+  const [model, scene, styles] = await Promise.all([
+    readFile(new URL("../public/models/custom-map.glb", import.meta.url)),
+    readFile(new URL("../app/components/scenes/CustomRegionMapScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(
+    createHash("sha256").update(model).digest("hex"),
+    "4915e08ad52d942fffcaa3f248710c0b8f6920fdcc82436d6379aa3f35db3dd0",
+  );
+  assert.match(scene, /controls\.autoRotate = false/);
+  assert.doesNotMatch(scene, /if \(controls\) controls\.autoRotate = enabled/);
+  assert.match(scene, /enhanceRegionMaterial/);
+  assert.match(scene, /uHologramTime/);
+  assert.match(scene, /dotMask/);
+  assert.match(scene, /sideMask/);
+  assert.match(scene, /map-hologram-field/);
+  assert.match(styles, /\.map-hologram-field/);
+  assert.match(styles, /\.map-hotspot-layer button:not\(\.active\) small/);
+  assert.match(styles, /\.map-hotspot-layer button\s*\{[\s\S]*?background:\s*transparent/);
 });
 
 test("integrates the validated B V5 terrain with linked turbine points", async () => {
