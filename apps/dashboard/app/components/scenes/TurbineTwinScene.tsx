@@ -64,6 +64,7 @@ type PartRuntime = {
 type SceneController = {
   resetCamera: () => void;
   selectPart: (partId: string | null) => void;
+  setMode: (mode: TurbineViewMode) => void;
 };
 
 const EXTERNAL_PARTS = new Set([
@@ -186,6 +187,8 @@ export function TurbineTwinScene({
         const coarsePointer = matchMedia("(pointer: coarse)").matches;
         const defaultCamera = new THREE.Vector3(...(coarsePointer ? TURBINE_CAMERA_TOUCH : TURBINE_CAMERA_DESKTOP));
         const defaultTarget = new THREE.Vector3(...TURBINE_CAMERA_TARGET);
+        const cameraGoal = defaultCamera.clone();
+        const targetGoal = defaultTarget.clone();
         camera.position.copy(defaultCamera);
 
         renderer = new THREE.WebGLRenderer({
@@ -203,21 +206,20 @@ export function TurbineTwinScene({
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
         controls.dampingFactor = 0.065;
-        controls.minDistance = 4.6;
+        controls.minDistance = 3.2;
         controls.maxDistance = 23;
         controls.minPolarAngle = 0.28;
         controls.maxPolarAngle = 1.55;
         controls.target.copy(defaultTarget);
-        controls.autoRotate = stateRef.current.animationEnabled;
-        controls.autoRotateSpeed = 0.34;
+        controls.autoRotate = false;
 
         const pauseCruise = () => {
           controlsInteracting = true;
-          if (controls) controls.autoRotate = false;
         };
         const resumeCruise = () => {
+          cameraGoal.copy(camera.position);
+          if (controls) targetGoal.copy(controls.target);
           controlsInteracting = false;
-          if (controls) controls.autoRotate = stateRef.current.animationEnabled;
         };
         controls.addEventListener("start", pauseCruise);
         controls.addEventListener("end", resumeCruise);
@@ -251,6 +253,7 @@ export function TurbineTwinScene({
 
         const pivot = new THREE.Group();
         pivot.name = "MODEL_AUTO_CENTER_SCALE";
+        pivot.rotation.y = -0.55;
         scene.add(pivot);
 
         const partRuntimes: PartRuntime[] = [];
@@ -346,7 +349,7 @@ export function TurbineTwinScene({
             const center = bounds.getCenter(new THREE.Vector3());
             const size = bounds.getSize(new THREE.Vector3());
             root.position.copy(center).multiplyScalar(-1);
-            const scale = 8.15 / Math.max(size.x, size.y, size.z);
+            const scale = 9.6 / Math.max(size.x, size.y, size.z);
             pivot.scale.setScalar(scale);
             pivot.add(root);
             grid.position.y = -size.y * scale * 0.5 - 0.06;
@@ -399,13 +402,27 @@ export function TurbineTwinScene({
             });
 
             selectPart(stateRef.current.selectedPartId);
+            const setModeCamera = (mode: TurbineViewMode) => {
+              const distanceScale = mode === "wireframe" ? 0.72 : mode === "structure" ? 0.7 : 0.64;
+              targetGoal.copy(defaultTarget).setY(0.55);
+              cameraGoal
+                .copy(defaultCamera)
+                .normalize()
+                .multiplyScalar(defaultCamera.length() * distanceScale)
+                .add(targetGoal);
+              camera.position.copy(cameraGoal);
+              controls?.target.copy(targetGoal);
+              controls?.update();
+            };
+            setModeCamera(stateRef.current.viewMode);
             controllerRef.current = {
               resetCamera() {
-                camera.position.copy(defaultCamera);
-                controls?.target.copy(defaultTarget);
-                controls?.update();
+                setModeCamera(stateRef.current.viewMode);
+                camera.position.copy(cameraGoal);
+                controls?.target.copy(defaultTarget).setY(targetGoal.y);
               },
               selectPart(partId) { selectPart(partId); },
+              setMode: setModeCamera,
             };
             setProgress(100);
             setLoadState("ready");
@@ -492,7 +509,6 @@ export function TurbineTwinScene({
           lastFrame = now;
           const mode = stateRef.current.viewMode;
           const animationEnabled = stateRef.current.animationEnabled;
-          if (controls) controls.autoRotate = animationEnabled && !controlsInteracting;
           if (rotor && animationEnabled) {
             const rpm = Number(rotor.userData.rpm ?? 8.5);
             rotor.rotateOnAxis(rotorAxis, rpm * Math.PI * 2 / 60 * delta);
@@ -544,6 +560,11 @@ export function TurbineTwinScene({
             if (targetOpacity === 0 && runtime.materials.every((entry) => entry.material.opacity < 0.012)) runtime.object.visible = false;
           });
 
+          if (!controlsInteracting) {
+            const cameraBlend = 1 - Math.exp(-delta * 5.6);
+            camera.position.lerp(cameraGoal, cameraBlend);
+            controls?.target.lerp(targetGoal, cameraBlend);
+          }
           controls?.update(delta);
           halo.rotation.z += animationEnabled ? delta * 0.08 : 0;
           renderer.render(scene, camera);
@@ -610,6 +631,7 @@ export function TurbineTwinScene({
   }, []);
 
   useEffect(() => { controllerRef.current?.selectPart(state.selectedPartId); }, [state.selectedPartId]);
+  useEffect(() => { controllerRef.current?.setMode(state.viewMode); }, [state.viewMode]);
 
   const hotspotParts = useMemo(() => parts.filter((part) => HOTSPOT_TARGETS.has(part.modelNodeName)), [parts]);
   const selectedPart = parts.find((part) => part.id === state.selectedPartId);
