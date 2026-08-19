@@ -375,10 +375,10 @@ export function WindFarmTerrainScene({
                 blending: THREE.NormalBlending,
                 color: 0x000405,
                 depthWrite: true,
-                emissive: 0x001010,
-                emissiveIntensity: 0.015,
+                emissive: 0x003f3d,
+                emissiveIntensity: 0.12,
                 metalness: 0,
-                opacity: 0.055,
+                opacity: 0.12,
                 roughness: 0.78,
                 side: THREE.DoubleSide,
                 transparent: true,
@@ -412,10 +412,10 @@ export function WindFarmTerrainScene({
                   hologramWireGeometry,
                   new THREE.LineBasicMaterial({
                     blending: THREE.AdditiveBlending,
-                    color: 0x00e6dc,
+                    color: 0x2cfff3,
                     depthTest: true,
                     depthWrite: false,
-                    opacity: 0.24,
+                    opacity: 0.66,
                     transparent: true,
                   }),
                 );
@@ -439,8 +439,8 @@ export function WindFarmTerrainScene({
               wireGroup.visible = enabled;
               grid.visible = !enabled;
               fog.color.setHex(enabled ? 0x000708 : 0x91a69a);
-              fog.density = enabled ? 0.028 : 0.052;
-              if (renderer) renderer.toneMappingExposure = enabled ? 0.82 : 1.18;
+              fog.density = enabled ? 0.018 : 0.052;
+              if (renderer) renderer.toneMappingExposure = enabled ? 1.12 : 1.18;
               wireLines.forEach((lines) => { lines.visible = enabled; });
               baseMeshes.forEach((mesh) => { mesh.visible = !enabled; });
               terrainMeshes.forEach((mesh) => {
@@ -571,7 +571,7 @@ export function WindFarmTerrainScene({
             hotspot.getWorldPosition(projected);
             projected.project(camera);
             const inView = projected.z > -1 && projected.z < 1 && Math.abs(projected.x) < 1.08 && Math.abs(projected.y) < 1.08;
-            const visible = inView && (
+            const visible = !projectionActive && inView && (
               target !== "PART__LAKE"
               || (stateRef.current.waterVisible && !projectionActive)
             );

@@ -1241,10 +1241,16 @@ button {
 }
 
 .windfarm-terrain-scene.projection-enabled canvas {
-  filter: saturate(0.82) brightness(0.95) contrast(1.12) drop-shadow(0 0 11px rgba(0, 229, 223, 0.42));
+  filter: saturate(1.08) brightness(1.26) contrast(1.18) drop-shadow(0 0 15px rgba(0, 229, 223, 0.58));
 }
 
-.windfarm-terrain-scene.projection-enabled::after { opacity: 0.08; }
+.windfarm-terrain-scene.projection-enabled {
+  background:
+    radial-gradient(ellipse at 50% 67%, rgba(0, 90, 89, 0.18), transparent 58%),
+    linear-gradient(180deg, #000709, #010e11 62%, #001115);
+}
+
+.windfarm-terrain-scene.projection-enabled::after { opacity: 0; }
 
 .windfarm-hotspot-layer {
   position: absolute;
