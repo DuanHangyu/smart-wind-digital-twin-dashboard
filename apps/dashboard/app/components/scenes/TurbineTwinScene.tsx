@@ -299,10 +299,45 @@ export function TurbineTwinScene({
         let hoveredRuntime: PartRuntime | null = null;
         let pointerDown = { x: 0, y: 0 };
 
+        const setModeCamera = (mode: TurbineViewMode) => {
+          const distanceScale = mode === "wireframe" ? 0.72 : mode === "structure" ? 0.76 : 0.64;
+          targetGoal.copy(defaultTarget).setY(1.12);
+          cameraGoal
+            .copy(defaultCamera)
+            .normalize()
+            .multiplyScalar(defaultCamera.length() * distanceScale)
+            .add(targetGoal);
+          camera.position.copy(cameraGoal);
+          controls?.target.copy(targetGoal);
+          controls?.update();
+        };
         const businessPartForNode = (nodeName: string) => partsRef.current.find((part) => part.modelNodeName === nodeName);
         const selectPart = (partId: string | null, notify = false) => {
           const businessPart = partId ? partsRef.current.find((part) => part.id === partId) : null;
-          selectedRuntime = businessPart ? partByName.get(businessPart.modelNodeName) ?? null : null;
+          const nextRuntime = businessPart ? partByName.get(businessPart.modelNodeName) ?? null : null;
+          if (nextRuntime) {
+            selectedRuntime = nextRuntime;
+            const selectedName = nextRuntime.object.name;
+            const shouldRefocus = !selectedName.startsWith("PART__BLADE_")
+              && selectedName !== "PART__TOWER"
+              && selectedName !== "PART__NACELLE_SHELL";
+            scene.updateMatrixWorld(true);
+            const bounds = new THREE.Box3().setFromObject(nextRuntime.object);
+            if (shouldRefocus && !bounds.isEmpty()) {
+              const center = bounds.getCenter(new THREE.Vector3());
+              const size = bounds.getSize(new THREE.Vector3());
+              const focusDistance = THREE.MathUtils.clamp(
+                size.length() * 2.35,
+                stateRef.current.viewMode === "structure" ? 3.65 : 3.15,
+                stateRef.current.viewMode === "structure" ? 4.35 : 3.85,
+              );
+              targetGoal.copy(center);
+              cameraGoal.copy(defaultCamera).normalize().multiplyScalar(focusDistance).add(center);
+            }
+          } else {
+            selectedRuntime = null;
+            setModeCamera(stateRef.current.viewMode);
+          }
           if (notify) onPartSelectRef.current(businessPart?.id ?? null);
         };
 
@@ -423,20 +458,8 @@ export function TurbineTwinScene({
               hotspotByTarget.set(target, hotspot);
             });
 
-            selectPart(stateRef.current.selectedPartId);
-            const setModeCamera = (mode: TurbineViewMode) => {
-              const distanceScale = mode === "wireframe" ? 0.72 : mode === "structure" ? 0.76 : 0.64;
-              targetGoal.copy(defaultTarget).setY(0.55);
-              cameraGoal
-                .copy(defaultCamera)
-                .normalize()
-                .multiplyScalar(defaultCamera.length() * distanceScale)
-                .add(targetGoal);
-              camera.position.copy(cameraGoal);
-              controls?.target.copy(targetGoal);
-              controls?.update();
-            };
             setModeCamera(stateRef.current.viewMode);
+            selectPart(stateRef.current.selectedPartId);
             controllerRef.current = {
               resetCamera() {
                 setModeCamera(stateRef.current.viewMode);
@@ -463,9 +486,19 @@ export function TurbineTwinScene({
         };
         const hitPart = () => {
           raycaster.setFromCamera(pointer, camera);
-          const hit = raycaster.intersectObjects(partRuntimes.map((runtime) => runtime.object), true)[0];
-          const part = modelPartFromHit(hit?.object ?? null);
-          return part ? partByName.get(part.name) ?? null : null;
+          const hits = raycaster.intersectObjects(partRuntimes.map((runtime) => runtime.object), true);
+          const runtimes = hits
+            .map((hit) => modelPartFromHit(hit.object))
+            .filter((part): part is PartMesh => Boolean(part))
+            .map((part) => partByName.get(part.name) ?? null)
+            .filter((runtime): runtime is PartRuntime => Boolean(runtime));
+          if (stateRef.current.viewMode === "transparent" || stateRef.current.viewMode === "structure") {
+            return runtimes.find((runtime) => !EXTERNAL_PARTS.has(runtime.object.name) && runtime.object.name !== "PART__BEDPLATE")
+              ?? runtimes.find((runtime) => !EXTERNAL_PARTS.has(runtime.object.name))
+              ?? runtimes[0]
+              ?? null;
+          }
+          return runtimes[0] ?? null;
         };
         const handlePointerDown = (event: PointerEvent) => { pointerDown = { x: event.clientX, y: event.clientY }; };
         const handlePointerMove = (event: PointerEvent) => {
@@ -621,14 +654,15 @@ export function TurbineTwinScene({
 
           const detail = detailRef.current;
           if (detail && selectedRuntime && selectedRuntime.object.visible) {
-            const anchor = hotspotByTarget.get(selectedRuntime.object.name) ?? selectedRuntime.object;
-            anchor.getWorldPosition(projected);
+            const anchor = hotspotByTarget.get(selectedRuntime.object.name);
+            if (anchor) anchor.getWorldPosition(projected);
+            else new THREE.Box3().setFromObject(selectedRuntime.object).getCenter(projected);
             projected.project(camera);
             const visible = projected.z > -1 && projected.z < 1;
             detail.hidden = !visible;
             if (visible) {
-              const x = THREE.MathUtils.clamp((projected.x * 0.5 + 0.5) * host.clientWidth + 36, 12, host.clientWidth - 246);
-              const y = THREE.MathUtils.clamp((-projected.y * 0.5 + 0.5) * host.clientHeight - 74, 46, host.clientHeight - 164);
+              const x = THREE.MathUtils.clamp((projected.x * 0.5 + 0.5) * host.clientWidth + 42, 12, host.clientWidth - 334);
+              const y = THREE.MathUtils.clamp((-projected.y * 0.5 + 0.5) * host.clientHeight - 48, 76, host.clientHeight - 190);
               detail.style.transform = `translate3d(${x}px, ${y}px, 0)`;
             }
           } else if (detail) detail.hidden = true;
