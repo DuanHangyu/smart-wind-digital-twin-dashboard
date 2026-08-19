@@ -28,9 +28,9 @@ const WINDFARM_CAMERA_MAX_TOUCH = [0, 3.55, 5.75] as const;
 const WINDFARM_CAMERA_MAX_TARGET = [0, 0.78, 0] as const;
 
 const TURBINE_LINKS = [
-  { modelCode: "01", turbineId: "T-A01", target: "PART__TURBINE_01" },
-  { modelCode: "02", turbineId: "T-A02", target: "PART__TURBINE_02" },
-  { modelCode: "03", turbineId: "T-A04", target: "PART__TURBINE_03" },
+  { modelCode: "01", turbineId: "T-A04", target: "PART__TURBINE_01" },
+  { modelCode: "02", turbineId: "T-A01", target: "PART__TURBINE_02" },
+  { modelCode: "03", turbineId: "T-A02", target: "PART__TURBINE_03" },
 ] as const;
 
 type SceneController = {
@@ -238,16 +238,10 @@ export function WindFarmTerrainScene({
           setCameraPresetState(preset);
         };
 
-        const focusSelectedTurbine = (target: string) => {
-          const hotspot = hotspots.get(target);
-          if (!hotspot) return;
-          pivot.updateMatrixWorld(true);
-          const focusPoint = hotspot.getWorldPosition(new THREE.Vector3());
-          const viewDirection = defaultCamera.clone().sub(defaultTarget).normalize();
-          targetGoal.copy(focusPoint).add(new THREE.Vector3(0, -0.42, 0));
-          cameraGoal.copy(targetGoal).addScaledVector(viewDirection, coarsePointer ? 6.1 : 5.45);
-          cameraGoal.y += 0.68;
-          setCameraPresetState("focus-turbine");
+        const focusSelectedTurbine = (_target: string) => {
+          // The reference keeps the entire wind farm in frame while the anchored
+          // information card opens. Selection must not turn into a camera zoom.
+          setCameraPreset("overview");
         };
 
         const setPointer = (event: PointerEvent | MouseEvent) => {
@@ -266,7 +260,7 @@ export function WindFarmTerrainScene({
               if (!material.emissive) return;
               if (visual === "selected") {
                 material.emissive.setHex(part.name === "PART__LAKE" ? 0x00b8ff : 0x10d8ca);
-                material.emissiveIntensity = part.name === "PART__LAKE" ? 0.72 : 0.82;
+                material.emissiveIntensity = part.name === "PART__LAKE" ? 0.48 : 0.28;
               } else if (visual === "hover") {
                 material.emissive.setHex(0x087e7b);
                 material.emissiveIntensity = 0.48;
@@ -587,7 +581,7 @@ export function WindFarmTerrainScene({
             projected.project(camera);
             const visible = projected.z > -1 && projected.z < 1;
             detail.hidden = !visible;
-            if (visible) detail.style.transform = `translate3d(${(projected.x * 0.5 + 0.5) * host.clientWidth + 56}px, ${(-projected.y * 0.5 + 0.5) * host.clientHeight - 70}px, 0)`;
+            if (visible) detail.style.transform = `translate3d(${(projected.x * 0.5 + 0.5) * host.clientWidth + 92}px, ${(-projected.y * 0.5 + 0.5) * host.clientHeight + 88}px, 0)`;
           } else if (detail) detail.hidden = true;
         };
         animationFrame = window.requestAnimationFrame(animate);
@@ -667,13 +661,12 @@ export function WindFarmTerrainScene({
         {selectedTurbine ? (
           <>
             <button aria-label="关闭风机详情" onClick={() => onTurbineSelect(null)} type="button">×</button>
-            <header><i className={selectedTurbine.status} /><strong>{selectedTurbine.name}</strong><small>{selectedTurbine.code}</small></header>
+            <header><i className={selectedTurbine.status} /><strong>风机信息</strong><small>{selectedTurbine.code}</small></header>
             <dl>
-              <div><dt>机组位置</dt><dd>{selectedTurbine.positionText}</dd></div>
-              <div><dt>实时功率</dt><dd>{selectedTurbine.powerKW === null ? "--" : `${Math.round(selectedTurbine.powerKW)} kW`}</dd></div>
-              <div><dt>实时风速</dt><dd>{selectedTurbine.windSpeedMS === null ? "--" : `${selectedTurbine.windSpeedMS.toFixed(1)} m/s`}</dd></div>
-              <div><dt>累计发电</dt><dd>{Math.round(selectedTurbine.totalGenerationKWh)} kWh</dd></div>
-              <div><dt>运行状态</dt><dd>{STATUS_LABEL[selectedTurbine.status]}</dd></div>
+              <div><dt>风机名称</dt><dd>{selectedTurbine.name}</dd></div>
+              <div><dt>风机状态</dt><dd>{STATUS_LABEL[selectedTurbine.status]}</dd></div>
+              <div className="metric"><dt>风速</dt><dd>{selectedTurbine.windSpeedMS === null ? "--" : `${selectedTurbine.windSpeedMS.toFixed(1)} m/s`}</dd></div>
+              <div className="metric"><dt>功率</dt><dd>{selectedTurbine.powerKW === null ? "--" : `${Math.round(selectedTurbine.powerKW)} kW`}</dd></div>
             </dl>
           </>
         ) : null}

@@ -166,7 +166,7 @@ test("integrates the validated B V5 terrain with linked turbine points", async (
   assert.equal(nodeNames.filter((name) => name.startsWith("HOTSPOT__")).length, 4);
   assert.ok(nodeNames.includes("PART__TERRAIN"));
   assert.ok(nodeNames.includes("PART__LAKE"));
-  assert.match(scene, /T-A01[\s\S]*T-A02[\s\S]*T-A04/);
+  for (const turbineId of ["T-A01", "T-A02", "T-A04"]) assert.match(scene, new RegExp(turbineId));
   assert.match(scene, /WireframeGeometry/);
   assert.match(scene, /setWaterVisible/);
   assert.match(scene, /setProjectionEnabled/);
@@ -204,10 +204,10 @@ test("polishes the P02 terrain presentation without modifying the windfarm asset
   assert.match(scene, /baseMeshes/);
   assert.match(scene, /PART__BASE/);
   assert.match(scene, /setCameraPreset/);
-  assert.match(scene, /focusSelectedTurbine/);
-  assert.match(scene, /机组位置/);
-  assert.match(scene, /累计发电/);
-  assert.match(styles, /\.windfarm-anchor-card\s*\{[\s\S]*?width:\s*292px/);
+  assert.match(scene, /focusSelectedTurbine = \(_target: string\) => \{[\s\S]*?setCameraPreset\("overview"\)/);
+  assert.match(scene, /风机名称/);
+  assert.match(scene, /风机状态/);
+  assert.match(styles, /\.windfarm-anchor-card\s*\{[\s\S]*?width:\s*350px/);
   assert.match(styles, /\.windfarm-hotspot-layer button\[hidden\][\s\S]*?display:\s*none/);
   assert.match(styles, /\.page-windfarm \.scene-grid\s*\{[\s\S]*?transform:\s*none/);
 });
