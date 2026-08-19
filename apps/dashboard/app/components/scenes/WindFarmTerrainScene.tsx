@@ -20,9 +20,9 @@ type CameraPreset = "overview" | "max" | "focus-turbine";
 
 // The overview reproduces the target composition: lake in the foreground,
 // three turbines across the middle distance, and enough air above the ridges.
-const WINDFARM_CAMERA_OVERVIEW_DESKTOP = [-1.35, 4.55, 7.75] as const;
-const WINDFARM_CAMERA_OVERVIEW_TOUCH = [-1.2, 4.8, 8.35] as const;
-const WINDFARM_CAMERA_OVERVIEW_TARGET = [0, -0.08, 0] as const;
+const WINDFARM_CAMERA_OVERVIEW_DESKTOP = [-1.1, 5.55, 7.25] as const;
+const WINDFARM_CAMERA_OVERVIEW_TOUCH = [-1.05, 5.75, 7.75] as const;
+const WINDFARM_CAMERA_OVERVIEW_TARGET = [0, -0.48, 0] as const;
 const WINDFARM_CAMERA_MAX_DESKTOP = [0, 3.4, 5.45] as const;
 const WINDFARM_CAMERA_MAX_TOUCH = [0, 3.55, 5.75] as const;
 const WINDFARM_CAMERA_MAX_TARGET = [0, 0.78, 0] as const;
@@ -431,7 +431,7 @@ export function WindFarmTerrainScene({
             const center = bounds.getCenter(new THREE.Vector3());
             const size = bounds.getSize(new THREE.Vector3());
             root.position.copy(center).multiplyScalar(-1);
-            pivot.scale.setScalar(11.6 / Math.max(size.x, size.z));
+            pivot.scale.setScalar(12.4 / Math.max(size.x, size.z));
             pivot.add(root);
 
             const applyProjectionLook = (enabled: boolean) => {

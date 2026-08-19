@@ -267,8 +267,8 @@ test("locks the three reference-directed opening camera shots", async () => {
 
   assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 8\.3, 10\.4\]/);
   assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, -0\.35, 0\]/);
-  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_DESKTOP = \[-1\.35, 4\.55, 7\.75\]/);
-  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_TARGET = \[0, -0\.08, 0\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_DESKTOP = \[-1\.1, 5\.55, 7\.25\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_TARGET = \[0, -0\.48, 0\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_DESKTOP = \[3\.15, 1\.4, 3\.95\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_TARGET = \[0, -0\.05, 0\]/);
   assert.match(mapScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
