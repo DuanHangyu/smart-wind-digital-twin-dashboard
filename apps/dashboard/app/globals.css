@@ -913,6 +913,14 @@ button {
   display: none;
 }
 
+.page-windfarm .scene-grid {
+  inset: 58px 18px 54px;
+  opacity: 0.18;
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse at 50% 55%, rgba(0, 0, 0, 0.82) 18%, transparent 82%);
+  transform: none;
+}
+
 .scene-scan {
   position: absolute;
   z-index: 1;
@@ -1209,13 +1217,34 @@ button {
 
 .windfarm-terrain-scene {
   background:
-    radial-gradient(ellipse at 48% 62%, rgba(0, 112, 92, 0.1), transparent 58%),
-    linear-gradient(180deg, rgba(0, 31, 31, 0.12), transparent 32%);
+    radial-gradient(ellipse at 48% 64%, rgba(0, 112, 92, 0.1), transparent 62%),
+    linear-gradient(180deg, rgba(82, 111, 103, 0.2), rgba(2, 22, 20, 0.06) 44%, rgba(0, 8, 10, 0.38));
+}
+
+.windfarm-terrain-scene::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(180deg, rgba(190, 211, 201, 0.2), transparent 38%),
+    radial-gradient(ellipse at 50% 42%, rgba(176, 207, 191, 0.14), transparent 58%);
+  mix-blend-mode: screen;
+  opacity: 0.46;
+  pointer-events: none;
+  transition: opacity 320ms ease;
+}
+
+.windfarm-terrain-scene canvas {
+  filter: saturate(0.82) brightness(0.94) contrast(1.02);
+  transition: filter 360ms ease;
 }
 
 .windfarm-terrain-scene.projection-enabled canvas {
-  filter: drop-shadow(0 0 8px rgba(0, 229, 223, 0.28));
+  filter: saturate(0.82) brightness(0.95) contrast(1.12) drop-shadow(0 0 11px rgba(0, 229, 223, 0.42));
 }
+
+.windfarm-terrain-scene.projection-enabled::after { opacity: 0.08; }
 
 .windfarm-hotspot-layer {
   position: absolute;
@@ -1229,15 +1258,15 @@ button {
   top: 0;
   left: 0;
   display: grid;
-  min-width: 116px;
-  height: 34px;
-  grid-template-columns: 7px 1fr;
+  min-width: 136px;
+  height: 42px;
+  grid-template-columns: 18px 1fr;
   align-items: center;
   gap: 4px 7px;
-  padding: 4px 9px;
+  padding: 5px 11px 5px 7px;
   border: 1px solid rgba(0, 229, 223, 0.5);
   background: linear-gradient(90deg, rgba(1, 33, 34, 0.94), rgba(1, 18, 21, 0.86));
-  box-shadow: 0 0 13px rgba(0, 229, 223, 0.12);
+  box-shadow: 0 0 16px rgba(0, 229, 223, 0.16), inset 0 0 16px rgba(0, 229, 223, 0.05);
   color: #b5eded;
   pointer-events: auto;
   cursor: pointer;
@@ -1245,27 +1274,32 @@ button {
   transition: border-color 180ms ease, background 180ms ease, filter 180ms ease;
 }
 
+.windfarm-hotspot-layer button[hidden],
+.windfarm-anchor-card[hidden] {
+  display: none;
+}
+
 .windfarm-hotspot-layer button::after {
   position: absolute;
   top: 100%;
   left: 50%;
   width: 1px;
-  height: 25px;
+  height: 36px;
   content: "";
   background: linear-gradient(var(--cyan-bright), transparent);
 }
 
 .windfarm-hotspot-layer button i {
-  width: 6px;
-  height: 6px;
+  width: 18px;
+  height: 18px;
   grid-row: 1 / 3;
-  border-radius: 50%;
-  background: var(--cyan-bright);
-  box-shadow: 0 0 8px var(--cyan-bright);
+  background: rgba(0, 229, 223, 0.5);
+  box-shadow: 0 0 11px rgba(0, 229, 223, 0.72), inset 0 0 0 4px rgba(1, 24, 27, 0.72);
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
 }
 
-.windfarm-hotspot-layer button span { font-size: 8px; letter-spacing: 0.5px; }
-.windfarm-hotspot-layer button small { color: #5a8c8d; font: 7px monospace; }
+.windfarm-hotspot-layer button span { font-size: 10px; letter-spacing: 0.8px; }
+.windfarm-hotspot-layer button small { color: #6f9fa0; font: 8px monospace; }
 .windfarm-hotspot-layer button:hover,
 .windfarm-hotspot-layer button.active {
   border-color: #83fff7;
@@ -1287,11 +1321,11 @@ button {
   z-index: 8;
   top: 0;
   left: 0;
-  width: 216px;
-  padding: 12px 13px 10px;
+  width: 292px;
+  padding: 15px 16px 14px;
   border: 1px solid rgba(0, 229, 223, 0.62);
   background: linear-gradient(135deg, rgba(1, 34, 36, 0.97), rgba(1, 13, 16, 0.94));
-  box-shadow: 0 0 24px rgba(0, 229, 223, 0.16);
+  box-shadow: 0 0 28px rgba(0, 229, 223, 0.2), inset 0 0 26px rgba(0, 229, 223, 0.04);
   color: var(--text);
   pointer-events: auto;
 }
@@ -1300,7 +1334,7 @@ button {
   position: absolute;
   top: 51px;
   right: 100%;
-  width: 34px;
+  width: 56px;
   height: 1px;
   content: "";
   background: linear-gradient(90deg, transparent, var(--cyan-bright));
@@ -1317,18 +1351,37 @@ button {
   cursor: pointer;
 }
 .windfarm-anchor-card > button:hover { color: var(--cyan-bright); }
-.windfarm-anchor-card header { display: grid; grid-template-columns: 7px 1fr auto; align-items: center; gap: 7px; padding-right: 12px; }
-.windfarm-anchor-card header i { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan-bright); box-shadow: 0 0 8px var(--cyan-bright); }
+.windfarm-anchor-card header { display: grid; grid-template-columns: 9px 1fr auto; align-items: center; gap: 9px; padding-right: 15px; }
+.windfarm-anchor-card header i { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan-bright); box-shadow: 0 0 9px var(--cyan-bright); }
 .windfarm-anchor-card header i.standby { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
 .windfarm-anchor-card header i.abnormal,
 .windfarm-anchor-card header i.fault { background: #ff6852; box-shadow: 0 0 8px #ff6852; }
 .windfarm-anchor-card header i.offline { background: #70888a; box-shadow: none; }
-.windfarm-anchor-card header strong { font-size: 10px; }
-.windfarm-anchor-card header small { color: var(--cyan-bright); font: 8px monospace; }
-.windfarm-anchor-card dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 11px 0 0; }
-.windfarm-anchor-card dl div { padding-top: 7px; border-top: 1px solid rgba(0, 229, 223, 0.14); }
-.windfarm-anchor-card dt { color: #577b7d; font-size: 7px; }
-.windfarm-anchor-card dd { margin: 4px 0 0; color: #c8ffff; font: 8px monospace; white-space: nowrap; }
+.windfarm-anchor-card header strong { font-size: 13px; letter-spacing: 1px; }
+.windfarm-anchor-card header small { color: var(--cyan-bright); font: 10px monospace; }
+.windfarm-anchor-card dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px 12px; margin: 15px 0 0; }
+.windfarm-anchor-card dl div { padding-top: 9px; border-top: 1px solid rgba(0, 229, 223, 0.17); }
+.windfarm-anchor-card dt { color: #6d9a9c; font-size: 9px; }
+.windfarm-anchor-card dd { margin: 5px 0 0; color: #d5ffff; font: 11px monospace; white-space: nowrap; }
+.windfarm-anchor-card.fault,
+.windfarm-anchor-card.abnormal { border-color: rgba(255, 104, 82, 0.82); box-shadow: 0 0 28px rgba(255, 104, 82, 0.18); }
+.windfarm-anchor-card.standby { border-color: rgba(244, 197, 66, 0.72); }
+
+.windfarm-camera-actions {
+  position: absolute;
+  z-index: 7;
+  right: 20px;
+  bottom: 9px;
+  display: flex;
+  gap: 7px;
+}
+
+.windfarm-camera-actions .map-camera-reset { position: static; }
+.windfarm-camera-actions .map-camera-reset.active {
+  border-color: var(--cyan-bright);
+  color: var(--cyan-bright);
+  box-shadow: 0 0 12px rgba(0, 229, 223, 0.16);
+}
 
 .map-hotspot-layer {
   position: absolute;

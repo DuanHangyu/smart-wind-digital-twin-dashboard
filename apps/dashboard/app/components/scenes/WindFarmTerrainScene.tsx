@@ -16,12 +16,16 @@ import type { TurbineRecord, WindfarmSceneState } from "../../types/dashboard";
 
 type LoadState = "loading" | "ready" | "error" | "unsupported";
 type VisualState = "default" | "hover" | "selected";
+type CameraPreset = "overview" | "max" | "focus-turbine";
 
-// The desktop shot intentionally lets the terrain fill the viewport like a
-// landscape, instead of presenting it as a small tabletop model.
-const WINDFARM_CAMERA_DESKTOP = [0, 3.4, 5.45] as const;
-const WINDFARM_CAMERA_TOUCH = [0, 3.55, 5.75] as const;
-const WINDFARM_CAMERA_TARGET = [0, 0.78, 0] as const;
+// The overview reproduces the target composition: lake in the foreground,
+// three turbines across the middle distance, and enough air above the ridges.
+const WINDFARM_CAMERA_OVERVIEW_DESKTOP = [-1.35, 4.55, 7.75] as const;
+const WINDFARM_CAMERA_OVERVIEW_TOUCH = [-1.2, 4.8, 8.35] as const;
+const WINDFARM_CAMERA_OVERVIEW_TARGET = [0, -0.08, 0] as const;
+const WINDFARM_CAMERA_MAX_DESKTOP = [0, 3.4, 5.45] as const;
+const WINDFARM_CAMERA_MAX_TOUCH = [0, 3.55, 5.75] as const;
+const WINDFARM_CAMERA_MAX_TARGET = [0, 0.78, 0] as const;
 
 const TURBINE_LINKS = [
   { modelCode: "01", turbineId: "T-A01", target: "PART__TURBINE_01" },
@@ -34,6 +38,7 @@ type SceneController = {
   hoverTarget: (target: string | null) => void;
   setProjectionEnabled: (enabled: boolean) => void;
   setWaterVisible: (visible: boolean) => void;
+  setCameraPreset: (preset: Exclude<CameraPreset, "focus-turbine">) => void;
   resetCamera: () => void;
 };
 
@@ -97,6 +102,7 @@ export function WindFarmTerrainScene({
   const selectCallbackRef = useRef(onTurbineSelect);
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [progress, setProgress] = useState(0);
+  const [cameraPreset, setCameraPresetState] = useState<CameraPreset>("overview");
 
   useEffect(() => { stateRef.current = state; }, [state]);
   useEffect(() => { turbinesRef.current = turbines; }, [turbines]);
@@ -113,7 +119,6 @@ export function WindFarmTerrainScene({
 
     let disposed = false;
     let animationFrame = 0;
-    let resumeTimer = 0;
     let resizeObserver: ResizeObserver | null = null;
     let renderer: import("three").WebGLRenderer | null = null;
     let controls: import("three/examples/jsm/controls/OrbitControls.js").OrbitControls | null = null;
@@ -131,11 +136,16 @@ export function WindFarmTerrainScene({
         if (disposed) return;
 
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x02090a, 0.026);
-        const camera: PerspectiveCamera = new THREE.PerspectiveCamera(37, 1, 0.05, 100);
+        const fog = new THREE.FogExp2(0x111f1a, 0.044);
+        scene.fog = fog;
+        const camera: PerspectiveCamera = new THREE.PerspectiveCamera(35, 1, 0.05, 100);
         const coarsePointer = matchMedia("(pointer: coarse)").matches;
-        const defaultCamera = new THREE.Vector3(...(coarsePointer ? WINDFARM_CAMERA_TOUCH : WINDFARM_CAMERA_DESKTOP));
-        const defaultTarget = new THREE.Vector3(...WINDFARM_CAMERA_TARGET);
+        const defaultCamera = new THREE.Vector3(...(
+          coarsePointer ? WINDFARM_CAMERA_OVERVIEW_TOUCH : WINDFARM_CAMERA_OVERVIEW_DESKTOP
+        ));
+        const defaultTarget = new THREE.Vector3(...WINDFARM_CAMERA_OVERVIEW_TARGET);
+        const cameraGoal = defaultCamera.clone();
+        const targetGoal = defaultTarget.clone();
         camera.position.copy(defaultCamera);
 
         renderer = new THREE.WebGLRenderer({
@@ -147,40 +157,33 @@ export function WindFarmTerrainScene({
         renderer.setPixelRatio(Math.min(devicePixelRatio, coarsePointer ? 1.25 : 1.8));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.08;
+        renderer.toneMappingExposure = 0.96;
 
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
         controls.dampingFactor = 0.065;
-        controls.minDistance = 5.9;
+        controls.minDistance = 5.1;
         controls.maxDistance = 26;
         controls.minPolarAngle = 0.32;
         controls.maxPolarAngle = 1.42;
         controls.target.copy(defaultTarget);
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.38;
+        controls.autoRotate = false;
 
-        const pauseCruise = () => {
-          window.clearTimeout(resumeTimer);
-          if (controls) controls.autoRotate = false;
+        const preserveManualCamera = () => {
+          cameraGoal.copy(camera.position);
+          if (controls) targetGoal.copy(controls.target);
+          setCameraPresetState("overview");
         };
-        const scheduleCruise = () => {
-          window.clearTimeout(resumeTimer);
-          resumeTimer = window.setTimeout(() => { if (controls) controls.autoRotate = true; }, 5000);
-        };
-        controls.addEventListener("start", pauseCruise);
-        controls.addEventListener("end", scheduleCruise);
+        controls.addEventListener("start", preserveManualCamera);
         cleanups.push(() => {
-          controls?.removeEventListener("start", pauseCruise);
-          controls?.removeEventListener("end", scheduleCruise);
-          window.clearTimeout(resumeTimer);
+          controls?.removeEventListener("start", preserveManualCamera);
         });
 
-        scene.add(new THREE.HemisphereLight(0xb6fff4, 0x071611, 2.05));
-        const keyLight = new THREE.DirectionalLight(0xf0fff7, 3.25);
+        scene.add(new THREE.HemisphereLight(0xc4e9dc, 0x06100d, 1.4));
+        const keyLight = new THREE.DirectionalLight(0xd7e8dc, 2.02);
         keyLight.position.set(-6, 10, 7);
         scene.add(keyLight);
-        const rimLight = new THREE.PointLight(0x00dcd4, 7, 30, 2);
+        const rimLight = new THREE.PointLight(0x00dcd4, 3.4, 30, 2);
         rimLight.position.set(7, 6, -5);
         scene.add(rimLight);
 
@@ -188,7 +191,7 @@ export function WindFarmTerrainScene({
         grid.position.y = -0.42;
         const gridMaterial = grid.material as Material;
         gridMaterial.transparent = true;
-        gridMaterial.opacity = 0.24;
+        gridMaterial.opacity = 0.12;
         scene.add(grid);
 
         const pivot = new THREE.Group();
@@ -204,6 +207,7 @@ export function WindFarmTerrainScene({
         const partByTarget = new Map<string, InteractivePart>();
         const hotspots = new Map<string, Object3D>();
         const rotors = new Map<string, { axis: Vector3; object: Object3D }>();
+        const projectionAccentMaterials = new Set<MeshStandardMaterial>();
         const blenderAxisToGltf = (axis: unknown) => {
           // Blender exports Z-up coordinates to glTF's Y-up system:
           // source +X -> glTF +X, source +Y -> glTF -Z, source +Z -> glTF +Y.
@@ -213,9 +217,38 @@ export function WindFarmTerrainScene({
           return new THREE.Vector3(0, 0, -1);
         };
         let lakePart: InteractivePart | null = null;
+        const baseMeshes: Mesh[] = [];
+        const terrainMeshes: Mesh[] = [];
+        const originalTerrainMaterials = new Map<Mesh, Material | Material[]>();
+        const wireLines: import("three").LineSegments[] = [];
+        let projectionTerrainMaterial: MeshStandardMaterial | null = null;
+        let projectionShader: { uniforms: { uProjectionTime: { value: number } } } | null = null;
+        let projectionActive = stateRef.current.projectionEnabled;
         let selectedPart: InteractivePart | null = null;
         let hoverPart: InteractivePart | null = null;
         let pointerDown = { x: 0, y: 0 };
+
+        const setCameraPreset = (preset: Exclude<CameraPreset, "focus-turbine">) => {
+          const position = preset === "max"
+            ? (coarsePointer ? WINDFARM_CAMERA_MAX_TOUCH : WINDFARM_CAMERA_MAX_DESKTOP)
+            : (coarsePointer ? WINDFARM_CAMERA_OVERVIEW_TOUCH : WINDFARM_CAMERA_OVERVIEW_DESKTOP);
+          const target = preset === "max" ? WINDFARM_CAMERA_MAX_TARGET : WINDFARM_CAMERA_OVERVIEW_TARGET;
+          cameraGoal.set(...position);
+          targetGoal.set(...target);
+          setCameraPresetState(preset);
+        };
+
+        const focusSelectedTurbine = (target: string) => {
+          const hotspot = hotspots.get(target);
+          if (!hotspot) return;
+          pivot.updateMatrixWorld(true);
+          const focusPoint = hotspot.getWorldPosition(new THREE.Vector3());
+          const viewDirection = defaultCamera.clone().sub(defaultTarget).normalize();
+          targetGoal.copy(focusPoint).add(new THREE.Vector3(0, -0.42, 0));
+          cameraGoal.copy(targetGoal).addScaledVector(viewDirection, coarsePointer ? 6.1 : 5.45);
+          cameraGoal.y += 0.68;
+          setCameraPresetState("focus-turbine");
+        };
 
         const setPointer = (event: PointerEvent | MouseEvent) => {
           const rect = canvas.getBoundingClientRect();
@@ -233,10 +266,13 @@ export function WindFarmTerrainScene({
               if (!material.emissive) return;
               if (visual === "selected") {
                 material.emissive.setHex(part.name === "PART__LAKE" ? 0x00b8ff : 0x10d8ca);
-                material.emissiveIntensity = part.name === "PART__LAKE" ? 0.72 : 0.58;
+                material.emissiveIntensity = part.name === "PART__LAKE" ? 0.72 : 0.82;
               } else if (visual === "hover") {
                 material.emissive.setHex(0x087e7b);
-                material.emissiveIntensity = 0.34;
+                material.emissiveIntensity = 0.48;
+              } else if (projectionActive && part.name !== "PART__LAKE") {
+                material.emissive.setHex(0x00bdb6);
+                material.emissiveIntensity = 0.58;
               } else {
                 material.emissive.copy(material.userData.baseEmissive);
                 material.emissiveIntensity = material.userData.baseEmissiveIntensity;
@@ -247,10 +283,18 @@ export function WindFarmTerrainScene({
 
         const selectTarget = (target: string | null) => {
           const next = target ? partByTarget.get(target) ?? null : null;
-          if (next === selectedPart) return;
+          if (next === selectedPart) {
+            if (target?.startsWith("PART__TURBINE_")) focusSelectedTurbine(target);
+            return;
+          }
           if (selectedPart) setPartVisual(selectedPart, "default");
           selectedPart = next;
-          if (selectedPart) setPartVisual(selectedPart, "selected");
+          if (selectedPart) {
+            setPartVisual(selectedPart, "selected");
+            if (selectedPart.name.startsWith("PART__TURBINE_")) focusSelectedTurbine(selectedPart.name);
+          } else {
+            setCameraPreset("overview");
+          }
         };
 
         const hoverTarget = (target: string | null) => {
@@ -269,7 +313,14 @@ export function WindFarmTerrainScene({
           (gltf) => {
             if (disposed) return;
             const root = gltf.scene;
-            let terrainMesh: Mesh | null = null;
+            const belongsToPart = (object: Object3D, partName: string) => {
+              let current: Object3D | null = object;
+              while (current) {
+                if (current.name === partName) return true;
+                current = current.parent;
+              }
+              return false;
+            };
             root.traverse((object) => {
               if (object.name.startsWith("PART__TURBINE_") || object.name === "PART__LAKE") {
                 const part = object as InteractivePart;
@@ -289,28 +340,90 @@ export function WindFarmTerrainScene({
               }
               const mesh = object as Mesh;
               if (!mesh.isMesh) return;
-              if (object.name === "PART__TERRAIN") terrainMesh = mesh;
+              const isTerrainMesh = belongsToPart(object, "PART__TERRAIN");
+              const isBaseMesh = belongsToPart(object, "PART__BASE");
+              if (isTerrainMesh) terrainMeshes.push(mesh);
+              if (isBaseMesh) baseMeshes.push(mesh);
               const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
               const cloned = materials.map((entry) => {
                 const material = entry.clone() as MeshStandardMaterial;
                 if (material.emissive) {
                   material.userData.baseEmissive = material.emissive.clone();
                   material.userData.baseEmissiveIntensity = material.emissiveIntensity;
+                  material.userData.baseColor = material.color.clone();
+                  material.userData.baseOpacity = material.opacity;
+                  material.userData.baseTransparent = material.transparent;
+                  if (!isTerrainMesh && !isBaseMesh) projectionAccentMaterials.add(material);
+                }
+                if (isTerrainMesh) {
+                  material.color.setHex(0x889b84);
+                  material.metalness = 0;
+                  material.roughness = 0.94;
+                  material.emissive.setHex(0x020a07);
+                  material.emissiveIntensity = 0.08;
+                } else if (material.color) {
+                  material.color.multiplyScalar(0.86);
+                  material.roughness = Math.max(material.roughness, 0.66);
                 }
                 return material;
               });
               mesh.material = Array.isArray(mesh.material) ? cloned : cloned[0];
             });
 
-            if (terrainMesh) {
-              const lines = new THREE.LineSegments(
-                new THREE.WireframeGeometry((terrainMesh as Mesh).geometry),
-                new THREE.LineBasicMaterial({ color: 0x48fff1, transparent: true, opacity: 0.66, depthWrite: false }),
-              );
-              lines.position.copy((terrainMesh as Mesh).position);
-              lines.rotation.copy((terrainMesh as Mesh).rotation);
-              lines.scale.copy((terrainMesh as Mesh).scale);
-              wireGroup.add(lines);
+            if (terrainMeshes.length) {
+              projectionTerrainMaterial = new THREE.MeshStandardMaterial({
+                blending: THREE.NormalBlending,
+                color: 0x000405,
+                depthWrite: true,
+                emissive: 0x001010,
+                emissiveIntensity: 0.015,
+                metalness: 0,
+                opacity: 0.055,
+                roughness: 0.78,
+                side: THREE.DoubleSide,
+                transparent: true,
+                wireframe: false,
+              });
+              projectionTerrainMaterial.onBeforeCompile = (shader) => {
+                shader.uniforms.uProjectionTime = { value: 0 };
+                projectionShader = shader as typeof projectionShader;
+                shader.vertexShader = shader.vertexShader
+                  .replace("#include <common>", "#include <common>\nvarying vec3 vProjectionPosition;")
+                  .replace("#include <begin_vertex>", "#include <begin_vertex>\nvProjectionPosition = position;");
+                shader.fragmentShader = shader.fragmentShader
+                  .replace(
+                    "#include <common>",
+                    "#include <common>\nvarying vec3 vProjectionPosition;\nuniform float uProjectionTime;",
+                  )
+                  .replace(
+                    "#include <emissivemap_fragment>",
+                    `#include <emissivemap_fragment>
+                    float scanWave = pow(max(0.0, sin(vProjectionPosition.y * 18.0 - uProjectionTime * 1.35)), 18.0);
+                    float ridgeFresnel = pow(1.0 - abs(dot(normalize(normal), normalize(vViewPosition))), 2.2);
+                    totalEmissiveRadiance += vec3(0.0, 0.28, 0.27) * (scanWave * 0.34 + ridgeFresnel * 0.12);`,
+                  );
+              };
+              terrainMeshes.forEach((mesh) => {
+                originalTerrainMaterials.set(mesh, mesh.material);
+                // The target uses a continuous triangular topology. Rendering the terrain's
+                // real edge network at low alpha is both more faithful and avoids stripe artifacts.
+                const hologramWireGeometry = new THREE.WireframeGeometry(mesh.geometry);
+                const lines = new THREE.LineSegments(
+                  hologramWireGeometry,
+                  new THREE.LineBasicMaterial({
+                    blending: THREE.AdditiveBlending,
+                    color: 0x00e6dc,
+                    depthTest: true,
+                    depthWrite: false,
+                    opacity: 0.24,
+                    transparent: true,
+                  }),
+                );
+                lines.renderOrder = 5;
+                lines.visible = stateRef.current.projectionEnabled;
+                mesh.add(lines);
+                wireLines.push(lines);
+              });
               root.add(wireGroup);
             }
 
@@ -321,22 +434,54 @@ export function WindFarmTerrainScene({
             pivot.scale.setScalar(11.6 / Math.max(size.x, size.z));
             pivot.add(root);
 
+            const applyProjectionLook = (enabled: boolean) => {
+              projectionActive = enabled;
+              wireGroup.visible = enabled;
+              grid.visible = !enabled;
+              fog.color.setHex(enabled ? 0x000708 : 0x111f1a);
+              fog.density = enabled ? 0.028 : 0.044;
+              if (renderer) renderer.toneMappingExposure = enabled ? 0.82 : 0.96;
+              wireLines.forEach((lines) => { lines.visible = enabled; });
+              baseMeshes.forEach((mesh) => { mesh.visible = !enabled; });
+              terrainMeshes.forEach((mesh) => {
+                const original = originalTerrainMaterials.get(mesh);
+                if (original && projectionTerrainMaterial) mesh.material = enabled ? projectionTerrainMaterial : original;
+              });
+              projectionAccentMaterials.forEach((material) => {
+                if (enabled) {
+                  material.color.setHex(0x42d8cf);
+                  material.emissive.setHex(0x00bdb6);
+                  material.emissiveIntensity = 0.58;
+                  material.opacity = 0.76;
+                  material.transparent = true;
+                } else {
+                  material.color.copy(material.userData.baseColor);
+                  material.emissive.copy(material.userData.baseEmissive);
+                  material.emissiveIntensity = material.userData.baseEmissiveIntensity;
+                  material.opacity = material.userData.baseOpacity;
+                  material.transparent = material.userData.baseTransparent;
+                }
+                material.needsUpdate = true;
+              });
+              if (lakePart) lakePart.visible = !enabled && stateRef.current.waterVisible;
+              if (selectedPart) setPartVisual(selectedPart, "selected");
+            };
+
             if (lakePart) lakePart.visible = stateRef.current.waterVisible;
+            applyProjectionLook(stateRef.current.projectionEnabled);
             selectTarget(targetFromTurbineId(stateRef.current.selectedTurbineId));
             controllerRef.current = {
               selectTurbine(turbineId) { selectTarget(targetFromTurbineId(turbineId)); },
               hoverTarget,
-              setProjectionEnabled(enabled) { wireGroup.visible = enabled; },
+              setProjectionEnabled: applyProjectionLook,
               setWaterVisible(visible) {
-                if (lakePart) lakePart.visible = visible;
+                if (lakePart) lakePart.visible = visible && !projectionActive;
                 const label = labelRefs.current.PART__LAKE;
-                if (label) label.hidden = !visible;
+                if (label) label.hidden = !visible || projectionActive;
               },
+              setCameraPreset,
               resetCamera() {
-                camera.position.copy(defaultCamera);
-                controls?.target.copy(defaultTarget);
-                controls?.update();
-                scheduleCruise();
+                setCameraPreset("overview");
               },
             };
             setProgress(100);
@@ -413,6 +558,10 @@ export function WindFarmTerrainScene({
             const sourceRpm = Number(rotor.userData.rpm ?? 0);
             rotor.rotateOnAxis(axis, sourceRpm * Math.PI * 2 / 60 * delta);
           });
+          if (projectionShader) projectionShader.uniforms.uProjectionTime.value = now / 1000;
+          const cameraEase = 1 - Math.exp(-delta * 4.8);
+          camera.position.lerp(cameraGoal, cameraEase);
+          controls?.target.lerp(targetGoal, cameraEase);
           controls?.update(delta);
           renderer.render(scene, camera);
 
@@ -422,7 +571,10 @@ export function WindFarmTerrainScene({
             hotspot.getWorldPosition(projected);
             projected.project(camera);
             const inView = projected.z > -1 && projected.z < 1 && Math.abs(projected.x) < 1.08 && Math.abs(projected.y) < 1.08;
-            const visible = inView && (target !== "PART__LAKE" || stateRef.current.waterVisible);
+            const visible = inView && (
+              target !== "PART__LAKE"
+              || (stateRef.current.waterVisible && !projectionActive)
+            );
             element.hidden = !visible;
             if (visible) element.style.transform = `translate3d(${(projected.x * 0.5 + 0.5) * host.clientWidth}px, ${(-projected.y * 0.5 + 0.5) * host.clientHeight}px, 0) translate(-50%, -50%)`;
           });
@@ -435,7 +587,7 @@ export function WindFarmTerrainScene({
             projected.project(camera);
             const visible = projected.z > -1 && projected.z < 1;
             detail.hidden = !visible;
-            if (visible) detail.style.transform = `translate3d(${(projected.x * 0.5 + 0.5) * host.clientWidth + 34}px, ${(-projected.y * 0.5 + 0.5) * host.clientHeight - 52}px, 0)`;
+            if (visible) detail.style.transform = `translate3d(${(projected.x * 0.5 + 0.5) * host.clientWidth + 56}px, ${(-projected.y * 0.5 + 0.5) * host.clientHeight - 70}px, 0)`;
           } else if (detail) detail.hidden = true;
         };
         animationFrame = window.requestAnimationFrame(animate);
@@ -463,7 +615,6 @@ export function WindFarmTerrainScene({
       disposed = true;
       controllerRef.current = null;
       window.cancelAnimationFrame(animationFrame);
-      window.clearTimeout(resumeTimer);
       resizeObserver?.disconnect();
       cleanups.forEach((cleanup) => cleanup());
       controls?.dispose();
@@ -512,14 +663,16 @@ export function WindFarmTerrainScene({
           <i /><span>山地湖泊</span><small>水位正常 · 0.20 m</small>
         </button>
       </div>
-      <div className="windfarm-anchor-card" hidden={!selectedTurbine} ref={detailRef}>
+      <div className={`windfarm-anchor-card ${selectedTurbine?.status ?? ""}`} hidden={!selectedTurbine} ref={detailRef}>
         {selectedTurbine ? (
           <>
             <button aria-label="关闭风机详情" onClick={() => onTurbineSelect(null)} type="button">×</button>
             <header><i className={selectedTurbine.status} /><strong>{selectedTurbine.name}</strong><small>{selectedTurbine.code}</small></header>
             <dl>
+              <div><dt>机组位置</dt><dd>{selectedTurbine.positionText}</dd></div>
               <div><dt>实时功率</dt><dd>{selectedTurbine.powerKW === null ? "--" : `${Math.round(selectedTurbine.powerKW)} kW`}</dd></div>
               <div><dt>实时风速</dt><dd>{selectedTurbine.windSpeedMS === null ? "--" : `${selectedTurbine.windSpeedMS.toFixed(1)} m/s`}</dd></div>
+              <div><dt>累计发电</dt><dd>{Math.round(selectedTurbine.totalGenerationKWh)} kWh</dd></div>
               <div><dt>运行状态</dt><dd>{STATUS_LABEL[selectedTurbine.status]}</dd></div>
             </dl>
           </>
@@ -532,7 +685,19 @@ export function WindFarmTerrainScene({
           <div><strong>{loadState === "unsupported" ? "浏览器不支持 WebGL" : "三维场景加载失败"}</strong><span>已切换为静态备选图</span></div>
         </div>
       ) : null}
-      {loadState === "ready" ? <button className="map-camera-reset" onClick={() => controllerRef.current?.resetCamera()} type="button">复位视角</button> : null}
+      {loadState === "ready" ? (
+        <div className="windfarm-camera-actions">
+          <button className="map-camera-reset" onClick={() => controllerRef.current?.resetCamera()} type="button">全景视角</button>
+          <button
+            aria-pressed={cameraPreset === "max"}
+            className={`map-camera-reset ${cameraPreset === "max" ? "active" : ""}`}
+            onClick={() => controllerRef.current?.setCameraPreset(cameraPreset === "max" ? "overview" : "max")}
+            type="button"
+          >
+            {cameraPreset === "max" ? "恢复全景" : "最大视图"}
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -176,7 +176,7 @@ test("integrates the validated B V5 terrain with linked turbine points", async (
   assert.match(scene, /rotateOnAxis\(axis/);
   assert.doesNotMatch(scene, /rotorLocalAxis/);
   assert.match(scene, /sourceRpm \* Math\.PI \* 2 \/ 60 \* delta/);
-  assert.match(scene, /5000/);
+  assert.doesNotMatch(scene, /autoRotate = true/);
   assert.match(scene, /forceContextLoss/);
   assert.match(page, /WindFarmTerrainScene/);
   assert.match(page, /W4 REAL GLB/);
@@ -201,11 +201,14 @@ test("polishes the P02 terrain presentation without modifying the windfarm asset
   assert.doesNotMatch(scene, /controls\.autoRotate = true/);
   assert.match(scene, /projectionTerrainMaterial/);
   assert.match(scene, /AdditiveBlending/);
+  assert.match(scene, /baseMeshes/);
+  assert.match(scene, /PART__BASE/);
   assert.match(scene, /setCameraPreset/);
   assert.match(scene, /focusSelectedTurbine/);
   assert.match(scene, /机组位置/);
   assert.match(scene, /累计发电/);
   assert.match(styles, /\.windfarm-anchor-card\s*\{[\s\S]*?width:\s*292px/);
+  assert.match(styles, /\.windfarm-hotspot-layer button\[hidden\][\s\S]*?display:\s*none/);
   assert.match(styles, /\.page-windfarm \.scene-grid\s*\{[\s\S]*?transform:\s*none/);
 });
 
@@ -264,8 +267,8 @@ test("locks the three reference-directed opening camera shots", async () => {
 
   assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 8\.3, 10\.4\]/);
   assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, -0\.35, 0\]/);
-  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_DESKTOP = \[-1\.35, 5\.35, 8\.6\]/);
-  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_TARGET = \[0, 0\.18, 0\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_DESKTOP = \[-1\.35, 4\.55, 7\.75\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_TARGET = \[0, -0\.08, 0\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_DESKTOP = \[3\.15, 1\.4, 3\.95\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_TARGET = \[0, -0\.05, 0\]/);
   assert.match(mapScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
