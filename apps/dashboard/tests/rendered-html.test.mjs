@@ -184,6 +184,31 @@ test("integrates the validated B V5 terrain with linked turbine points", async (
   assert.match(telemetry, /selectedTurbineId/);
 });
 
+test("polishes the P02 terrain presentation without modifying the windfarm asset", async () => {
+  const [model, scene, styles] = await Promise.all([
+    readFile(new URL("../public/models/windfarm.glb", import.meta.url)),
+    readFile(new URL("../app/components/scenes/WindFarmTerrainScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(
+    createHash("sha256").update(model).digest("hex"),
+    "690f74ea60d8f417d975aee3aa76263bd8540d7d67753b304c74485bc93c1b32",
+  );
+  assert.match(scene, /WINDFARM_CAMERA_OVERVIEW_DESKTOP/);
+  assert.match(scene, /WINDFARM_CAMERA_MAX_DESKTOP/);
+  assert.match(scene, /controls\.autoRotate = false/);
+  assert.doesNotMatch(scene, /controls\.autoRotate = true/);
+  assert.match(scene, /projectionTerrainMaterial/);
+  assert.match(scene, /AdditiveBlending/);
+  assert.match(scene, /setCameraPreset/);
+  assert.match(scene, /focusSelectedTurbine/);
+  assert.match(scene, /机组位置/);
+  assert.match(scene, /累计发电/);
+  assert.match(styles, /\.windfarm-anchor-card\s*\{[\s\S]*?width:\s*292px/);
+  assert.match(styles, /\.page-windfarm \.scene-grid\s*\{[\s\S]*?transform:\s*none/);
+});
+
 test("integrates the validated C V3 dismantlable turbine with four exclusive modes", async () => {
   const [model, scene, page, parts] = await Promise.all([
     readFile(new URL("../public/models/turbine.glb", import.meta.url)),
@@ -239,11 +264,11 @@ test("locks the three reference-directed opening camera shots", async () => {
 
   assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 8\.3, 10\.4\]/);
   assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, -0\.35, 0\]/);
-  assert.match(windfarmScene, /WINDFARM_CAMERA_DESKTOP = \[0, 3\.4, 5\.45\]/);
-  assert.match(windfarmScene, /WINDFARM_CAMERA_TARGET = \[0, 0\.78, 0\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_DESKTOP = \[-1\.35, 5\.35, 8\.6\]/);
+  assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_TARGET = \[0, 0\.18, 0\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_DESKTOP = \[3\.15, 1\.4, 3\.95\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_TARGET = \[0, -0\.05, 0\]/);
   assert.match(mapScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
-  assert.match(windfarmScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
+  assert.match(windfarmScene, /resetCamera\(\)[\s\S]*setCameraPreset\("overview"\)/);
   assert.match(turbineScene, /resetCamera\(\)[\s\S]*controls\?\.target\.copy\(defaultTarget\)/);
 });
