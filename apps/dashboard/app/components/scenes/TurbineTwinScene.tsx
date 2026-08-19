@@ -92,6 +92,24 @@ const HOTSPOT_TARGETS = new Set([
   "PART__YAW_GEAR",
 ]);
 
+const STRUCTURE_EXPLODE_OFFSETS: Record<string, readonly [number, number, number]> = {
+  PART__BEDPLATE: [0, 0, 0],
+  PART__BLADE_A: [0, 0, 0.28],
+  PART__BLADE_B: [0, 0, 0.28],
+  PART__BLADE_C: [0, 0, 0.28],
+  PART__BRAKE_UNIT: [0.08, 0.03, -0.78],
+  PART__GEARBOX: [0, 0, -0.28],
+  PART__GENERATOR: [0, 0, -0.58],
+  PART__HUB: [0, 0, 0.28],
+  PART__MAIN_BEARING: [0, 0, -0.1],
+  PART__MAIN_SHAFT: [0, 0, 0.1],
+  PART__NACELLE_SHELL: [0, 0.08, -0.24],
+  PART__SPINNER: [0, 0, 0.4],
+  PART__TOWER: [0, -0.56, 0],
+  PART__YAW_BASE: [0, -0.36, 0],
+  PART__YAW_GEAR: [0, -0.2, 0],
+};
+
 const STATUS_LABEL: Record<RuntimeStatus, string> = {
   abnormal: "温度异常",
   fault: "设备故障",
@@ -337,7 +355,9 @@ export function TurbineTwinScene({
               mesh.add(line);
               const runtime: PartRuntime = {
                 basePosition: mesh.position.clone(),
-                explodeOffset: blenderVectorToThree(mesh.userData.explode_vector),
+                explodeOffset: STRUCTURE_EXPLODE_OFFSETS[mesh.name]
+                  ? new THREE.Vector3(...STRUCTURE_EXPLODE_OFFSETS[mesh.name])
+                  : blenderVectorToThree(mesh.userData.explode_vector),
                 line,
                 lineMaterial,
                 materials,
@@ -405,7 +425,7 @@ export function TurbineTwinScene({
 
             selectPart(stateRef.current.selectedPartId);
             const setModeCamera = (mode: TurbineViewMode) => {
-              const distanceScale = mode === "wireframe" ? 0.72 : mode === "structure" ? 0.7 : 0.64;
+              const distanceScale = mode === "wireframe" ? 0.72 : mode === "structure" ? 0.76 : 0.64;
               targetGoal.copy(defaultTarget).setY(0.55);
               cameraGoal
                 .copy(defaultCamera)
