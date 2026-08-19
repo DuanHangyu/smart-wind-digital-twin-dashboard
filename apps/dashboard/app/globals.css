@@ -1111,6 +1111,22 @@ button {
     linear-gradient(180deg, rgba(0, 37, 39, 0.08), rgba(0, 8, 10, 0.24));
 }
 
+.turbine-twin-scene canvas {
+  transition: filter 420ms ease;
+}
+
+.turbine-twin-scene.mode-exterior canvas {
+  filter: brightness(0.92) contrast(1.08) drop-shadow(0 10px 18px rgba(0, 229, 223, 0.09));
+}
+
+.turbine-twin-scene.mode-transparent canvas {
+  filter: saturate(1.08) contrast(1.04) drop-shadow(0 0 14px rgba(0, 229, 223, 0.12));
+}
+
+.turbine-twin-scene.mode-wireframe canvas {
+  filter: saturate(1.55) contrast(1.14) brightness(0.88) drop-shadow(0 0 10px rgba(0, 229, 223, 0.22));
+}
+
 .turbine-hotspot-layer {
   position: absolute;
   z-index: 7;

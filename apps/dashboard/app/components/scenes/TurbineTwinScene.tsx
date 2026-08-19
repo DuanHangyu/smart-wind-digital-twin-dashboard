@@ -201,7 +201,7 @@ export function TurbineTwinScene({
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.localClippingEnabled = true;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.18;
+        renderer.toneMappingExposure = 1.02;
 
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
@@ -228,14 +228,14 @@ export function TurbineTwinScene({
           controls?.removeEventListener("end", resumeCruise);
         });
 
-        scene.add(new THREE.HemisphereLight(0xb9ffff, 0x071010, 2.25));
-        const key = new THREE.DirectionalLight(0xe8ffff, 4.0);
+        scene.add(new THREE.HemisphereLight(0xb9ffff, 0x071010, 1.55));
+        const key = new THREE.DirectionalLight(0xe8ffff, 2.65);
         key.position.set(-4, 8, 7);
         scene.add(key);
-        const rim = new THREE.DirectionalLight(0x16e8df, 4.2);
+        const rim = new THREE.DirectionalLight(0x16e8df, 3.75);
         rim.position.set(6, 4, -5);
         scene.add(rim);
-        const fill = new THREE.DirectionalLight(0x477dff, 1.5);
+        const fill = new THREE.DirectionalLight(0x477dff, 0.95);
         fill.position.set(-6, 2, -3);
         scene.add(fill);
 
@@ -264,6 +264,8 @@ export function TurbineTwinScene({
         const pointer = new THREE.Vector2(2, 2);
         const projected = new THREE.Vector3();
         const cyanColor = new THREE.Color(0x39d7d3);
+        const exteriorColor = new THREE.Color(0xc5d2d2);
+        const wireColor = new THREE.Color(0x09aaa7);
         const selectedColor = new THREE.Color(0x0affec);
         const hoverColor = new THREE.Color(0x087e7b);
         const faultColor = new THREE.Color(0xff463d);
@@ -323,7 +325,7 @@ export function TurbineTwinScene({
                 material,
               }));
               const lineMaterial = new THREE.LineBasicMaterial({
-                color: 0x46fff3,
+                color: 0x16d9d3,
                 depthWrite: false,
                 opacity: 0,
                 transparent: true,
@@ -492,9 +494,9 @@ export function TurbineTwinScene({
           if (mode === "wireframe") return 0.045;
           if (mode === "transparent") {
             if (!external) return 1;
-            if (partName === "PART__NACELLE_SHELL") return 0.18;
-            if (partName === "PART__TOWER") return 0.22;
-            return 0.34;
+            if (partName === "PART__NACELLE_SHELL") return 0.3;
+            if (partName === "PART__TOWER") return 0.2;
+            return 0.3;
           }
           if (partName === "PART__NACELLE_SHELL") return 0.16;
           if (partName === "PART__TOWER" || partName === "PART__YAW_BASE") return 0.32;
@@ -536,11 +538,21 @@ export function TurbineTwinScene({
                 material.clippingPlanes = nextClippingPlanes;
                 material.needsUpdate = true;
               }
-              const tintExternal = EXTERNAL_PARTS.has(partName) && (mode === "transparent" || mode === "wireframe" || (mode === "structure" && targetOpacity < 0.5));
-              material.color.lerp(tintExternal ? cyanColor : entry.baseColor, materialBlend);
+              const isExternal = EXTERNAL_PARTS.has(partName);
+              const tintExternal = isExternal && (mode === "transparent" || (mode === "structure" && targetOpacity < 0.5));
+              const targetColor = mode === "wireframe"
+                ? wireColor
+                : mode === "exterior" && isExternal
+                  ? exteriorColor
+                  : tintExternal
+                    ? cyanColor
+                    : entry.baseColor;
+              material.color.lerp(targetColor, materialBlend);
               material.opacity = THREE.MathUtils.damp(material.opacity, targetOpacity * entry.baseOpacity, 7.2, delta);
-              material.roughness = THREE.MathUtils.damp(material.roughness, tintExternal ? 0.16 : entry.baseRoughness, 7.2, delta);
-              material.metalness = THREE.MathUtils.damp(material.metalness, tintExternal ? 0.08 : entry.baseMetalness, 7.2, delta);
+              const targetRoughness = mode === "exterior" && isExternal ? 0.54 : tintExternal || mode === "wireframe" ? 0.2 : entry.baseRoughness;
+              const targetMetalness = mode === "exterior" && isExternal ? 0.04 : tintExternal || mode === "wireframe" ? 0.06 : entry.baseMetalness;
+              material.roughness = THREE.MathUtils.damp(material.roughness, targetRoughness, 7.2, delta);
+              material.metalness = THREE.MathUtils.damp(material.metalness, targetMetalness, 7.2, delta);
               material.depthWrite = material.opacity > 0.82 && mode !== "wireframe";
               const statusColor = businessPart?.status === "fault"
                 ? faultColor
@@ -553,7 +565,13 @@ export function TurbineTwinScene({
               material.emissiveIntensity = THREE.MathUtils.damp(material.emissiveIntensity, targetIntensity, 8.2, delta);
             });
 
-            const targetLineOpacity = mode === "wireframe" ? 0.78 : isSelected ? 0.22 : 0;
+            const targetLineOpacity = mode === "wireframe"
+              ? 0.42
+              : mode === "transparent" && EXTERNAL_PARTS.has(partName)
+                ? partName === "PART__NACELLE_SHELL" ? 0.06 : 0.025
+                : mode === "exterior" && EXTERNAL_PARTS.has(partName)
+                  ? 0.08
+                  : isSelected ? 0.22 : 0;
             if (targetLineOpacity > 0.01) runtime.line.visible = true;
             runtime.lineMaterial.opacity = THREE.MathUtils.damp(runtime.lineMaterial.opacity, targetLineOpacity, 8, delta);
             if (targetLineOpacity === 0 && runtime.lineMaterial.opacity < 0.01) runtime.line.visible = false;
