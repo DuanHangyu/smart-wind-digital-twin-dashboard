@@ -122,7 +122,7 @@ export function CustomRegionMapScene({
         renderer.setPixelRatio(Math.min(devicePixelRatio, matchMedia("(pointer: coarse)").matches ? 1.35 : 1.8));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.02;
+        renderer.toneMappingExposure = 0.9;
 
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
@@ -132,15 +132,16 @@ export function CustomRegionMapScene({
         controls.minPolarAngle = 0.42;
         controls.maxPolarAngle = 1.38;
         controls.target.copy(defaultTarget);
-        controls.autoRotate = sceneStateRef.current.autoHighlightEnabled;
-        controls.autoRotateSpeed = 0.38;
+        // Region cycling and turbine movement are data animations. Keeping the
+        // camera independent preserves the reference-directed opening shot.
+        controls.autoRotate = false;
 
-        scene.add(new THREE.HemisphereLight(0x9effff, 0x03151a, 1.65));
-        const keyLight = new THREE.DirectionalLight(0xd9ffff, 3.1);
+        scene.add(new THREE.HemisphereLight(0x73f7f0, 0x01090c, 0.86));
+        const keyLight = new THREE.DirectionalLight(0xc8ffff, 1.62);
         keyLight.position.set(-5, 9, 6);
         scene.add(keyLight);
-        const rimLight = new THREE.PointLight(0x00d9ff, 7.5, 30, 2);
-        rimLight.position.set(6, 5, -4);
+        const rimLight = new THREE.PointLight(0x00f4e6, 8.4, 32, 2);
+        rimLight.position.set(5.5, 4.2, -3.5);
         scene.add(rimLight);
 
         const grid = new THREE.GridHelper(26, 46, 0x08747b, 0x06333a);
@@ -159,6 +160,7 @@ export function CustomRegionMapScene({
         const parts: RegionObject[] = [];
         const partByCode = new Map<string, RegionObject>();
         const hotspots = new Map<string, Object3D>();
+        const hologramMaterials: MeshStandardMaterial[] = [];
         let selectedPart: RegionObject | null = null;
         let hoverPart: RegionObject | null = null;
         let turbineGroup: Group | null = null;
@@ -172,8 +174,69 @@ export function CustomRegionMapScene({
           pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
         };
 
+        const enhanceRegionMaterial = (material: MeshStandardMaterial, isOutline: boolean) => {
+          material.metalness = isOutline ? 0.04 : 0.08;
+          material.roughness = isOutline ? 0.22 : 0.58;
+          material.color.setHex(isOutline ? 0x001817 : 0x86e8df);
+          material.emissive.setHex(isOutline ? 0x00d9d1 : 0x007b78);
+          material.emissiveIntensity = isOutline ? 1.22 : 0.46;
+
+          if (isOutline) {
+            material.transparent = true;
+            material.opacity = 0.92;
+            material.depthWrite = false;
+            return;
+          }
+
+          material.onBeforeCompile = (shader) => {
+            shader.uniforms.uHologramTime = { value: 0 };
+            material.userData.hologramShader = shader;
+            shader.vertexShader = shader.vertexShader
+              .replace(
+                "#include <common>",
+                "#include <common>\nvarying vec3 vRegionPosition;\nvarying vec3 vRegionNormal;",
+              )
+              .replace(
+                "#include <begin_vertex>",
+                "#include <begin_vertex>\nvRegionPosition = position;\nvRegionNormal = normal;",
+              );
+            shader.fragmentShader = shader.fragmentShader
+              .replace(
+                "#include <common>",
+                "#include <common>\nvarying vec3 vRegionPosition;\nvarying vec3 vRegionNormal;\nuniform float uHologramTime;",
+              )
+              .replace(
+                "#include <emissivemap_fragment>",
+                `#include <emissivemap_fragment>
+                float topMask = smoothstep(0.54, 0.92, abs(vRegionNormal.y));
+                float sideMask = 1.0 - topMask;
+                vec2 dotCell = abs(fract(vRegionPosition.xz * 23.0) - 0.5);
+                float dotMask = 1.0 - smoothstep(0.045, 0.115, length(dotCell));
+                float scanPhase = fract((vRegionPosition.x + vRegionPosition.z) * 0.12 - uHologramTime * 0.075);
+                float scanBand = 1.0 - smoothstep(0.0, 0.075, abs(scanPhase - 0.5));
+                float sideStripe = pow(1.0 - abs(sin((vRegionPosition.x + vRegionPosition.z) * 14.0)), 18.0);
+                totalEmissiveRadiance += topMask * dotMask * vec3(0.018, 0.18, 0.165);
+                totalEmissiveRadiance += topMask * scanBand * vec3(0.01, 0.085, 0.08);
+                totalEmissiveRadiance += sideMask * vec3(0.0, 0.018, 0.025);
+                totalEmissiveRadiance += sideMask * sideStripe * vec3(0.0, 0.14, 0.18);`,
+              )
+              .replace(
+                "#include <color_fragment>",
+                `#include <color_fragment>
+                float surfaceTopMask = smoothstep(0.54, 0.92, abs(vRegionNormal.y));
+                diffuseColor.rgb = mix(
+                  diffuseColor.rgb * vec3(0.25, 0.62, 0.68),
+                  diffuseColor.rgb * vec3(0.55, 0.96, 0.9),
+                  surfaceTopMask
+                );`,
+              );
+          };
+          material.customProgramCacheKey = () => "p01-hologram-surface-v1";
+          hologramMaterials.push(material);
+        };
+
         const setMaterialState = (part: RegionObject, visual: "default" | "hover" | "selected") => {
-          part.userData.targetY = part.userData.baseY + (visual === "selected" ? 0.28 : visual === "hover" ? 0.1 : 0);
+          part.userData.targetY = part.userData.baseY + (visual === "selected" ? 0.14 : visual === "hover" ? 0.05 : 0);
           part.traverse((child) => {
             const mesh = child as Mesh;
             if (!mesh.isMesh) return;
@@ -183,10 +246,10 @@ export function CustomRegionMapScene({
               if (!material.emissive) return;
               if (visual === "selected") {
                 material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x5afff0 : 0x00d9ff);
-                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 3.2 : 0.82;
+                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 2.0 : 0.5;
               } else if (visual === "hover") {
                 material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x2cf0e3 : 0x00a9bd);
-                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 2.55 : 0.48;
+                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 1.62 : 0.36;
               } else {
                 material.emissive.copy(material.userData.baseEmissive);
                 material.emissiveIntensity = material.userData.baseEmissiveIntensity;
@@ -214,7 +277,15 @@ export function CustomRegionMapScene({
 
         const createTurbine = () => {
           const marker = new THREE.Group();
-          const material = new THREE.MeshStandardMaterial({ color: 0xe9ffff, emissive: 0x00cfd2, emissiveIntensity: 0.7, metalness: 0.12, roughness: 0.5 });
+          const material = new THREE.MeshStandardMaterial({
+            color: 0x38e8dc,
+            emissive: 0x00d9cf,
+            emissiveIntensity: 0.96,
+            metalness: 0.04,
+            opacity: 0.7,
+            roughness: 0.32,
+            transparent: true,
+          });
           const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.07, 0.78, 8), material);
           tower.position.y = 0.39;
           marker.add(tower);
@@ -228,6 +299,14 @@ export function CustomRegionMapScene({
             blade.geometry.translate(0, 0.24, 0);
             hub.add(blade);
           }
+          const halo = new THREE.Mesh(
+            new THREE.RingGeometry(0.12, 0.19, 28),
+            new THREE.MeshBasicMaterial({ color: 0x3affee, opacity: 0.52, side: THREE.DoubleSide, transparent: true }),
+          );
+          halo.rotation.x = -Math.PI / 2;
+          halo.position.y = 0.015;
+          marker.add(halo);
+          marker.scale.setScalar(0.82);
           marker.userData.isTurbineMarker = true;
           return marker;
         };
@@ -256,6 +335,7 @@ export function CustomRegionMapScene({
               const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
               const cloned = materials.map((entry) => {
                 const material = entry.clone() as MeshStandardMaterial;
+                enhanceRegionMaterial(material, object.name.startsWith("FX__OUTLINE_"));
                 if (material.emissive) {
                   material.userData.baseEmissive = material.emissive.clone();
                   material.userData.baseEmissiveIntensity = material.emissiveIntensity;
@@ -280,7 +360,7 @@ export function CustomRegionMapScene({
               if (!hotspot) return;
               const marker = createTurbine();
               marker.position.copy(hotspot.position);
-              marker.position.y = 0.95;
+              marker.position.y = 0.86;
               turbineGroup?.add(marker);
             });
             root.add(turbineGroup);
@@ -290,7 +370,7 @@ export function CustomRegionMapScene({
             controllerRef.current = {
               selectRegion,
               hoverRegion,
-              setAutoRotate(enabled) { if (controls) controls.autoRotate = enabled; turbineAnimationEnabled = enabled; },
+              setAutoRotate(enabled) { turbineAnimationEnabled = enabled; },
               setTurbinesVisible(visible) { if (turbineGroup) turbineGroup.visible = visible; },
               resetCamera() { camera.position.copy(defaultCamera); controls?.target.copy(defaultTarget); controls?.update(); },
             };
@@ -358,6 +438,11 @@ export function CustomRegionMapScene({
           animationFrame = window.requestAnimationFrame(animate);
           parts.forEach((part) => { part.position.y += (part.userData.targetY - part.position.y) * 0.14; });
           if (turbineAnimationEnabled) turbineRotors.forEach((rotor) => { rotor.rotation.z -= 0.012; });
+          const hologramTime = performance.now() * 0.001;
+          hologramMaterials.forEach((material) => {
+            const shader = material.userData.hologramShader as { uniforms?: { uHologramTime?: { value: number } } } | undefined;
+            if (shader?.uniforms?.uHologramTime) shader.uniforms.uHologramTime.value = hologramTime;
+          });
           controls?.update();
           renderer.render(scene, camera);
 
@@ -412,6 +497,7 @@ export function CustomRegionMapScene({
   const selected = hoveredRegionCode ?? state.selectedRegionCode;
   return (
     <div className={`custom-map-scene ${state.landmarkLayerVisible ? "labels-visible" : "labels-hidden"}`} ref={hostRef}>
+      <div aria-hidden="true" className="map-hologram-field"><i /><i /><span /></div>
       <canvas aria-label="可交互自定义区域三维地图" ref={canvasRef} />
       <div className="map-hotspot-layer" aria-label="区域热点">
         {regions.map((region) => (
