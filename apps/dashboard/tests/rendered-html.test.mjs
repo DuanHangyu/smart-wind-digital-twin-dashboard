@@ -137,6 +137,8 @@ test("polishes the P01 holographic presentation without modifying the map asset"
   assert.match(scene, /map-hologram-field/);
   assert.match(styles, /\.map-hologram-field/);
   assert.match(styles, /\.scene-statistics \.scene-grid\s*\{[\s\S]*?transform:\s*none/);
+  assert.match(styles, /\.scene-statistics \.custom-map-scene\s*\{[\s\S]*?translateY\(-120px\)/);
+  assert.match(styles, /\.scene-statistics \.map-status,[\s\S]*?\.scene-statistics \.region-cycle-status\s*\{[\s\S]*?display:\s*none/);
   assert.match(styles, /\.map-hotspot-layer button::after\s*\{[\s\S]*?display:\s*none/);
   assert.match(styles, /\.map-hotspot-layer button i\s*\{[\s\S]*?display:\s*none/);
   assert.match(styles, /\.map-hotspot-layer button:not\(\.active\) small/);
@@ -235,8 +237,8 @@ test("locks the three reference-directed opening camera shots", async () => {
     readFile(new URL("../app/components/scenes/TurbineTwinScene.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 7\.4, 9\.2\]/);
-  assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, 0\.32, 0\]/);
+  assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 8\.3, 10\.4\]/);
+  assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, -0\.35, 0\]/);
   assert.match(windfarmScene, /WINDFARM_CAMERA_DESKTOP = \[0, 3\.4, 5\.45\]/);
   assert.match(windfarmScene, /WINDFARM_CAMERA_TARGET = \[0, 0\.78, 0\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_DESKTOP = \[3\.15, 1\.4, 3\.95\]/);

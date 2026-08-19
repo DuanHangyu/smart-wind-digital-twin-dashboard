@@ -896,6 +896,23 @@ button {
   transform: perspective(900px) rotateX(52deg) scale(1.65) translateY(130px);
 }
 
+.scene-statistics .scene-grid {
+  inset: 58px 18px 54px;
+  opacity: 0.3;
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at 50% 51%, #000 15%, rgba(0, 0, 0, 0.8) 56%, transparent 88%);
+  transform: none;
+}
+
+.scene-statistics .custom-map-scene {
+  transform: translateY(-120px);
+}
+
+.scene-statistics .map-status,
+.scene-statistics .region-cycle-status {
+  display: none;
+}
+
 .scene-scan {
   position: absolute;
   z-index: 1;
@@ -1025,15 +1042,15 @@ button {
   z-index: 1;
   inset: 2% 5% 4%;
   overflow: hidden;
-  opacity: 0.78;
+  opacity: 0.5;
   pointer-events: none;
 }
 
 .map-hologram-field::before {
   position: absolute;
-  top: 53%;
+  top: 57%;
   left: 50%;
-  width: 76%;
+  width: 62%;
   aspect-ratio: 1.7;
   border: 1px solid rgba(90, 255, 240, 0.22);
   border-radius: 50%;
@@ -1044,9 +1061,9 @@ button {
 
 .map-hologram-field::after {
   position: absolute;
-  top: 53%;
+  top: 57%;
   left: 50%;
-  width: 66%;
+  width: 54%;
   aspect-ratio: 1.7;
   border-radius: 50%;
   background: repeating-conic-gradient(from 14deg, rgba(90, 255, 240, 0.32) 0 1deg, transparent 1deg 5deg);
@@ -1066,8 +1083,8 @@ button {
   transform: rotate(-8deg);
 }
 
-.map-hologram-field i:first-child { top: 34%; }
-.map-hologram-field i:nth-child(2) { top: 72%; opacity: 0.55; }
+.map-hologram-field i:first-child { top: 39%; }
+.map-hologram-field i:nth-child(2) { top: 70%; opacity: 0.42; }
 
 .map-hologram-field span {
   position: absolute;
@@ -1329,17 +1346,17 @@ button {
   top: 0;
   left: 0;
   display: grid;
-  min-width: 54px;
+  min-width: 48px;
   height: 28px;
-  grid-template-columns: 6px 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 5px;
-  padding: 0 6px;
+  gap: 4px;
+  padding: 0 3px;
   border: 1px solid transparent;
   background: transparent;
   box-shadow: none;
   color: rgba(222, 255, 253, 0.94);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 1px;
   pointer-events: auto;
@@ -1350,6 +1367,7 @@ button {
 }
 
 .map-hotspot-layer button::after {
+  display: none;
   position: absolute;
   top: 100%;
   left: 50%;
@@ -1360,6 +1378,7 @@ button {
 }
 
 .map-hotspot-layer button i {
+  display: none;
   width: 5px;
   height: 5px;
   border-radius: 50%;
@@ -1374,15 +1393,16 @@ button {
   transition: max-width 160ms ease, opacity 160ms ease;
 }
 .map-hotspot-layer button:not(.active):not(:hover) { opacity: 0.9; }
-.map-hotspot-layer button:not(.active) small { max-width: 0; overflow: hidden; opacity: 0; }
+.map-hotspot-layer button:not(.active) small,
+.map-hotspot-layer button.active:not(:hover) small { max-width: 0; overflow: hidden; opacity: 0; }
 .map-hotspot-layer button:hover small { max-width: 42px; opacity: 1; }
 .map-hotspot-layer button:hover,
 .map-hotspot-layer button.active {
-  border-color: var(--cyan-bright);
-  background: linear-gradient(90deg, rgba(0, 88, 88, 0.72), rgba(1, 24, 27, 0.54));
-  box-shadow: inset 0 0 12px rgba(0, 229, 223, 0.1);
-  color: var(--text);
-  filter: drop-shadow(0 0 7px rgba(0, 229, 223, 0.35));
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: #f0ffff;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 223, 0.55));
 }
 
 .map-hotspot-layer button.active i { background: #fff; box-shadow: 0 0 9px var(--cyan-bright); }

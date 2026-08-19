@@ -15,10 +15,10 @@ import type { RegionRecord, StatisticsSceneState } from "../../types/dashboard";
 
 type LoadState = "loading" | "ready" | "error" | "unsupported";
 
-// Reference-directed opening shot: the regional plate should occupy roughly
-// four fifths of the scene viewport without changing its world-space scale.
-const MAP_CAMERA_POSITION = [0, 5.25, 8.25] as const;
-const MAP_CAMERA_TARGET = [0, 0.18, 0] as const;
+// Reference-directed opening shot: a higher, slightly wider view keeps the
+// complete holographic plate centred with breathing room around its perimeter.
+const MAP_CAMERA_POSITION = [0, 8.3, 10.4] as const;
+const MAP_CAMERA_TARGET = [0, -0.35, 0] as const;
 
 type SceneController = {
   selectRegion: (code: string) => void;
@@ -175,15 +175,15 @@ export function CustomRegionMapScene({
         };
 
         const enhanceRegionMaterial = (material: MeshStandardMaterial, isOutline: boolean) => {
-          material.metalness = isOutline ? 0.04 : 0.08;
-          material.roughness = isOutline ? 0.22 : 0.58;
-          material.color.setHex(isOutline ? 0x001817 : 0x86e8df);
-          material.emissive.setHex(isOutline ? 0x00d9d1 : 0x007b78);
-          material.emissiveIntensity = isOutline ? 1.22 : 0.46;
+          material.metalness = isOutline ? 0.02 : 0.06;
+          material.roughness = isOutline ? 0.28 : 0.54;
+          material.color.setHex(isOutline ? 0x001514 : 0x36c8bd);
+          material.emissive.setHex(isOutline ? 0x00c9c2 : 0x00aaa3);
+          material.emissiveIntensity = isOutline ? 1.0 : 0.68;
 
           if (isOutline) {
             material.transparent = true;
-            material.opacity = 0.92;
+            material.opacity = 0.82;
             material.depthWrite = false;
             return;
           }
@@ -210,23 +210,27 @@ export function CustomRegionMapScene({
                 `#include <emissivemap_fragment>
                 float topMask = smoothstep(0.54, 0.92, abs(vRegionNormal.y));
                 float sideMask = 1.0 - topMask;
-                vec2 dotCell = abs(fract(vRegionPosition.xz * 23.0) - 0.5);
-                float dotMask = 1.0 - smoothstep(0.045, 0.115, length(dotCell));
+                vec2 dotCell = abs(fract(vRegionPosition.xz * 27.0) - 0.5);
+                float dotMask = 1.0 - smoothstep(0.04, 0.105, length(dotCell));
                 float scanPhase = fract((vRegionPosition.x + vRegionPosition.z) * 0.12 - uHologramTime * 0.075);
                 float scanBand = 1.0 - smoothstep(0.0, 0.075, abs(scanPhase - 0.5));
                 float sideStripe = pow(1.0 - abs(sin((vRegionPosition.x + vRegionPosition.z) * 14.0)), 18.0);
-                totalEmissiveRadiance += topMask * dotMask * vec3(0.018, 0.18, 0.165);
-                totalEmissiveRadiance += topMask * scanBand * vec3(0.01, 0.085, 0.08);
-                totalEmissiveRadiance += sideMask * vec3(0.0, 0.018, 0.025);
-                totalEmissiveRadiance += sideMask * sideStripe * vec3(0.0, 0.14, 0.18);`,
+                float sideHeight = clamp(vRegionPosition.y * 3.0 + 0.5, 0.0, 1.0);
+                float bottomGlow = pow(1.0 - sideHeight, 2.4);
+                totalEmissiveRadiance += topMask * vec3(0.0, 0.052, 0.048);
+                totalEmissiveRadiance += topMask * dotMask * vec3(0.02, 0.22, 0.2);
+                totalEmissiveRadiance += topMask * scanBand * vec3(0.01, 0.09, 0.085);
+                totalEmissiveRadiance += sideMask * vec3(0.0, 0.012, 0.02);
+                totalEmissiveRadiance += sideMask * sideStripe * vec3(0.0, 0.1, 0.14);
+                totalEmissiveRadiance += sideMask * bottomGlow * vec3(0.0, 0.12, 0.15);`,
               )
               .replace(
                 "#include <color_fragment>",
                 `#include <color_fragment>
                 float surfaceTopMask = smoothstep(0.54, 0.92, abs(vRegionNormal.y));
                 diffuseColor.rgb = mix(
-                  diffuseColor.rgb * vec3(0.25, 0.62, 0.68),
-                  diffuseColor.rgb * vec3(0.55, 0.96, 0.9),
+                  diffuseColor.rgb * vec3(0.18, 0.5, 0.58),
+                  diffuseColor.rgb * vec3(0.48, 1.0, 0.92),
                   surfaceTopMask
                 );`,
               );
@@ -245,11 +249,11 @@ export function CustomRegionMapScene({
               const material = entry as MeshStandardMaterial;
               if (!material.emissive) return;
               if (visual === "selected") {
-                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x5afff0 : 0x00d9ff);
-                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 2.0 : 0.5;
+                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x19e1d8 : 0x00b9b2);
+                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 1.45 : 0.62;
               } else if (visual === "hover") {
-                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x2cf0e3 : 0x00a9bd);
-                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 1.62 : 0.36;
+                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x13c9c0 : 0x009b96);
+                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 1.2 : 0.48;
               } else {
                 material.emissive.copy(material.userData.baseEmissive);
                 material.emissiveIntensity = material.userData.baseEmissiveIntensity;
@@ -277,13 +281,10 @@ export function CustomRegionMapScene({
 
         const createTurbine = () => {
           const marker = new THREE.Group();
-          const material = new THREE.MeshStandardMaterial({
-            color: 0x38e8dc,
-            emissive: 0x00d9cf,
-            emissiveIntensity: 0.96,
-            metalness: 0.04,
+          const material = new THREE.MeshBasicMaterial({
+            color: 0x42e6dc,
+            depthWrite: false,
             opacity: 0.7,
-            roughness: 0.32,
             transparent: true,
           });
           const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.07, 0.78, 8), material);
@@ -301,12 +302,12 @@ export function CustomRegionMapScene({
           }
           const halo = new THREE.Mesh(
             new THREE.RingGeometry(0.12, 0.19, 28),
-            new THREE.MeshBasicMaterial({ color: 0x3affee, opacity: 0.52, side: THREE.DoubleSide, transparent: true }),
+            new THREE.MeshBasicMaterial({ color: 0x3affee, opacity: 0.38, side: THREE.DoubleSide, transparent: true }),
           );
           halo.rotation.x = -Math.PI / 2;
           halo.position.y = 0.015;
           marker.add(halo);
-          marker.scale.setScalar(0.82);
+          marker.scale.setScalar(0.62);
           marker.userData.isTurbineMarker = true;
           return marker;
         };
