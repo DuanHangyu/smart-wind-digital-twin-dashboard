@@ -2008,7 +2008,7 @@ button {
   padding: 0 18px;
   border-bottom: 1px solid rgba(0, 229, 223, 0.12);
   color: #dceff0;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .equipment-row {
@@ -2198,7 +2198,7 @@ button {
   bottom: 7px;
   left: 50%;
   display: grid;
-  width: 760px;
+  width: 700px;
   height: 61px;
   grid-template-columns: repeat(3, 1fr);
   gap: 7px;
