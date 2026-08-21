@@ -520,23 +520,28 @@ button {
   width: 28px;
   height: 28px;
   place-items: center;
-  border: 1px solid rgba(0, 229, 223, 0.35);
+  border: 1px solid rgba(90, 255, 240, 0.58);
+  background: linear-gradient(135deg, rgba(0, 229, 223, 0.3), rgba(0, 71, 75, 0.2));
+  box-shadow: inset 0 0 8px rgba(90, 255, 240, 0.12), 0 0 7px rgba(0, 229, 223, 0.1);
   color: var(--cyan-bright);
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  clip-path: polygon(0 0, 76% 0, 100% 24%, 100% 100%, 24% 100%, 0 76%);
 }
 
 .metric-card p {
   margin: 0 0 2px;
-  color: var(--text-soft);
-  font-size: 10px;
+  color: #a4c6c7;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .metric-card strong {
   color: #efffff;
   text-shadow: 0 0 9px rgba(0, 229, 223, 0.32);
   font-family: "DIN Alternate", "Bahnschrift", "Arial Narrow", monospace;
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
@@ -731,48 +736,60 @@ button {
 .ranking-list {
   display: grid;
   height: 100%;
-  align-content: center;
-  gap: 12px;
+  grid-template-rows: repeat(5, 1fr);
+  align-content: stretch;
+  gap: 8px;
+  padding: 3px 0;
 }
 
 .ranking-row {
+  position: relative;
   display: grid;
-  grid-template-columns: 43px 46px 1fr 31px;
+  grid-template-columns: 52px 50px 1fr 38px;
   align-items: center;
-  gap: 8px;
-  color: #7faeb0;
-  font-size: 9px;
+  gap: 10px;
+  padding: 0 8px;
+  border: 1px solid rgba(0, 229, 223, 0.08);
+  background: linear-gradient(90deg, rgba(0, 70, 73, 0.13), rgba(0, 27, 30, 0.08));
+  color: #c6e1e2;
+  font-size: 12px;
 }
 
 .top-tag {
-  padding: 2px 3px;
-  border: 1px solid rgba(0, 229, 223, 0.32);
-  color: var(--cyan);
-  font-family: monospace;
-  font-size: 8px;
+  padding: 4px 4px;
+  border: 1px solid rgba(0, 229, 223, 0.6);
+  background: rgba(0, 229, 223, 0.04);
+  color: var(--cyan-bright);
+  font-family: "DIN Alternate", "Bahnschrift", monospace;
+  font-size: 10px;
+  font-weight: 700;
   text-align: center;
 }
 
 .ranking-row b {
-  color: var(--text);
-  font-weight: 500;
+  color: #f1ffff;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .ranking-track {
-  height: 5px;
-  background: rgba(0, 229, 223, 0.08);
+  height: 8px;
+  border: 1px solid rgba(0, 229, 223, 0.08);
+  background: rgba(0, 229, 223, 0.055);
 }
 
 .ranking-track i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #075d62, var(--cyan-bright));
-  box-shadow: 0 0 8px rgba(0, 229, 223, 0.4);
+  background: linear-gradient(90deg, #0a676b, #26d9d5 74%, #cafffa);
+  box-shadow: 0 0 10px rgba(0, 229, 223, 0.48);
 }
 
 .ranking-row strong {
-  color: var(--cyan-bright);
-  font-family: monospace;
+  color: #e9ffff;
+  font-family: "DIN Alternate", "Bahnschrift", monospace;
+  font-size: 13px;
+  font-weight: 700;
   text-align: right;
 }
 
@@ -868,54 +885,72 @@ button {
 
 .alarm-list {
   display: grid;
-  gap: 11px;
+  height: 100%;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .alarm-list article {
   display: grid;
-  min-height: 82px;
-  grid-template-columns: 28px 1fr auto;
+  min-height: 0;
+  grid-template-columns: 42px 1fr auto;
   align-items: center;
   gap: 10px;
-  padding: 10px;
-  border: 1px solid rgba(244, 197, 66, 0.23);
-  background: linear-gradient(90deg, rgba(244, 197, 66, 0.07), transparent);
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 229, 223, 0.24);
+  background: linear-gradient(90deg, rgba(0, 111, 113, 0.18), rgba(0, 30, 33, 0.07));
+  box-shadow: inset 0 0 18px rgba(0, 229, 223, 0.035);
 }
 
 .alarm-list article.resolved {
   border-color: rgba(0, 229, 223, 0.12);
-  opacity: 0.55;
+  opacity: 0.48;
 }
 
 .warning-triangle {
-  color: var(--yellow);
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(90, 255, 240, 0.72);
+  background: linear-gradient(135deg, rgba(0, 229, 223, 0.62), rgba(0, 90, 94, 0.38));
+  box-shadow: 0 0 11px rgba(0, 229, 223, 0.26), inset 0 0 10px rgba(255, 255, 255, 0.08);
+  color: #fff;
   font-size: 22px;
+  font-weight: 800;
   text-align: center;
-  text-shadow: 0 0 9px rgba(244, 197, 66, 0.5);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.46);
+  clip-path: polygon(0 0, 78% 0, 100% 22%, 100% 100%, 22% 100%, 0 78%);
 }
 
 .alarm-list strong {
-  font-size: 11px;
+  color: #f3ffff;
+  text-shadow: 0 0 8px rgba(90, 255, 240, 0.2);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .alarm-list p {
   margin: 5px 0 0;
   overflow: hidden;
-  color: var(--text-soft);
-  font-size: 9px;
+  color: #91b8ba;
+  font-size: 11px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .alarm-list em {
-  padding: 3px 6px;
-  border: 1px solid currentColor;
-  color: var(--yellow);
-  font-size: 8px;
+  padding: 5px 10px;
+  border: 1px solid rgba(90, 255, 240, 0.64);
+  background: rgba(0, 229, 223, 0.15);
+  color: #dffffd;
+  font-size: 10px;
+  font-weight: 700;
   font-style: normal;
 }
 
-.resolved em { color: var(--text-soft); }
+.resolved em { background: transparent; color: var(--text-soft); }
 
 .scene-viewport {
   width: 100%;
@@ -1781,19 +1816,33 @@ button {
 .environment-layout {
   display: grid;
   height: 100%;
-  grid-template-columns: 170px 1fr;
+  grid-template-areas: "values compass";
+  grid-template-columns: 1fr 164px;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
 
 .compass {
+  grid-area: compass;
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 154px;
+  height: 154px;
   border: 1px solid rgba(0, 229, 223, 0.3);
   border-radius: 50%;
   background: repeating-conic-gradient(rgba(0, 229, 223, 0.28) 0 1deg, transparent 1deg 15deg);
   box-shadow: inset 0 0 20px rgba(0, 229, 223, 0.12), 0 0 18px rgba(0, 229, 223, 0.08);
+}
+
+.compass::after {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  color: #a9cdce;
+  content: "风向";
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transform: translateX(-50%);
 }
 
 .compass::before {
@@ -1837,32 +1886,62 @@ button {
   top: 50%;
   left: 50%;
   color: var(--cyan-bright);
-  font-size: 11px;
+  font-size: 15px;
+  letter-spacing: 1px;
   transform: translate(-50%, -50%);
 }
 
 .environment-values {
   display: grid;
+  grid-area: values;
   grid-template-columns: 1fr 1fr;
-  gap: 16px 12px;
+  gap: 12px 9px;
 }
 
 .environment-values div {
-  padding: 9px;
-  border-left: 1px solid rgba(0, 229, 223, 0.25);
-  background: linear-gradient(90deg, rgba(0, 229, 223, 0.06), transparent);
+  display: grid;
+  min-height: 51px;
+  grid-template-columns: 34px 1fr;
+  grid-template-rows: 19px 1fr;
+  align-items: center;
+  padding: 5px 7px;
+  border: 1px solid rgba(0, 229, 223, 0.18);
+  background: linear-gradient(90deg, rgba(0, 229, 223, 0.09), rgba(0, 229, 223, 0.015));
+  clip-path: polygon(0 0, 88% 0, 100% 18%, 100% 100%, 0 100%);
+}
+
+.environment-values i {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  grid-row: 1 / 3;
+  place-items: center;
+  border: 1px solid rgba(90, 255, 240, 0.56);
+  background: rgba(0, 229, 223, 0.14);
+  color: var(--cyan-bright);
+  font-size: 9px;
+  font-style: normal;
 }
 
 .environment-values span {
   display: block;
-  margin-bottom: 5px;
-  color: var(--text-soft);
-  font-size: 8px;
+  margin: 0;
+  color: #94babc;
+  font-size: 9px;
+  font-weight: 600;
 }
 
 .environment-values strong {
-  color: var(--text);
-  font: 14px monospace;
+  color: #f1ffff;
+  text-shadow: 0 0 7px rgba(0, 229, 223, 0.25);
+  font: 700 16px/1 "DIN Alternate", "Bahnschrift", monospace;
+}
+
+.environment-values strong small {
+  margin-left: 3px;
+  color: #acc5c6;
+  font-size: 9px;
+  font-weight: 600;
 }
 
 .equipment-table {

@@ -303,7 +303,7 @@ export function AlarmList({ alarms, status }: { alarms: AlarmRecord[]; status: D
           {visible.map((alarm) => (
             <article className={`${alarm.status === "resolved" ? "resolved" : ""} severity-${alarm.severity}`} key={alarm.id} title={alarm.message}>
               <span className="warning-triangle">!</span>
-              <div><strong>{alarm.title}</strong><p>{alarm.message}</p></div>
+              <div><strong>预警信息</strong><p>{alarm.title} · {alarm.message}</p></div>
               <em>{alarm.status === "resolved" ? "已处理" : "待处理"}</em>
             </article>
           ))}
@@ -315,10 +315,12 @@ export function AlarmList({ alarms, status }: { alarms: AlarmRecord[]; status: D
 
 export function EnvironmentPanel({ data, status }: { data: EnvironmentReading; status: DataStatus }) {
   const readings = [
-    ["温度", data.temperatureC, "°C", 1],
-    ["湿度", data.humidityPct, "%", 0],
-    ["气压", data.pressureHpa, " hPa", 0],
-    ["风速", data.windSpeedMS, " m/s", 1],
+    ["温度", data.temperatureC, "°C", 1, "温"],
+    ["湿度", data.humidityPct, "%", 0, "湿"],
+    ["气压", data.pressureHpa, "hPa", 0, "压"],
+    ["风速", data.windSpeedMS, "m/s", 1, "风"],
+    ["体感", data.temperatureC === null ? null : data.temperatureC - 1.2, "°C", 1, "感"],
+    ["阵风", data.windSpeedMS === null ? null : data.windSpeedMS * 1.18, "m/s", 1, "阵"],
   ] as const;
   return (
     <HudPanel title="风场环境情况" code="ENVIRONMENT" className="environment-panel" status={status}>
@@ -329,8 +331,8 @@ export function EnvironmentPanel({ data, status }: { data: EnvironmentReading; s
           <b>{data.windDirectionText}</b>
         </div>
         <div className="environment-values">
-          {readings.map(([label, value, unit, decimals]) => (
-            <div key={label}><span>{label}</span><strong><AnimatedNumber value={value} decimals={decimals} />{unit}</strong></div>
+          {readings.map(([label, value, unit, decimals, glyph]) => (
+            <div key={label}><i aria-hidden="true">{glyph}</i><span>{label}</span><strong><AnimatedNumber value={value} decimals={decimals} /><small>{unit}</small></strong></div>
           ))}
         </div>
       </div>
