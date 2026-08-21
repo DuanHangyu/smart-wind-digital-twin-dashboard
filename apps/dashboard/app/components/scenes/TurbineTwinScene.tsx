@@ -107,7 +107,7 @@ const TURBINE_MODE_CAMERAS: Record<TurbineViewMode, {
   targetOffset: readonly [number, number, number];
 }> = {
   exterior: { fov: 29, relative: [3.5, 1.08, 4.36], targetMix: 0.2, targetOffset: [0, -0.06, 0] },
-  transparent: { fov: 29, relative: [3.42, 0.95, 4.18], targetMix: 0.23, targetOffset: [0, -0.08, 0] },
+  transparent: { fov: 29, relative: [2.72, 0.82, 4.46], targetMix: 0.22, targetOffset: [0, -0.09, 0] },
   wireframe: { fov: 28, relative: [3.65, 0.86, 4.28], targetMix: 0.2, targetOffset: [0, -0.05, 0] },
   structure: { fov: 26, relative: [4.84, 0.73, 4.89], targetMix: 0.48, targetOffset: [0, -0.16, 0] },
 };
