@@ -239,6 +239,7 @@ export function WindFarmTerrainScene({
         };
 
         const focusSelectedTurbine = (_target: string) => {
+          void _target;
           // The reference keeps the entire wind farm in frame while the anchored
           // information card opens. Selection must not turn into a camera zoom.
           setCameraPreset("overview");
