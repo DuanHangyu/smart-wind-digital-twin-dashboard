@@ -1810,20 +1810,21 @@ button {
   top: 84px;
   right: 20px;
   display: grid;
-  width: 128px;
-  gap: 9px;
+  width: 120px;
+  gap: 15px;
 }
 
 .layer-controls button {
   position: relative;
+  overflow: hidden;
   height: 42px;
-  padding: 0 12px;
-  border: 1px solid rgba(0, 229, 223, 0.46);
+  padding: 0 12px 0 15px;
+  border: 1px solid rgba(0, 229, 223, 0.5);
   background:
-    linear-gradient(90deg, transparent 0 8%, rgba(90, 255, 240, 0.08) 8% 10%, transparent 10% 90%, rgba(90, 255, 240, 0.08) 90% 92%, transparent 92%),
-    linear-gradient(180deg, rgba(6, 47, 51, 0.96), rgba(2, 20, 23, 0.94));
-  clip-path: polygon(13% 0, 100% 0, 88% 100%, 0 100%);
-  box-shadow: inset 0 0 0 1px rgba(90, 255, 240, 0.06), inset 0 0 14px rgba(0, 229, 223, 0.065);
+    linear-gradient(135deg, transparent 0 11%, rgba(90, 255, 240, 0.13) 11% 13%, transparent 13% 86%, rgba(90, 255, 240, 0.09) 86% 88%, transparent 88%),
+    linear-gradient(180deg, rgba(4, 38, 42, 0.94), rgba(1, 15, 18, 0.98));
+  clip-path: polygon(13% 0, 87% 0, 100% 30%, 100% 100%, 0 100%, 0 30%);
+  box-shadow: inset 0 1px rgba(90, 255, 240, 0.08), inset 0 0 14px rgba(0, 229, 223, 0.065), inset 12px 0 18px rgba(0, 0, 0, 0.18);
   color: #91babc;
   font-size: 13px;
   font-weight: 600;
@@ -1832,16 +1833,63 @@ button {
   transition: color 160ms ease, background 160ms ease, filter 160ms ease;
 }
 
+.layer-controls button::before {
+  position: absolute;
+  inset: 4px 7px 4px 10px;
+  content: "";
+  border-top: 1px solid rgba(90, 255, 240, 0.16);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.12);
+  border-left: 1px solid rgba(0, 229, 223, 0.24);
+  background:
+    linear-gradient(135deg, transparent 0 16%, rgba(90, 255, 240, 0.14) 16% 18%, transparent 18%) top right/24px 18px no-repeat,
+    linear-gradient(90deg, rgba(0, 229, 223, 0.045), transparent 45%);
+  clip-path: polygon(10% 0, 88% 0, 100% 30%, 100% 100%, 0 100%, 0 27%);
+  pointer-events: none;
+}
+
+.layer-controls button::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 31px;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, var(--cyan-bright), rgba(0, 229, 223, 0.12));
+  box-shadow: 0 0 5px rgba(0, 229, 223, 0.4);
+  opacity: 0.54;
+  pointer-events: none;
+}
+
+.layer-controls button span {
+  position: relative;
+  z-index: 1;
+}
+
 .layer-controls button:hover:not(:disabled) { color: var(--cyan-bright); filter: brightness(1.18); }
 
 .layer-controls button.active {
   border-color: var(--cyan-bright);
   background:
-    linear-gradient(90deg, transparent 0 7%, rgba(255, 255, 255, 0.24) 7% 9%, transparent 9% 91%, rgba(255, 255, 255, 0.18) 91% 93%, transparent 93%),
-    linear-gradient(180deg, rgba(26, 236, 226, 0.72), rgba(0, 83, 87, 0.82));
-  box-shadow: 0 0 17px rgba(0, 229, 223, 0.38), inset 0 0 15px rgba(255, 255, 255, 0.12);
+    linear-gradient(90deg, transparent 0 7%, rgba(255, 255, 255, 0.22) 7% 9%, transparent 9% 91%, rgba(255, 255, 255, 0.14) 91% 93%, transparent 93%),
+    linear-gradient(180deg, rgba(26, 236, 226, 0.76), rgba(0, 86, 91, 0.9));
+  box-shadow: 0 0 17px rgba(0, 229, 223, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.13), inset 0 -10px 16px rgba(0, 23, 27, 0.2);
   color: #fff;
-  text-shadow: 0 0 7px rgba(255, 255, 255, 0.28);
+  text-shadow: 0 0 7px rgba(255, 255, 255, 0.42);
+}
+
+.layer-controls button.active::before {
+  border-color: rgba(218, 255, 252, 0.5);
+  background:
+    linear-gradient(135deg, transparent 0 16%, rgba(255, 255, 255, 0.28) 16% 18%, transparent 18%) top right/24px 18px no-repeat,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 52%);
+}
+
+.layer-controls button.active::after {
+  width: 45px;
+  height: 3px;
+  background: linear-gradient(90deg, #c5fffb, rgba(0, 229, 223, 0.18));
+  box-shadow: 0 0 7px var(--cyan-bright);
+  opacity: 1;
 }
 
 .layer-controls button:disabled {
@@ -1856,10 +1904,10 @@ button {
   letter-spacing: 0;
 }
 
-.layer-controls.operations { width: 128px; }
+.layer-controls.operations { width: 120px; }
 
 .layer-controls.operations button:last-child {
-  margin-top: 6px;
+  margin-top: 0;
   border-top-style: double;
   border-bottom-color: rgba(0, 229, 223, 0.64);
 }
