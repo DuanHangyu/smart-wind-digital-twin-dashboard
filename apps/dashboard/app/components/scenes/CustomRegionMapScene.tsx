@@ -122,7 +122,7 @@ export function CustomRegionMapScene({
         renderer.setPixelRatio(Math.min(devicePixelRatio, matchMedia("(pointer: coarse)").matches ? 1.35 : 1.8));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 0.9;
+        renderer.toneMappingExposure = 1;
 
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
@@ -136,11 +136,11 @@ export function CustomRegionMapScene({
         // camera independent preserves the reference-directed opening shot.
         controls.autoRotate = false;
 
-        scene.add(new THREE.HemisphereLight(0x73f7f0, 0x01090c, 0.86));
-        const keyLight = new THREE.DirectionalLight(0xc8ffff, 1.62);
+        scene.add(new THREE.HemisphereLight(0x73f7f0, 0x01090c, 0.64));
+        const keyLight = new THREE.DirectionalLight(0xc8ffff, 1.22);
         keyLight.position.set(-5, 9, 6);
         scene.add(keyLight);
-        const rimLight = new THREE.PointLight(0x00f4e6, 8.4, 32, 2);
+        const rimLight = new THREE.PointLight(0x00f4e6, 6.5, 32, 2);
         rimLight.position.set(5.5, 4.2, -3.5);
         scene.add(rimLight);
 
@@ -167,22 +167,26 @@ export function CustomRegionMapScene({
           pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
         };
 
-        const enhanceRegionMaterial = (material: MeshStandardMaterial, isOutline: boolean) => {
-          material.metalness = isOutline ? 0.02 : 0.06;
-          material.roughness = isOutline ? 0.28 : 0.54;
-          material.color.setHex(isOutline ? 0x001514 : 0x36c8bd);
-          material.emissive.setHex(isOutline ? 0x00c9c2 : 0x00aaa3);
-          material.emissiveIntensity = isOutline ? 1.0 : 0.68;
+        const enhanceRegionMaterial = (material: MeshStandardMaterial, isOutline: boolean, regionVariation: number) => {
+          material.metalness = isOutline ? 0.01 : 0.04;
+          material.roughness = isOutline ? 0.16 : 0.38;
+          material.color.setHex(isOutline ? 0xb8fff9 : 0x119c95).offsetHSL(0, 0, regionVariation);
+          material.emissive.setHex(isOutline ? 0x5afff4 : 0x00aaa3);
+          material.emissiveIntensity = isOutline ? 2.35 : 0.72 + regionVariation;
+          material.userData.selectionLevel = 0;
+          material.userData.regionVariation = regionVariation;
 
           if (isOutline) {
             material.transparent = true;
-            material.opacity = 0.82;
+            material.opacity = 0.96;
             material.depthWrite = false;
             return;
           }
 
           material.onBeforeCompile = (shader) => {
             shader.uniforms.uHologramTime = { value: 0 };
+            shader.uniforms.uSelectionLevel = { value: material.userData.selectionLevel as number };
+            shader.uniforms.uRegionVariation = { value: material.userData.regionVariation as number };
             material.userData.hologramShader = shader;
             shader.vertexShader = shader.vertexShader
               .replace(
@@ -196,44 +200,46 @@ export function CustomRegionMapScene({
             shader.fragmentShader = shader.fragmentShader
               .replace(
                 "#include <common>",
-                "#include <common>\nvarying vec3 vRegionPosition;\nvarying vec3 vRegionNormal;\nuniform float uHologramTime;",
+                "#include <common>\nvarying vec3 vRegionPosition;\nvarying vec3 vRegionNormal;\nuniform float uHologramTime;\nuniform float uSelectionLevel;\nuniform float uRegionVariation;",
               )
               .replace(
                 "#include <emissivemap_fragment>",
                 `#include <emissivemap_fragment>
                 float topMask = smoothstep(0.54, 0.92, abs(vRegionNormal.y));
                 float sideMask = 1.0 - topMask;
-                vec2 dotCell = abs(fract(vRegionPosition.xz * 27.0) - 0.5);
-                float dotMask = 1.0 - smoothstep(0.04, 0.105, length(dotCell));
+                vec2 dotCell = abs(fract(vRegionPosition.xz * 31.0) - 0.5);
+                float dotMask = 1.0 - smoothstep(0.035, 0.112, length(dotCell));
                 float scanPhase = fract((vRegionPosition.x + vRegionPosition.z) * 0.12 - uHologramTime * 0.075);
                 float scanBand = 1.0 - smoothstep(0.0, 0.075, abs(scanPhase - 0.5));
-                float sideStripe = pow(1.0 - abs(sin((vRegionPosition.x + vRegionPosition.z) * 14.0)), 18.0);
+                float sideStripe = pow(1.0 - abs(sin((vRegionPosition.x + vRegionPosition.z) * 17.0)), 13.0);
                 float sideHeight = clamp(vRegionPosition.y * 3.0 + 0.5, 0.0, 1.0);
-                float bottomGlow = pow(1.0 - sideHeight, 2.4);
-                totalEmissiveRadiance += topMask * vec3(0.0, 0.052, 0.048);
-                totalEmissiveRadiance += topMask * dotMask * vec3(0.02, 0.22, 0.2);
-                totalEmissiveRadiance += topMask * scanBand * vec3(0.01, 0.09, 0.085);
-                totalEmissiveRadiance += sideMask * vec3(0.0, 0.012, 0.02);
-                totalEmissiveRadiance += sideMask * sideStripe * vec3(0.0, 0.1, 0.14);
-                totalEmissiveRadiance += sideMask * bottomGlow * vec3(0.0, 0.12, 0.15);`,
+                float bottomGlow = pow(1.0 - sideHeight, 1.75);
+                totalEmissiveRadiance += topMask * vec3(0.0, 0.085 + uRegionVariation, 0.078 + uRegionVariation);
+                totalEmissiveRadiance += topMask * dotMask * vec3(0.045, 0.42, 0.375);
+                totalEmissiveRadiance += topMask * scanBand * vec3(0.02, 0.16, 0.145);
+                totalEmissiveRadiance += topMask * uSelectionLevel * vec3(0.025, 0.25, 0.22);
+                totalEmissiveRadiance += sideMask * vec3(0.0, 0.045, 0.075);
+                totalEmissiveRadiance += sideMask * sideStripe * vec3(0.0, 0.36, 0.48);
+                totalEmissiveRadiance += sideMask * bottomGlow * vec3(0.0, 0.34, 0.46);
+                totalEmissiveRadiance += sideMask * uSelectionLevel * vec3(0.01, 0.18, 0.22);`,
               )
               .replace(
                 "#include <color_fragment>",
                 `#include <color_fragment>
                 float surfaceTopMask = smoothstep(0.54, 0.92, abs(vRegionNormal.y));
                 diffuseColor.rgb = mix(
-                  diffuseColor.rgb * vec3(0.18, 0.5, 0.58),
-                  diffuseColor.rgb * vec3(0.48, 1.0, 0.92),
+                  diffuseColor.rgb * vec3(0.12, 0.5, 0.64),
+                  diffuseColor.rgb * vec3(0.45, 1.08, 1.0) + uSelectionLevel * vec3(0.14, 0.32, 0.3),
                   surfaceTopMask
                 );`,
               );
           };
-          material.customProgramCacheKey = () => "p01-hologram-surface-v1";
+          material.customProgramCacheKey = () => "p01-hologram-surface-v2";
           hologramMaterials.push(material);
         };
 
         const setMaterialState = (part: RegionObject, visual: "default" | "hover" | "selected") => {
-          part.userData.targetY = part.userData.baseY + (visual === "selected" ? 0.14 : visual === "hover" ? 0.05 : 0);
+          part.userData.targetY = part.userData.baseY + (visual === "selected" ? 0.035 : visual === "hover" ? 0.016 : 0);
           part.traverse((child) => {
             const mesh = child as Mesh;
             if (!mesh.isMesh) return;
@@ -241,13 +247,20 @@ export function CustomRegionMapScene({
             materials.forEach((entry) => {
               const material = entry as MeshStandardMaterial;
               if (!material.emissive) return;
+              const selectionLevel = visual === "selected" ? 1 : visual === "hover" ? 0.42 : 0;
+              material.userData.selectionLevel = selectionLevel;
+              const shader = material.userData.hologramShader as { uniforms?: { uSelectionLevel?: { value: number } } } | undefined;
+              if (shader?.uniforms?.uSelectionLevel) shader.uniforms.uSelectionLevel.value = selectionLevel;
               if (visual === "selected") {
-                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x19e1d8 : 0x00b9b2);
-                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 1.45 : 0.62;
+                material.color.setHex(child.name.startsWith("FX__OUTLINE_") ? 0xe8fffd : 0x32cfc7);
+                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x8ffff8 : 0x0bded5);
+                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 3.25 : 1.26;
               } else if (visual === "hover") {
-                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x13c9c0 : 0x009b96);
-                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 1.2 : 0.48;
+                material.color.copy(material.userData.baseColor).lerp(new THREE.Color(0x7efff6), 0.3);
+                material.emissive.setHex(child.name.startsWith("FX__OUTLINE_") ? 0x79fff6 : 0x0de0d6);
+                material.emissiveIntensity = child.name.startsWith("FX__OUTLINE_") ? 2.75 : 1.18;
               } else {
+                material.color.copy(material.userData.baseColor);
                 material.emissive.copy(material.userData.baseEmissive);
                 material.emissiveIntensity = material.userData.baseEmissiveIntensity;
               }
@@ -326,11 +339,14 @@ export function CustomRegionMapScene({
               }
               const mesh = object as Mesh;
               if (!mesh.isMesh) return;
+              const regionCode = getRegionCode(object) ?? "00";
+              const regionVariation = ((Number(regionCode) || 0) % 5) * 0.012;
               const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
               const cloned = materials.map((entry) => {
                 const material = entry.clone() as MeshStandardMaterial;
-                enhanceRegionMaterial(material, object.name.startsWith("FX__OUTLINE_"));
+                enhanceRegionMaterial(material, object.name.startsWith("FX__OUTLINE_"), regionVariation);
                 if (material.emissive) {
+                  material.userData.baseColor = material.color.clone();
                   material.userData.baseEmissive = material.emissive.clone();
                   material.userData.baseEmissiveIntensity = material.emissiveIntensity;
                 }
