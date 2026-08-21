@@ -15,10 +15,10 @@ import type { RegionRecord, StatisticsSceneState } from "../../types/dashboard";
 
 type LoadState = "loading" | "ready" | "error" | "unsupported";
 
-// Reference-directed opening shot: a higher, slightly wider view keeps the
-// complete holographic plate centred with breathing room around its perimeter.
-const MAP_CAMERA_POSITION = [0, 8.3, 10.4] as const;
-const MAP_CAMERA_TARGET = [0, -0.35, 0] as const;
+// Reference-directed opening shot: a lower exhibition angle compresses the
+// top surface and lets the luminous extruded sides carry the composition.
+const MAP_CAMERA_POSITION = [0, 7.45, 11.8] as const;
+const MAP_CAMERA_TARGET = [0, -0.12, 0] as const;
 
 type SceneController = {
   selectRegion: (code: string) => void;
@@ -108,7 +108,7 @@ export function CustomRegionMapScene({
 
         const scene = new THREE.Scene();
         scene.fog = new THREE.FogExp2(0x02090b, 0.027);
-        const camera: PerspectiveCamera = new THREE.PerspectiveCamera(34, 1, 0.05, 100);
+        const camera: PerspectiveCamera = new THREE.PerspectiveCamera(33, 1, 0.05, 100);
         const defaultCamera = new THREE.Vector3(...MAP_CAMERA_POSITION);
         const defaultTarget = new THREE.Vector3(...MAP_CAMERA_TARGET);
         camera.position.copy(defaultCamera);
@@ -127,7 +127,7 @@ export function CustomRegionMapScene({
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
         controls.dampingFactor = 0.065;
-        controls.minDistance = 6.8;
+        controls.minDistance = 8.2;
         controls.maxDistance = 20;
         controls.minPolarAngle = 0.42;
         controls.maxPolarAngle = 1.38;
@@ -349,9 +349,9 @@ export function CustomRegionMapScene({
             const bounds = new THREE.Box3().setFromObject(root);
             const center = bounds.getCenter(new THREE.Vector3());
             const size = bounds.getSize(new THREE.Vector3());
-            const scale = 10.7 / Math.max(size.x, size.z);
+            const scale = 10.4 / Math.max(size.x, size.z);
             root.position.copy(center).multiplyScalar(-1);
-            pivot.scale.setScalar(scale);
+            pivot.scale.set(scale, scale * 1.45, scale);
             pivot.add(root);
 
             turbineGroup = new THREE.Group();

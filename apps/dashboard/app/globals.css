@@ -1071,7 +1071,7 @@ button {
 }
 
 .scene-statistics .custom-map-scene {
-  transform: translateY(-120px);
+  transform: translate(-24px, -18px);
 }
 
 .scene-statistics .map-status,
