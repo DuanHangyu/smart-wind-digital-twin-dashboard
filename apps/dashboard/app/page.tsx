@@ -150,6 +150,12 @@ function SceneViewport({
   return (
     <section className={`scene-viewport scene-${page} ${className}`} data-status={status}>
       <div className="scene-grid" /><div className="scene-scan" />
+      {page === "statistics" ? (
+        <>
+          <div aria-hidden="true" className="map-panel-titlebar"><i /><strong>3d地图</strong><span /></div>
+          <div aria-hidden="true" className="map-panel-inner-frame"><i /><i /><i /><i /></div>
+        </>
+      ) : null}
       <header className="scene-header">
         <div><span className="scene-index">●</span><strong>{name}</strong></div>
         <p>总发电量 <SceneMetric value={metric} unit={unit} /></p>

@@ -144,13 +144,6 @@ export function CustomRegionMapScene({
         rimLight.position.set(5.5, 4.2, -3.5);
         scene.add(rimLight);
 
-        const grid = new THREE.GridHelper(26, 46, 0x08747b, 0x06333a);
-        grid.position.y = -0.47;
-        const gridMaterial = grid.material as import("three").Material;
-        gridMaterial.transparent = true;
-        gridMaterial.opacity = 0.25;
-        scene.add(grid);
-
         const pivot = new THREE.Group();
         pivot.name = "MODEL_AUTO_CENTER_SCALE";
         scene.add(pivot);
