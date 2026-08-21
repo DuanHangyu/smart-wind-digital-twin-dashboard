@@ -1064,14 +1064,14 @@ button {
 
 .scene-statistics .scene-grid {
   inset: 54px 18px 18px;
-  opacity: 0.62;
+  opacity: 0.82;
   background:
-    linear-gradient(rgba(21, 229, 219, 0.075) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(21, 229, 219, 0.075) 1px, transparent 1px),
-    linear-gradient(rgba(32, 250, 238, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(32, 250, 238, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(21, 229, 219, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 229, 219, 0.11) 1px, transparent 1px),
+    linear-gradient(rgba(32, 250, 238, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32, 250, 238, 0.055) 1px, transparent 1px);
   background-size: 32px 32px, 32px 32px, 160px 160px, 160px 160px;
-  mask-image: radial-gradient(ellipse at 50% 50%, #000 18%, rgba(0, 0, 0, 0.9) 63%, transparent 96%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 0 64%, rgba(0, 0, 0, 0.88) 78%, transparent 98%);
   transform: none;
 }
 
@@ -1363,20 +1363,6 @@ button {
   box-shadow: 0 0 28px rgba(0, 229, 223, 0.16), inset 0 0 28px rgba(0, 229, 223, 0.09);
   content: "";
   transform: translate(-50%, -50%) rotate(-8deg);
-}
-
-.map-hologram-field::after {
-  position: absolute;
-  top: 59%;
-  left: 50%;
-  width: 68%;
-  aspect-ratio: 1.78;
-  border-radius: 50%;
-  background: repeating-conic-gradient(from 14deg, rgba(90, 255, 240, 0.64) 0 1.2deg, transparent 1.2deg 5deg);
-  content: "";
-  mask-image: radial-gradient(ellipse, transparent 61%, #000 62% 66%, transparent 67%);
-  transform: translate(-50%, -50%) rotate(-8deg);
-  animation: map-field-orbit 28s linear infinite;
 }
 
 .map-hologram-field i {
@@ -2619,11 +2605,6 @@ button {
 @keyframes scene-scan {
   from { transform: translateY(-140px); }
   to { transform: translateY(900px); }
-}
-
-@keyframes map-field-orbit {
-  from { transform: translate(-50%, -50%) rotate(-8deg); }
-  to { transform: translate(-50%, -50%) rotate(352deg); }
 }
 
 @keyframes status-pulse {
