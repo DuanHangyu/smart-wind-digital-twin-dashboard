@@ -1918,29 +1918,33 @@ button {
   display: grid;
   height: 100%;
   grid-template-areas: "values compass";
-  grid-template-columns: 1fr 164px;
+  grid-template-columns: 1fr 178px;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .compass {
   grid-area: compass;
   position: relative;
-  width: 154px;
-  height: 154px;
-  border: 1px solid rgba(0, 229, 223, 0.3);
+  width: 168px;
+  height: 168px;
+  border: 2px solid rgba(224, 255, 253, 0.68);
   border-radius: 50%;
-  background: repeating-conic-gradient(rgba(0, 229, 223, 0.28) 0 1deg, transparent 1deg 15deg);
-  box-shadow: inset 0 0 20px rgba(0, 229, 223, 0.12), 0 0 18px rgba(0, 229, 223, 0.08);
+  background: repeating-conic-gradient(rgba(90, 255, 240, 0.38) 0 1deg, transparent 1deg 15deg);
+  box-shadow:
+    0 0 0 7px rgba(0, 229, 223, 0.065),
+    0 0 0 9px rgba(90, 255, 240, 0.18),
+    inset 0 0 24px rgba(0, 229, 223, 0.18),
+    0 0 20px rgba(0, 229, 223, 0.16);
 }
 
 .compass::after {
   position: absolute;
-  top: -35px;
+  top: -44px;
   left: 50%;
-  color: #a9cdce;
+  color: #d8eeee;
   content: "风向";
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   transform: translateX(-50%);
@@ -1948,11 +1952,12 @@ button {
 
 .compass::before {
   position: absolute;
-  inset: 12px;
+  inset: 14px;
   content: "";
-  border: 1px solid rgba(0, 229, 223, 0.22);
+  border: 2px solid rgba(90, 255, 240, 0.55);
   border-radius: 50%;
-  background: #031416;
+  background: radial-gradient(circle, rgba(0, 229, 223, 0.13), #031416 66%);
+  box-shadow: inset 0 0 20px rgba(0, 229, 223, 0.12), 0 0 12px rgba(0, 229, 223, 0.15);
 }
 
 .compass span {
@@ -1970,25 +1975,26 @@ button {
 .compass i {
   position: absolute;
   z-index: 3;
-  top: 28px;
-  left: 72px;
-  width: 5px;
-  height: 50px;
-  background: linear-gradient(var(--cyan-bright), transparent);
+  top: 31px;
+  left: 78px;
+  width: 9px;
+  height: 55px;
+  background: linear-gradient(var(--cyan-bright) 0 48%, rgba(230, 255, 253, 0.85) 49% 100%);
   clip-path: polygon(50% 0, 100% 100%, 50% 78%, 0 100%);
   transform: rotate(135deg);
-  transform-origin: 50% 47px;
-  filter: drop-shadow(0 0 6px var(--cyan));
+  transform-origin: 50% 53px;
+  filter: drop-shadow(0 0 8px var(--cyan));
 }
 
 .compass b {
   position: absolute;
   z-index: 4;
-  top: 50%;
+  top: -18px;
   left: 50%;
-  color: var(--cyan-bright);
-  font-size: 15px;
-  letter-spacing: 1px;
+  color: #18f5e9;
+  text-shadow: 0 0 10px rgba(0, 229, 223, 0.45);
+  font-size: 19px;
+  letter-spacing: 2px;
   transform: translate(-50%, -50%);
 }
 
@@ -1996,46 +2002,47 @@ button {
   display: grid;
   grid-area: values;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 9px;
+  gap: 8px 8px;
 }
 
 .environment-values div {
   display: grid;
-  min-height: 51px;
-  grid-template-columns: 34px 1fr;
+  min-height: 54px;
+  grid-template-columns: 38px 1fr;
   grid-template-rows: 19px 1fr;
   align-items: center;
-  padding: 5px 7px;
-  border: 1px solid rgba(0, 229, 223, 0.18);
-  background: linear-gradient(90deg, rgba(0, 229, 223, 0.09), rgba(0, 229, 223, 0.015));
+  padding: 5px 8px;
+  border: 1px solid rgba(0, 229, 223, 0.25);
+  background: linear-gradient(90deg, rgba(0, 229, 223, 0.14), rgba(0, 229, 223, 0.02));
   clip-path: polygon(0 0, 88% 0, 100% 18%, 100% 100%, 0 100%);
 }
 
 .environment-values i {
   display: grid;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   grid-row: 1 / 3;
   place-items: center;
   border: 1px solid rgba(90, 255, 240, 0.56);
-  background: rgba(0, 229, 223, 0.14);
+  background: linear-gradient(135deg, rgba(0, 229, 223, 0.3), rgba(0, 72, 76, 0.22));
+  box-shadow: inset 0 0 8px rgba(90, 255, 240, 0.12), 0 0 8px rgba(0, 229, 223, 0.1);
   color: var(--cyan-bright);
-  font-size: 9px;
+  font-size: 11px;
   font-style: normal;
 }
 
 .environment-values span {
   display: block;
   margin: 0;
-  color: #94babc;
-  font-size: 9px;
+  color: #b3cccd;
+  font-size: 10px;
   font-weight: 600;
 }
 
 .environment-values strong {
   color: #f1ffff;
   text-shadow: 0 0 7px rgba(0, 229, 223, 0.25);
-  font: 700 16px/1 "DIN Alternate", "Bahnschrift", monospace;
+  font: 700 18px/1 "DIN Alternate", "Bahnschrift", monospace;
 }
 
 .environment-values strong small {
@@ -2063,8 +2070,8 @@ button {
   min-height: 0;
   padding: 0 18px;
   border-bottom: 1px solid rgba(0, 229, 223, 0.12);
-  color: #dceff0;
-  font-size: 14px;
+  color: #edfafa;
+  font-size: 15px;
 }
 
 .equipment-row {
@@ -2075,27 +2082,23 @@ button {
   border-top: 0;
   border-right: 0;
   border-left: 0;
-  background: rgba(1, 11, 14, 0.72);
+  background: rgba(1, 11, 14, 0.88);
   font-weight: 600;
   text-align: left;
 }
 
 .equipment-row:nth-child(odd) {
-  background: rgba(0, 62, 65, 0.2);
+  background: linear-gradient(90deg, rgba(0, 68, 72, 0.34), rgba(0, 39, 43, 0.3));
 }
 
 .equipment-row:nth-child(even) {
-  background: rgba(1, 11, 14, 0.82);
+  background: rgba(1, 13, 16, 0.94);
 }
 
 .equipment-row:disabled { opacity: 1; }
 .equipment-row.model-linked { cursor: pointer; }
 .equipment-row.model-linked::after {
-  position: absolute;
-  right: 7px;
-  color: #356d70;
-  content: "3D";
-  font: 6px monospace;
+  display: none;
 }
 .equipment-row.model-linked:hover,
 .equipment-row.selected {
@@ -2106,16 +2109,17 @@ button {
 
 .equipment-head {
   color: #8ff9f2;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  background: linear-gradient(180deg, rgba(0, 120, 120, 0.26), rgba(0, 45, 49, 0.34));
-  box-shadow: inset 0 -1px 0 rgba(90, 255, 240, 0.14);
+  background: linear-gradient(180deg, rgba(0, 139, 138, 0.34), rgba(0, 45, 49, 0.48));
+  box-shadow: inset 0 -1px 0 rgba(90, 255, 240, 0.22), 0 0 13px rgba(0, 229, 223, 0.05);
 }
 
 .equipment-row span:last-child {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #e8f6f6;
 }
 
 .equipment-row .status-dot {
