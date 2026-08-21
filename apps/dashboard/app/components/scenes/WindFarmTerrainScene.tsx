@@ -136,7 +136,7 @@ export function WindFarmTerrainScene({
         if (disposed) return;
 
         const scene = new THREE.Scene();
-        const fog = new THREE.FogExp2(0x91a69a, 0.052);
+        const fog = new THREE.FogExp2(0xc6d0cb, 0.045);
         scene.fog = fog;
         const camera: PerspectiveCamera = new THREE.PerspectiveCamera(35, 1, 0.05, 100);
         const coarsePointer = matchMedia("(pointer: coarse)").matches;
@@ -157,7 +157,7 @@ export function WindFarmTerrainScene({
         renderer.setPixelRatio(Math.min(devicePixelRatio, coarsePointer ? 1.25 : 1.8));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.18;
+        renderer.toneMappingExposure = 1.02;
 
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
@@ -179,11 +179,11 @@ export function WindFarmTerrainScene({
           controls?.removeEventListener("start", preserveManualCamera);
         });
 
-        scene.add(new THREE.HemisphereLight(0xe3f1e7, 0x13281f, 2.05));
-        const keyLight = new THREE.DirectionalLight(0xf0f5ef, 2.62);
+        scene.add(new THREE.HemisphereLight(0xe9eee9, 0x1c2c22, 1.55));
+        const keyLight = new THREE.DirectionalLight(0xf6f5ed, 1.65);
         keyLight.position.set(-6, 10, 7);
         scene.add(keyLight);
-        const rimLight = new THREE.PointLight(0x58d7c6, 1.65, 30, 2);
+        const rimLight = new THREE.PointLight(0x78cfc0, 0.48, 30, 2);
         rimLight.position.set(7, 6, -5);
         scene.add(rimLight);
 
@@ -261,10 +261,10 @@ export function WindFarmTerrainScene({
               if (!material.emissive) return;
               if (visual === "selected") {
                 material.emissive.setHex(part.name === "PART__LAKE" ? 0x00b8ff : 0x10d8ca);
-                material.emissiveIntensity = part.name === "PART__LAKE" ? 0.48 : 0.28;
+                material.emissiveIntensity = part.name === "PART__LAKE" ? 0.36 : 0.14;
               } else if (visual === "hover") {
                 material.emissive.setHex(0x087e7b);
-                material.emissiveIntensity = 0.48;
+                material.emissiveIntensity = 0.24;
               } else if (projectionActive && part.name !== "PART__LAKE") {
                 material.emissive.setHex(0x00bdb6);
                 material.emissiveIntensity = 0.58;
@@ -337,28 +337,42 @@ export function WindFarmTerrainScene({
               if (!mesh.isMesh) return;
               const isTerrainMesh = belongsToPart(object, "PART__TERRAIN");
               const isBaseMesh = belongsToPart(object, "PART__BASE");
+              const isLakeMesh = belongsToPart(object, "PART__LAKE");
+              const isTurbineMesh = TURBINE_LINKS.some((link) => belongsToPart(object, link.target));
               if (isTerrainMesh) terrainMeshes.push(mesh);
               if (isBaseMesh) baseMeshes.push(mesh);
               const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
               const cloned = materials.map((entry) => {
                 const material = entry.clone() as MeshStandardMaterial;
+                if (isTerrainMesh) {
+                  material.color.setHex(0x91a879);
+                  material.metalness = 0;
+                  material.roughness = 0.98;
+                  material.emissive.setHex(0x0a130c);
+                  material.emissiveIntensity = 0.055;
+                } else if (isLakeMesh) {
+                  material.color.setHex(0x71888d);
+                  material.metalness = 0.04;
+                  material.roughness = 0.56;
+                  material.emissive.setHex(0x071314);
+                  material.emissiveIntensity = 0.04;
+                } else if (isTurbineMesh) {
+                  material.color.multiplyScalar(0.82);
+                  material.metalness = Math.min(material.metalness, 0.08);
+                  material.roughness = Math.max(material.roughness, 0.82);
+                  material.emissive.multiplyScalar(0.34);
+                  material.emissiveIntensity = Math.min(material.emissiveIntensity, 0.08);
+                } else if (material.color) {
+                  material.color.multiplyScalar(0.96);
+                  material.roughness = Math.max(material.roughness, 0.66);
+                }
                 if (material.emissive) {
                   material.userData.baseEmissive = material.emissive.clone();
                   material.userData.baseEmissiveIntensity = material.emissiveIntensity;
                   material.userData.baseColor = material.color.clone();
                   material.userData.baseOpacity = material.opacity;
                   material.userData.baseTransparent = material.transparent;
-                  if (!isTerrainMesh && !isBaseMesh) projectionAccentMaterials.add(material);
-                }
-                if (isTerrainMesh) {
-                  material.color.setHex(0xb4c4a8);
-                  material.metalness = 0;
-                  material.roughness = 0.94;
-                  material.emissive.setHex(0x0d1b11);
-                  material.emissiveIntensity = 0.12;
-                } else if (material.color) {
-                  material.color.multiplyScalar(0.96);
-                  material.roughness = Math.max(material.roughness, 0.66);
+                  if (isTurbineMesh) projectionAccentMaterials.add(material);
                 }
                 return material;
               });
@@ -433,9 +447,9 @@ export function WindFarmTerrainScene({
               projectionActive = enabled;
               wireGroup.visible = enabled;
               grid.visible = !enabled;
-              fog.color.setHex(enabled ? 0x000708 : 0x91a69a);
-              fog.density = enabled ? 0.018 : 0.052;
-              if (renderer) renderer.toneMappingExposure = enabled ? 1.12 : 1.18;
+              fog.color.setHex(enabled ? 0x000708 : 0xc6d0cb);
+              fog.density = enabled ? 0.018 : 0.045;
+              if (renderer) renderer.toneMappingExposure = enabled ? 1.08 : 1.02;
               wireLines.forEach((lines) => { lines.visible = enabled; });
               baseMeshes.forEach((mesh) => { mesh.visible = !enabled; });
               terrainMeshes.forEach((mesh) => {
@@ -582,7 +596,16 @@ export function WindFarmTerrainScene({
             projected.project(camera);
             const visible = projected.z > -1 && projected.z < 1;
             detail.hidden = !visible;
-            if (visible) detail.style.transform = `translate3d(${(projected.x * 0.5 + 0.5) * host.clientWidth + 92}px, ${(-projected.y * 0.5 + 0.5) * host.clientHeight + 88}px, 0)`;
+            if (visible) {
+              const detailWidth = Math.min(350, host.clientWidth - 28);
+              const detailHeight = Math.min(detail.offsetHeight || 176, host.clientHeight - 28);
+              const preferredX = (projected.x * 0.5 + 0.5) * host.clientWidth + 92;
+              const preferredY = (-projected.y * 0.5 + 0.5) * host.clientHeight + 88;
+              const detailX = Math.min(Math.max(14, preferredX), host.clientWidth - detailWidth - 14);
+              const detailY = Math.min(Math.max(14, preferredY), host.clientHeight - detailHeight - 14);
+              detail.style.width = `${detailWidth}px`;
+              detail.style.transform = `translate3d(${detailX}px, ${detailY}px, 0)`;
+            }
           } else if (detail) detail.hidden = true;
         };
         animationFrame = window.requestAnimationFrame(animate);
