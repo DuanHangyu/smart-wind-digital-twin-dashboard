@@ -2424,9 +2424,9 @@ button {
   left: 50%;
   display: grid;
   width: 660px;
-  height: 52px;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
+  height: 40px;
+  grid-template-columns: 1fr 1.06fr 1fr;
+  gap: 8px;
   transform: translateX(-50%);
   isolation: isolate;
 }
@@ -2434,37 +2434,36 @@ button {
 .bottom-navigation::before {
   position: absolute;
   z-index: -1;
-  top: -10px;
-  right: -160px;
-  bottom: -5px;
-  left: -160px;
+  top: -4px;
+  right: -72px;
+  bottom: -3px;
+  left: -72px;
   content: "";
   border-top: 1px solid rgba(0, 229, 223, 0.26);
-  border-bottom: 1px solid rgba(0, 229, 223, 0.1);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.06);
   background:
-    linear-gradient(90deg, transparent 0 16%, rgba(0, 229, 223, 0.32) 30%, rgba(90, 255, 240, 0.62) 50%, rgba(0, 229, 223, 0.32) 70%, transparent 84%) top/100% 1px no-repeat,
-    linear-gradient(90deg, transparent 0 9%, rgba(0, 229, 223, 0.08) 9% 10%, transparent 10% 90%, rgba(0, 229, 223, 0.08) 90% 91%, transparent 91%),
-    linear-gradient(90deg, transparent 4%, rgba(1, 23, 26, 0.92) 17% 83%, transparent 96%);
-  clip-path: polygon(7% 0, 93% 0, 97% 24%, 100% 24%, 96% 100%, 4% 100%, 0 24%, 3% 24%);
+    linear-gradient(90deg, transparent 0 8%, rgba(0, 229, 223, 0.2) 21%, rgba(90, 255, 240, 0.42) 50%, rgba(0, 229, 223, 0.2) 79%, transparent 92%) top/100% 1px no-repeat,
+    linear-gradient(90deg, transparent 5%, rgba(1, 24, 27, 0.72) 20% 80%, transparent 95%);
+  clip-path: polygon(7% 0, 93% 0, 97% 32%, 100% 32%, 95% 100%, 5% 100%, 0 32%, 3% 32%);
 }
 
 .bottom-navigation button {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(0, 229, 223, 0.34);
+  border: 1px solid rgba(0, 229, 223, 0.38);
   background:
-    linear-gradient(90deg, transparent, rgba(90, 255, 240, 0.05), transparent),
-    linear-gradient(180deg, rgba(4, 34, 38, 0.96), rgba(1, 12, 15, 0.99));
-  clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
-  box-shadow: inset 0 1px rgba(90, 255, 240, 0.08), inset 0 -10px 20px rgba(0, 0, 0, 0.22);
-  color: #4f8587;
+    linear-gradient(90deg, transparent, rgba(90, 255, 240, 0.035), transparent),
+    linear-gradient(180deg, rgba(3, 28, 32, 0.94), rgba(1, 11, 14, 0.99));
+  clip-path: polygon(7% 0, 93% 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 1px rgba(90, 255, 240, 0.07), inset 0 -8px 14px rgba(0, 0, 0, 0.25);
+  color: #448486;
   cursor: pointer;
   transition: color 180ms ease, background 180ms ease, filter 180ms ease;
 }
 
 .bottom-navigation button::before {
   position: absolute;
-  inset: 4px 9px 5px;
+  inset: 3px 8px 4px;
   content: "";
   border-top: 1px solid rgba(90, 255, 240, 0.13);
   border-bottom: 1px solid rgba(0, 229, 223, 0.08);
@@ -2492,17 +2491,17 @@ button {
 .bottom-navigation button.active {
   border-color: var(--cyan-bright);
   background:
-    linear-gradient(90deg, transparent 0 7%, rgba(255, 255, 255, 0.18) 48%, transparent 93%),
-    linear-gradient(180deg, rgba(24, 241, 231, 0.76), rgba(0, 83, 88, 0.9));
-  box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.12), inset 0 -10px 18px rgba(0, 29, 34, 0.28), 0 0 12px rgba(0, 229, 223, 0.4);
+    linear-gradient(90deg, rgba(0, 229, 223, 0.08), transparent 24% 76%, rgba(0, 229, 223, 0.08)),
+    linear-gradient(180deg, #003c42 0%, #006f74 58%, #10bdb7 100%);
+  box-shadow: inset 0 0 10px rgba(65, 255, 241, 0.09), inset 0 -5px 9px rgba(53, 255, 240, 0.13), 0 0 10px rgba(0, 229, 223, 0.42);
   color: var(--text);
   filter: drop-shadow(0 0 8px rgba(0, 229, 223, 0.42));
   text-shadow: 0 0 7px rgba(255, 255, 255, 0.42);
 }
 
 .bottom-navigation button.active::before {
-  border-color: rgba(225, 255, 253, 0.48);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent 26% 74%, rgba(255, 255, 255, 0.1));
+  border-color: rgba(93, 255, 245, 0.38);
+  background: linear-gradient(90deg, rgba(0, 229, 223, 0.07), transparent 26% 74%, rgba(0, 229, 223, 0.07));
 }
 
 .bottom-navigation button.active::after {
@@ -2522,7 +2521,7 @@ button {
   position: relative;
   z-index: 1;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 2px;
 }
 
