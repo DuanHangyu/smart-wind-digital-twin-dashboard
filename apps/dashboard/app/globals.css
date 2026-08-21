@@ -2312,39 +2312,69 @@ button {
 .bottom-navigation {
   position: absolute;
   z-index: 30;
-  bottom: 4px;
+  bottom: 12px;
   left: 50%;
   display: grid;
-  width: 724px;
-  height: 70px;
+  width: 660px;
+  height: 52px;
   grid-template-columns: repeat(3, 1fr);
-  gap: 7px;
+  gap: 6px;
   transform: translateX(-50%);
+  isolation: isolate;
 }
 
 .bottom-navigation::before {
   position: absolute;
-  top: -14px;
-  left: -225px;
-  width: 1210px;
-  height: 14px;
+  z-index: -1;
+  top: -10px;
+  right: -160px;
+  bottom: -5px;
+  left: -160px;
   content: "";
+  border-top: 1px solid rgba(0, 229, 223, 0.26);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.1);
   background:
-    linear-gradient(90deg, transparent, rgba(0, 229, 223, 0.25) 20%, rgba(0, 229, 223, 0.48) 50%, rgba(0, 229, 223, 0.25) 80%, transparent) top/100% 1px no-repeat,
-    linear-gradient(90deg, transparent 8%, rgba(1, 30, 33, 0.94) 18% 82%, transparent 92%);
-  clip-path: polygon(8% 0, 92% 0, 89% 100%, 11% 100%);
+    linear-gradient(90deg, transparent 0 16%, rgba(0, 229, 223, 0.32) 30%, rgba(90, 255, 240, 0.62) 50%, rgba(0, 229, 223, 0.32) 70%, transparent 84%) top/100% 1px no-repeat,
+    linear-gradient(90deg, transparent 0 9%, rgba(0, 229, 223, 0.08) 9% 10%, transparent 10% 90%, rgba(0, 229, 223, 0.08) 90% 91%, transparent 91%),
+    linear-gradient(90deg, transparent 4%, rgba(1, 23, 26, 0.92) 17% 83%, transparent 96%);
+  clip-path: polygon(7% 0, 93% 0, 97% 24%, 100% 24%, 96% 100%, 4% 100%, 0 24%, 3% 24%);
 }
 
 .bottom-navigation button {
   position: relative;
-  border: 1px solid rgba(0, 229, 223, 0.28);
+  overflow: hidden;
+  border: 1px solid rgba(0, 229, 223, 0.34);
   background:
-    linear-gradient(90deg, transparent, rgba(90, 255, 240, 0.045), transparent),
-    linear-gradient(180deg, rgba(5, 39, 43, 0.94), rgba(2, 13, 16, 0.98));
-  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
-  color: #527f81;
+    linear-gradient(90deg, transparent, rgba(90, 255, 240, 0.05), transparent),
+    linear-gradient(180deg, rgba(4, 34, 38, 0.96), rgba(1, 12, 15, 0.99));
+  clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 1px rgba(90, 255, 240, 0.08), inset 0 -10px 20px rgba(0, 0, 0, 0.22);
+  color: #4f8587;
   cursor: pointer;
   transition: color 180ms ease, background 180ms ease, filter 180ms ease;
+}
+
+.bottom-navigation button::before {
+  position: absolute;
+  inset: 4px 9px 5px;
+  content: "";
+  border-top: 1px solid rgba(90, 255, 240, 0.13);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.08);
+  background: linear-gradient(90deg, rgba(0, 229, 223, 0.07), transparent 28% 72%, rgba(0, 229, 223, 0.07));
+  clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.bottom-navigation button::after {
+  position: absolute;
+  right: 20%;
+  bottom: 0;
+  left: 20%;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 223, 0.52), transparent);
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 .bottom-navigation button:hover {
@@ -2354,24 +2384,38 @@ button {
 .bottom-navigation button.active {
   border-color: var(--cyan-bright);
   background:
-    linear-gradient(90deg, transparent 0 8%, rgba(255, 255, 255, 0.12) 50%, transparent 92%),
-    linear-gradient(180deg, rgba(0, 229, 223, 0.56), rgba(0, 66, 71, 0.84));
+    linear-gradient(90deg, transparent 0 7%, rgba(255, 255, 255, 0.18) 48%, transparent 93%),
+    linear-gradient(180deg, rgba(24, 241, 231, 0.76), rgba(0, 83, 88, 0.9));
+  box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.12), inset 0 -10px 18px rgba(0, 29, 34, 0.28), 0 0 12px rgba(0, 229, 223, 0.4);
   color: var(--text);
-  filter: drop-shadow(0 0 10px rgba(0, 229, 223, 0.35));
+  filter: drop-shadow(0 0 8px rgba(0, 229, 223, 0.42));
+  text-shadow: 0 0 7px rgba(255, 255, 255, 0.42);
+}
+
+.bottom-navigation button.active::before {
+  border-color: rgba(225, 255, 253, 0.48);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent 26% 74%, rgba(255, 255, 255, 0.1));
+}
+
+.bottom-navigation button.active::after {
+  right: 8%;
+  left: 8%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #bafffb 50%, transparent);
+  box-shadow: 0 0 8px var(--cyan-bright);
+  opacity: 1;
 }
 
 .bottom-navigation small {
-  display: block;
-  margin-bottom: 3px;
-  color: #6aa4a6;
-  font: 9px "DIN Alternate", "Bahnschrift", monospace;
-  letter-spacing: 2px;
+  display: none;
 }
 
 .bottom-navigation span {
-  font-size: 15px;
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
   font-weight: 600;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
 }
 
 .bottom-navigation button.active small {
