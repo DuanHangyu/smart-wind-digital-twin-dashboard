@@ -105,31 +105,34 @@ button {
   display: grid;
   width: 100%;
   height: 88px;
-  grid-template-columns: 1fr 930px 1fr;
+  grid-template-columns: 1fr 620px 1fr;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 229, 223, 0.28);
+  border-top: 1px solid rgba(0, 229, 223, 0.08);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.3);
   background:
+    repeating-linear-gradient(90deg, transparent 0 20px, rgba(92, 255, 245, 0.12) 20px 22px, transparent 22px 32px) top 12px left 28px/180px 2px no-repeat,
+    repeating-linear-gradient(90deg, transparent 0 20px, rgba(92, 255, 245, 0.12) 20px 22px, transparent 22px 32px) top 12px right 28px/180px 2px no-repeat,
     linear-gradient(90deg, transparent 0 4%, rgba(0, 229, 223, 0.025) 4% 24%, transparent 31% 69%, rgba(0, 229, 223, 0.025) 76% 96%, transparent 96%),
     linear-gradient(180deg, rgba(1, 10, 12, 0.995), rgba(1, 10, 12, 0.82));
-  box-shadow: 0 8px 30px rgba(0, 229, 223, 0.025);
+  box-shadow: 0 8px 30px rgba(0, 229, 223, 0.035), inset 0 -9px 18px rgba(0, 229, 223, 0.018);
 }
 
 .dashboard-header::before,
 .dashboard-header::after {
   position: absolute;
   bottom: -1px;
-  width: 760px;
+  width: 870px;
   height: 2px;
   content: "";
   background: linear-gradient(90deg, transparent, rgba(0, 229, 223, 0.18) 18%, var(--cyan-muted) 50%, rgba(0, 229, 223, 0.18) 82%, transparent);
 }
 
 .dashboard-header::before {
-  left: 30px;
+  left: 20px;
 }
 
 .dashboard-header::after {
-  right: 30px;
+  right: 20px;
 }
 
 .header-side {
@@ -143,15 +146,41 @@ button {
   color: var(--text-soft);
 }
 
+.header-side::before {
+  position: absolute;
+  z-index: -1;
+  top: 15px;
+  right: 22px;
+  left: 22px;
+  height: 43px;
+  content: "";
+  border-top: 1px solid rgba(0, 229, 223, 0.13);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.18);
+  background:
+    linear-gradient(90deg, rgba(0, 229, 223, 0.65), rgba(0, 229, 223, 0.65)) 7% 29px/26px 4px no-repeat,
+    linear-gradient(90deg, rgba(0, 229, 223, 0.34), rgba(0, 229, 223, 0.34)) 43% 8px/78px 3px no-repeat,
+    linear-gradient(90deg, rgba(0, 229, 223, 0.4), rgba(0, 229, 223, 0.4)) 78% 34px/52px 3px no-repeat,
+    radial-gradient(circle, rgba(0, 229, 223, 0.82) 0 3px, transparent 3.5px) 54% 18px/8px 8px no-repeat,
+    linear-gradient(90deg, rgba(0, 229, 223, 0.035), transparent 72%);
+  clip-path: polygon(0 0, 93% 0, 96% 20%, 100% 20%, 100% 78%, 96% 78%, 93% 100%, 0 100%);
+  opacity: 0.82;
+}
+
+.datetime-block::before {
+  transform: scaleX(-1);
+}
+
 .header-side::after {
   position: absolute;
   right: 36px;
   bottom: 18px;
   left: 36px;
-  height: 3px;
+  height: 4px;
   content: "";
-  opacity: 0.7;
-  background: repeating-linear-gradient(90deg, transparent 0 58px, rgba(0, 229, 223, 0.28) 58px 64px);
+  opacity: 0.86;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 58px, rgba(0, 229, 223, 0.34) 58px 64px),
+    linear-gradient(90deg, transparent 0 62%, rgba(0, 229, 223, 0.16) 62% 76%, transparent 76%);
 }
 
 .datetime-block::after {
@@ -233,30 +262,33 @@ button {
 
 .header-title::before {
   position: absolute;
-  inset: 7px 55px 0;
+  inset: 5px -42px 3px;
   content: "";
-  border: 1px solid rgba(0, 229, 223, 0.46);
-  border-bottom: 0;
-  clip-path: polygon(7% 0, 93% 0, 100% 38%, 95% 100%, 5% 100%, 0 38%);
-  box-shadow: inset 0 0 30px rgba(0, 229, 223, 0.12), 0 0 18px rgba(0, 229, 223, 0.1);
+  border: 1px solid rgba(0, 229, 223, 0.5);
+  background:
+    linear-gradient(90deg, transparent 0 8%, rgba(0, 229, 223, 0.16) 8% 11%, transparent 11% 89%, rgba(0, 229, 223, 0.16) 89% 92%, transparent 92%),
+    linear-gradient(180deg, rgba(0, 229, 223, 0.055), transparent 58%);
+  clip-path: polygon(8% 0, 92% 0, 100% 34%, 96% 82%, 91% 100%, 9% 100%, 4% 82%, 0 34%);
+  box-shadow: inset 0 0 30px rgba(0, 229, 223, 0.13), inset 0 -6px 12px rgba(0, 229, 223, 0.08), 0 0 18px rgba(0, 229, 223, 0.12);
 }
 
 .header-title::after {
   position: absolute;
-  right: 245px;
+  right: 145px;
   bottom: 2px;
-  left: 245px;
-  height: 6px;
+  left: 145px;
+  height: 7px;
   content: "";
-  background: linear-gradient(90deg, transparent, var(--cyan) 28%, var(--cyan-bright) 50%, var(--cyan) 72%, transparent);
-  box-shadow: 0 0 13px rgba(0, 229, 223, 0.65);
-  clip-path: polygon(7% 0, 93% 0, 100% 100%, 0 100%);
+  background:
+    linear-gradient(90deg, transparent 0 4%, var(--cyan) 4% 28%, transparent 28% 34%, var(--cyan-bright) 34% 66%, transparent 66% 72%, var(--cyan) 72% 96%, transparent 96%);
+  box-shadow: 0 0 15px rgba(0, 229, 223, 0.72);
+  clip-path: polygon(7% 0, 93% 0, 100% 72%, 96% 100%, 4% 100%, 0 72%);
 }
 
 .header-title h1 {
   margin: 0;
   color: #f5ffff;
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.25), 0 0 16px rgba(90, 255, 240, 0.38);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.4), 0 0 16px rgba(90, 255, 240, 0.45);
   font-size: 30px;
   font-weight: 800;
   letter-spacing: 8px;
@@ -272,21 +304,26 @@ button {
 
 .title-wing {
   position: absolute;
-  top: 48px;
-  width: 174px;
-  height: 14px;
-  border-top: 2px solid var(--cyan);
+  top: 42px;
+  width: 230px;
+  height: 20px;
+  border-top: 2px solid rgba(90, 255, 240, 0.9);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.18);
+  background:
+    linear-gradient(90deg, var(--cyan-bright), var(--cyan)) top/92px 3px no-repeat,
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(0, 229, 223, 0.28) 18px 22px) bottom 5px left 54px/120px 3px no-repeat;
   filter: drop-shadow(0 0 6px rgba(0, 229, 223, 0.55));
 }
 
 .title-wing-left {
-  left: 18px;
-  transform: skewX(34deg);
+  left: -263px;
+  clip-path: polygon(0 0, 72% 0, 78% 30%, 100% 30%, 100% 100%, 74% 100%, 68% 72%, 0 72%);
 }
 
 .title-wing-right {
-  right: 18px;
-  transform: skewX(-34deg);
+  right: -263px;
+  clip-path: polygon(28% 0, 100% 0, 100% 72%, 32% 72%, 26% 100%, 0 100%, 0 30%, 22% 30%);
+  transform: scaleX(-1);
 }
 
 .global-line {
