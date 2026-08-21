@@ -363,16 +363,17 @@ export function EquipmentStatusTable({
 
 export function RealtimeMetricsBar({ turbine }: { turbine: TurbineDetail }) {
   const values = [
-    ["环境温度", turbine.environmentTemperatureC, "°C", 1, ""],
-    ["运行状态", null, "", 0, statusLabel[turbine.status]],
-    ["实时风速", turbine.windSpeedMS, "m/s", 1, ""],
-    ["齿轮箱温度", turbine.gearboxTemperatureC, "°C", 1, turbine.gearboxTemperatureC !== null && turbine.gearboxTemperatureC > 60 ? "warning" : ""],
-    ["发电机温度", turbine.generatorTemperatureC, "°C", 1, turbine.generatorTemperatureC !== null && turbine.generatorTemperatureC > 70 ? "warning" : ""],
+    ["环境温度", turbine.environmentTemperatureC, "°C", 1, "", "温"],
+    ["运行状态", null, "", 0, statusLabel[turbine.status], "态"],
+    ["实时风速", turbine.windSpeedMS, "m/s", 1, "", "风"],
+    ["齿轮箱温度", turbine.gearboxTemperatureC, "°C", 1, turbine.gearboxTemperatureC !== null && turbine.gearboxTemperatureC > 60 ? "warning" : "", "齿"],
+    ["发电机温度", turbine.generatorTemperatureC, "°C", 1, turbine.generatorTemperatureC !== null && turbine.generatorTemperatureC > 70 ? "warning" : "", "机"],
   ] as const;
   return (
     <div className="realtime-bar">
-      {values.map(([label, value, unit, decimals, text]) => (
+      {values.map(([label, value, unit, decimals, text, glyph]) => (
         <div className={text === "warning" ? "warning" : ""} key={label}>
+          <i className="realtime-glyph" aria-hidden="true">{glyph}</i>
           <span>{label}</span>
           <strong>{text && text !== "warning" ? text : <AnimatedNumber value={value} decimals={decimals} />}</strong>
           <small>{unit}</small>
