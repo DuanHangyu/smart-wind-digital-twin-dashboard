@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
+  Blending,
   Color,
   LineBasicMaterial,
   LineSegments,
@@ -13,6 +14,7 @@ import type {
   Plane,
   PerspectiveCamera,
   Texture,
+  Side,
   Vector3,
 } from "three";
 import type {
@@ -43,17 +45,22 @@ type PartMesh = Mesh & {
 };
 
 type MaterialRuntime = {
+  baseBlending: Blending;
   baseColor: Color;
   baseEmissive: Color;
   baseEmissiveIntensity: number;
   baseMetalness: number;
   baseOpacity: number;
   baseRoughness: number;
+  baseSide: Side;
   material: MeshStandardMaterial;
+  mutedColor: Color;
 };
 
 type PartRuntime = {
   basePosition: Vector3;
+  edge: LineSegments;
+  edgeMaterial: LineBasicMaterial;
   explodeOffset: Vector3;
   line: LineSegments;
   lineMaterial: LineBasicMaterial;
@@ -80,6 +87,31 @@ const EXTERNAL_PARTS = new Set([
   "PART__YAW_GEAR",
 ]);
 
+const HOLOGRAM_SHELL_PARTS = new Set([
+  "PART__BLADE_A",
+  "PART__BLADE_B",
+  "PART__BLADE_C",
+  "PART__HUB",
+  "PART__NACELLE_SHELL",
+  "PART__SPINNER",
+  "PART__TOWER",
+  "PART__YAW_BASE",
+]);
+
+const WIREFRAME_PARTS = new Set(HOLOGRAM_SHELL_PARTS);
+
+const TURBINE_MODE_CAMERAS: Record<TurbineViewMode, {
+  fov: number;
+  relative: readonly [number, number, number];
+  targetMix: number;
+  targetOffset: readonly [number, number, number];
+}> = {
+  exterior: { fov: 29, relative: [3.5, 1.08, 4.36], targetMix: 0.2, targetOffset: [0, -0.06, 0] },
+  transparent: { fov: 29, relative: [3.42, 0.95, 4.18], targetMix: 0.23, targetOffset: [0, -0.08, 0] },
+  wireframe: { fov: 28, relative: [3.65, 0.86, 4.28], targetMix: 0.2, targetOffset: [0, -0.05, 0] },
+  structure: { fov: 26, relative: [4.84, 0.73, 4.89], targetMix: 0.48, targetOffset: [0, -0.16, 0] },
+};
+
 const HOTSPOT_TARGETS = new Set([
   "PART__BRAKE_UNIT",
   "PART__GEARBOX",
@@ -93,21 +125,21 @@ const HOTSPOT_TARGETS = new Set([
 ]);
 
 const STRUCTURE_EXPLODE_OFFSETS: Record<string, readonly [number, number, number]> = {
-  PART__BEDPLATE: [0, 0, 0],
-  PART__BLADE_A: [0, 0, 0.28],
-  PART__BLADE_B: [0, 0, 0.28],
-  PART__BLADE_C: [0, 0, 0.28],
-  PART__BRAKE_UNIT: [0.08, 0.03, -0.78],
-  PART__GEARBOX: [0, 0, -0.28],
-  PART__GENERATOR: [0, 0, -0.58],
-  PART__HUB: [0, 0, 0.28],
-  PART__MAIN_BEARING: [0, 0, -0.1],
-  PART__MAIN_SHAFT: [0, 0, 0.1],
-  PART__NACELLE_SHELL: [0, 0.08, -0.24],
-  PART__SPINNER: [0, 0, 0.4],
-  PART__TOWER: [0, -0.56, 0],
-  PART__YAW_BASE: [0, -0.36, 0],
-  PART__YAW_GEAR: [0, -0.2, 0],
+  PART__BEDPLATE: [0, -0.2, -0.28],
+  PART__BLADE_A: [0, 0, 0.62],
+  PART__BLADE_B: [0, 0, 0.62],
+  PART__BLADE_C: [0, 0, 0.62],
+  PART__BRAKE_UNIT: [0.06, 0.02, -1.34],
+  PART__GEARBOX: [0, 0, -0.58],
+  PART__GENERATOR: [0, 0, -1.02],
+  PART__HUB: [0, 0, 0.62],
+  PART__MAIN_BEARING: [0, 0, -0.2],
+  PART__MAIN_SHAFT: [0, 0, 0.24],
+  PART__NACELLE_SHELL: [0, 0.16, -0.48],
+  PART__SPINNER: [0, 0, 0.9],
+  PART__TOWER: [0, -1.04, 0],
+  PART__YAW_BASE: [0, -0.7, 0],
+  PART__YAW_GEAR: [0, -0.4, 0],
 };
 
 const STATUS_LABEL: Record<RuntimeStatus, string> = {
@@ -200,7 +232,7 @@ export function TurbineTwinScene({
         if (disposed) return;
 
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x02090b, 0.027);
+        scene.fog = new THREE.FogExp2(0x02090b, 0.012);
         const camera: PerspectiveCamera = new THREE.PerspectiveCamera(39, 1, 0.03, 100);
         const coarsePointer = matchMedia("(pointer: coarse)").matches;
         const defaultCamera = new THREE.Vector3(...(coarsePointer ? TURBINE_CAMERA_TOUCH : TURBINE_CAMERA_DESKTOP));
@@ -257,18 +289,6 @@ export function TurbineTwinScene({
         fill.position.set(-6, 2, -3);
         scene.add(fill);
 
-        const grid = new THREE.GridHelper(20, 42, 0x087f82, 0x0a2d30);
-        const gridMaterial = grid.material as import("three").Material;
-        gridMaterial.transparent = true;
-        gridMaterial.opacity = 0.25;
-        scene.add(grid);
-        const halo = new THREE.Mesh(
-          new THREE.RingGeometry(3.3, 3.34, 96),
-          new THREE.MeshBasicMaterial({ color: 0x14b8b5, opacity: 0.28, side: THREE.DoubleSide, transparent: true }),
-        );
-        halo.rotation.x = -Math.PI / 2;
-        scene.add(halo);
-
         const pivot = new THREE.Group();
         pivot.name = "MODEL_AUTO_CENTER_SCALE";
         pivot.rotation.y = -0.55;
@@ -282,8 +302,9 @@ export function TurbineTwinScene({
         const pointer = new THREE.Vector2(2, 2);
         const projected = new THREE.Vector3();
         const cyanColor = new THREE.Color(0x39d7d3);
+        const cyanEmissive = new THREE.Color(0x087c78);
         const exteriorColor = new THREE.Color(0xc5d2d2);
-        const wireColor = new THREE.Color(0x09aaa7);
+        const wireColor = new THREE.Color(0x16d8d2);
         const selectedColor = new THREE.Color(0x0affec);
         const hoverColor = new THREE.Color(0x087e7b);
         const faultColor = new THREE.Color(0xff463d);
@@ -298,15 +319,19 @@ export function TurbineTwinScene({
         let selectedRuntime: PartRuntime | null = null;
         let hoveredRuntime: PartRuntime | null = null;
         let pointerDown = { x: 0, y: 0 };
+        const hubFocus = defaultTarget.clone();
+        const nacelleFocus = defaultTarget.clone();
+        let focusReady = false;
 
         const setModeCamera = (mode: TurbineViewMode) => {
-          const distanceScale = mode === "wireframe" ? 0.72 : mode === "structure" ? 0.76 : 0.64;
-          targetGoal.copy(defaultTarget).setY(1.12);
-          cameraGoal
-            .copy(defaultCamera)
-            .normalize()
-            .multiplyScalar(defaultCamera.length() * distanceScale)
-            .add(targetGoal);
+          const preset = TURBINE_MODE_CAMERAS[mode];
+          if (focusReady) targetGoal.copy(hubFocus).lerp(nacelleFocus, preset.targetMix);
+          else targetGoal.copy(defaultTarget).setY(1.12);
+          targetGoal.add(new THREE.Vector3(...preset.targetOffset));
+          const touchScale = coarsePointer ? 1.12 : 1;
+          cameraGoal.set(...preset.relative).multiplyScalar(touchScale).add(targetGoal);
+          camera.fov = preset.fov;
+          camera.updateProjectionMatrix();
           camera.position.copy(cameraGoal);
           controls?.target.copy(targetGoal);
           controls?.update();
@@ -369,13 +394,16 @@ export function TurbineTwinScene({
               });
               mesh.material = Array.isArray(mesh.material) ? clonedMaterials : clonedMaterials[0];
               const materials = clonedMaterials.map((material) => ({
+                baseBlending: material.blending,
                 baseColor: material.color.clone(),
                 baseEmissive: material.emissive.clone(),
                 baseEmissiveIntensity: material.emissiveIntensity,
                 baseMetalness: material.metalness,
                 baseOpacity: material.opacity,
                 baseRoughness: material.roughness,
+                baseSide: material.side,
                 material,
+                mutedColor: material.color.clone().lerp(new THREE.Color(0x4f8589), 0.24),
               }));
               const lineMaterial = new THREE.LineBasicMaterial({
                 color: 0x16d9d3,
@@ -388,8 +416,22 @@ export function TurbineTwinScene({
               line.renderOrder = 18;
               line.visible = false;
               mesh.add(line);
+              const edgeMaterial = new THREE.LineBasicMaterial({
+                color: 0x36f7ee,
+                depthTest: false,
+                depthWrite: false,
+                opacity: 0,
+                transparent: true,
+              });
+              const edge = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, 24), edgeMaterial);
+              edge.name = `FX__EDGE__${mesh.name}`;
+              edge.renderOrder = 19;
+              edge.visible = false;
+              mesh.add(edge);
               const runtime: PartRuntime = {
                 basePosition: mesh.position.clone(),
+                edge,
+                edgeMaterial,
                 explodeOffset: STRUCTURE_EXPLODE_OFFSETS[mesh.name]
                   ? new THREE.Vector3(...STRUCTURE_EXPLODE_OFFSETS[mesh.name])
                   : blenderVectorToThree(mesh.userData.explode_vector),
@@ -409,8 +451,6 @@ export function TurbineTwinScene({
             const scale = 9.6 / Math.max(size.x, size.y, size.z);
             pivot.scale.setScalar(scale);
             pivot.add(root);
-            grid.position.y = -size.y * scale * 0.5 - 0.06;
-            halo.position.y = grid.position.y + 0.012;
             scene.updateMatrixWorld(true);
 
             // Blender's source rotor empty was exported at the turbine root. Rebuild it
@@ -441,6 +481,14 @@ export function TurbineTwinScene({
                 if (runtime.object.parent === runtimeRotor) runtime.basePosition.copy(runtime.object.position);
               });
               scene.updateMatrixWorld(true);
+            }
+
+            const resolvedHub = partByName.get("PART__HUB");
+            const resolvedNacelle = partByName.get("PART__NACELLE_SHELL");
+            if (resolvedHub && resolvedNacelle) {
+              new THREE.Box3().setFromObject(resolvedHub.object).getCenter(hubFocus);
+              new THREE.Box3().setFromObject(resolvedNacelle.object).getCenter(nacelleFocus);
+              focusReady = true;
             }
 
             const shellRuntime = partByName.get("PART__NACELLE_SHELL");
@@ -544,15 +592,17 @@ export function TurbineTwinScene({
         const opacityForMode = (partName: string, mode: TurbineViewMode) => {
           const external = EXTERNAL_PARTS.has(partName);
           if (mode === "exterior") return external ? 1 : 0;
-          if (mode === "wireframe") return 0.045;
+          if (mode === "wireframe") return WIREFRAME_PARTS.has(partName) ? 0.025 : partName === "PART__BEDPLATE" ? 0.66 : 0.82;
           if (mode === "transparent") {
-            if (!external) return 1;
-            if (partName === "PART__NACELLE_SHELL") return 0.3;
-            if (partName === "PART__TOWER") return 0.2;
-            return 0.3;
+            if (!HOLOGRAM_SHELL_PARTS.has(partName)) return partName === "PART__BEDPLATE" ? 0.72 : 0.84;
+            if (partName === "PART__NACELLE_SHELL") return 0.46;
+            if (partName === "PART__TOWER") return 0.28;
+            return 0.39;
           }
-          if (partName === "PART__NACELLE_SHELL") return 0.16;
-          if (partName === "PART__TOWER" || partName === "PART__YAW_BASE") return 0.32;
+          if (partName === "PART__NACELLE_SHELL") return 0;
+          if (partName.startsWith("PART__BLADE_")) return 0.24;
+          if (partName === "PART__HUB" || partName === "PART__SPINNER") return 0.3;
+          if (partName === "PART__TOWER" || partName === "PART__YAW_BASE") return 0.28;
           return 1;
         };
 
@@ -564,7 +614,7 @@ export function TurbineTwinScene({
           lastFrame = now;
           const mode = stateRef.current.viewMode;
           const animationEnabled = stateRef.current.animationEnabled;
-          if (rotor && animationEnabled) {
+          if (rotor && animationEnabled && mode !== "structure") {
             const rpm = Number(rotor.userData.rpm ?? 8.5);
             rotor.rotateOnAxis(rotorAxis, rpm * Math.PI * 2 / 60 * delta);
           }
@@ -592,42 +642,85 @@ export function TurbineTwinScene({
                 material.needsUpdate = true;
               }
               const isExternal = EXTERNAL_PARTS.has(partName);
+              const hologramShell = HOLOGRAM_SHELL_PARTS.has(partName)
+                && (mode === "transparent" || mode === "wireframe" || mode === "structure");
               const tintExternal = isExternal && (mode === "transparent" || (mode === "structure" && targetOpacity < 0.5));
               const targetColor = mode === "wireframe"
-                ? wireColor
+                ? WIREFRAME_PARTS.has(partName) ? wireColor : entry.mutedColor
                 : mode === "exterior" && isExternal
                   ? exteriorColor
                   : tintExternal
                     ? cyanColor
-                    : entry.baseColor;
+                    : mode === "transparent"
+                      ? entry.mutedColor
+                      : entry.baseColor;
               material.color.lerp(targetColor, materialBlend);
               material.opacity = THREE.MathUtils.damp(material.opacity, targetOpacity * entry.baseOpacity, 7.2, delta);
-              const targetRoughness = mode === "exterior" && isExternal ? 0.54 : tintExternal || mode === "wireframe" ? 0.2 : entry.baseRoughness;
-              const targetMetalness = mode === "exterior" && isExternal ? 0.04 : tintExternal || mode === "wireframe" ? 0.06 : entry.baseMetalness;
+              const targetRoughness = mode === "exterior" && isExternal
+                ? 0.54
+                : hologramShell
+                  ? 0.34
+                  : mode === "transparent" || mode === "wireframe"
+                    ? 0.58
+                    : entry.baseRoughness;
+              const targetMetalness = mode === "exterior" && isExternal ? 0.04 : hologramShell ? 0.02 : mode === "transparent" || mode === "wireframe" ? 0.08 : entry.baseMetalness;
               material.roughness = THREE.MathUtils.damp(material.roughness, targetRoughness, 7.2, delta);
               material.metalness = THREE.MathUtils.damp(material.metalness, targetMetalness, 7.2, delta);
-              material.depthWrite = material.opacity > 0.82 && mode !== "wireframe";
+              const targetBlending = hologramShell && mode === "wireframe"
+                ? THREE.AdditiveBlending
+                : hologramShell
+                  ? THREE.NormalBlending
+                  : entry.baseBlending;
+              const targetSide = hologramShell ? THREE.DoubleSide : entry.baseSide;
+              if (material.blending !== targetBlending || material.side !== targetSide) {
+                material.blending = targetBlending;
+                material.side = targetSide;
+                material.needsUpdate = true;
+              }
+              material.depthWrite = !hologramShell && material.opacity > 0.82 && mode !== "wireframe";
               const statusColor = businessPart?.status === "fault"
                 ? faultColor
                 : businessPart?.status === "abnormal"
                   ? warningColor
                   : entry.baseEmissive;
-              const emissiveTarget = isSelected ? selectedColor : isHovered ? hoverColor : statusColor;
+              const emissiveTarget = isSelected ? selectedColor : isHovered ? hoverColor : hologramShell ? cyanEmissive : statusColor;
               material.emissive.lerp(emissiveTarget, materialBlend);
-              const targetIntensity = isSelected ? 0.92 : isHovered ? 0.46 : businessPart?.status === "fault" || businessPart?.status === "abnormal" ? 0.24 : entry.baseEmissiveIntensity;
+              const targetIntensity = isSelected
+                ? 0.92
+                : isHovered
+                  ? 0.46
+                  : hologramShell
+                    ? mode === "wireframe" ? 0.72 : 0.42
+                    : businessPart?.status === "fault" || businessPart?.status === "abnormal"
+                      ? 0.2
+                      : mode === "transparent" || mode === "wireframe"
+                        ? entry.baseEmissiveIntensity * 0.45
+                        : entry.baseEmissiveIntensity;
               material.emissiveIntensity = THREE.MathUtils.damp(material.emissiveIntensity, targetIntensity, 8.2, delta);
             });
 
             const targetLineOpacity = mode === "wireframe"
-              ? 0.42
-              : mode === "transparent" && EXTERNAL_PARTS.has(partName)
-                ? partName === "PART__NACELLE_SHELL" ? 0.06 : 0.025
+              ? WIREFRAME_PARTS.has(partName)
+                ? partName.startsWith("PART__BLADE_") || partName === "PART__HUB" ? 0.62 : 0.38
+                : 0.025
+              : mode === "transparent" && HOLOGRAM_SHELL_PARTS.has(partName)
+                ? partName === "PART__NACELLE_SHELL" ? 0.16 : 0.1
                 : mode === "exterior" && EXTERNAL_PARTS.has(partName)
                   ? 0.08
                   : isSelected ? 0.22 : 0;
+            const targetEdgeOpacity = mode === "wireframe"
+              ? WIREFRAME_PARTS.has(partName) ? 0.92 : 0.06
+              : mode === "transparent" && HOLOGRAM_SHELL_PARTS.has(partName)
+                ? 0.22
+                : mode === "structure" && HOLOGRAM_SHELL_PARTS.has(partName) && targetOpacity > 0
+                  ? 0.16
+                  : 0;
             if (targetLineOpacity > 0.01) runtime.line.visible = true;
             runtime.lineMaterial.opacity = THREE.MathUtils.damp(runtime.lineMaterial.opacity, targetLineOpacity, 8, delta);
             if (targetLineOpacity === 0 && runtime.lineMaterial.opacity < 0.01) runtime.line.visible = false;
+            if (targetEdgeOpacity > 0.01) runtime.edge.visible = true;
+            runtime.edgeMaterial.opacity = THREE.MathUtils.damp(runtime.edgeMaterial.opacity, targetEdgeOpacity, 8, delta);
+            if (targetEdgeOpacity === 0 && runtime.edgeMaterial.opacity < 0.01) runtime.edge.visible = false;
             if (targetOpacity === 0 && runtime.materials.every((entry) => entry.material.opacity < 0.012)) runtime.object.visible = false;
           });
 
@@ -637,7 +730,6 @@ export function TurbineTwinScene({
             controls?.target.lerp(targetGoal, cameraBlend);
           }
           controls?.update(delta);
-          halo.rotation.z += animationEnabled ? delta * 0.08 : 0;
           renderer.render(scene, camera);
 
           hotspotByTarget.forEach((hotspot, target) => {

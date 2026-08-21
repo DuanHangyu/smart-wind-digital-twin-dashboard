@@ -150,9 +150,9 @@ function SceneViewport({
   return (
     <section className={`scene-viewport scene-${page} ${className}`} data-status={status}>
       <div className="scene-grid" /><div className="scene-scan" />
-      {page === "statistics" ? (
+      {page === "statistics" || page === "operations" ? (
         <>
-          <div aria-hidden="true" className="map-panel-titlebar"><i /><strong>3d地图</strong><span /></div>
+          <div aria-hidden="true" className="map-panel-titlebar"><i /><strong>{page === "operations" ? "风机详情" : "3d地图"}</strong><span /></div>
           <div aria-hidden="true" className="map-panel-inner-frame"><i /><i /><i /><i /></div>
         </>
       ) : null}

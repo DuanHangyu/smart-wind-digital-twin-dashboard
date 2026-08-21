@@ -1406,10 +1406,10 @@ button {
 }
 
 .turbine-twin-scene {
-  bottom: 82px;
+  inset: 58px 18px 100px;
   background:
-    radial-gradient(ellipse at 50% 58%, rgba(0, 160, 154, 0.12), transparent 50%),
-    linear-gradient(180deg, rgba(0, 37, 39, 0.08), rgba(0, 8, 10, 0.24));
+    radial-gradient(ellipse at 50% 51%, rgba(0, 160, 154, 0.1), transparent 48%),
+    linear-gradient(180deg, rgba(0, 37, 39, 0.04), rgba(0, 8, 10, 0.14));
 }
 
 .turbine-twin-scene canvas {
@@ -1529,8 +1529,61 @@ button {
 .turbine-part-card dt { color: #527a7c; font-size: 8px; }
 .turbine-part-card dd { margin: 4px 0 0; color: #c8ffff; font: 9px monospace; white-space: nowrap; }
 
-.scene-operations .scene-placeholder-badge { bottom: 90px; }
-.scene-operations .turbine-twin-scene .map-camera-reset { bottom: 8px; }
+.scene-operations .scene-grid {
+  inset: 58px 18px 100px;
+  opacity: 0.76;
+  background:
+    linear-gradient(rgba(21, 229, 219, 0.105) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 229, 219, 0.105) 1px, transparent 1px),
+    linear-gradient(rgba(32, 250, 238, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32, 250, 238, 0.045) 1px, transparent 1px);
+  background-size: 30px 30px, 30px 30px, 150px 150px, 150px 150px;
+  mask-image: radial-gradient(ellipse at 50% 51%, #000 0 58%, rgba(0, 0, 0, 0.88) 77%, transparent 98%);
+  transform: none;
+}
+
+.scene-operations .scene-header {
+  top: 70px;
+  left: 48px;
+}
+
+.scene-operations .scene-header > div {
+  position: relative;
+  gap: 12px;
+  padding-bottom: 10px;
+}
+
+.scene-operations .scene-header > div::after {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  left: 30px;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, rgba(137, 255, 249, 0.72), rgba(0, 229, 223, 0.04));
+  box-shadow: 0 0 6px rgba(0, 229, 223, 0.28);
+}
+
+.scene-operations .scene-index {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  background: #35e7dc;
+  box-shadow: 0 0 10px rgba(53, 231, 220, 0.55);
+  color: #001819;
+  font-size: 0;
+}
+
+.scene-operations .scene-index::after { content: "▶"; font-size: 9px; }
+.scene-operations .scene-header strong { color: #eeffff; font-size: 22px; text-shadow: 0 0 8px rgba(98, 255, 245, 0.38); }
+.scene-operations .scene-header p { margin: 8px 0 0 30px; color: #b2cfd0; font-size: 13px; }
+.scene-operations .scene-header p b { color: #72fff4; font-size: 31px; text-shadow: 0 0 10px rgba(0, 229, 223, 0.32); }
+.scene-operations .scene-disclaimer { top: 68px; }
+.scene-operations .scene-placeholder-badge,
+.scene-operations .map-camera-reset,
+.scene-operations .turbine-hotspot-layer,
+.scene-operations .mode-status { display: none; }
 
 .windfarm-terrain-scene {
   background:
