@@ -141,7 +141,9 @@ export function SegmentedBarChart({
     <HudPanel title={title} code="POWER / MONTH" status={status}>
       {data.length ? (
         <div className="bar-chart">
-          <div className="bar-axis"><span>120</span><span>80</span><span>40</span><span>0</span></div>
+          <div className="bar-axis">
+            {[120, 100, 80, 60, 40, 20, 0].map((tick) => <span key={tick}>{tick}</span>)}
+          </div>
           <div className="bar-groups">
             {data.map((point) => (
               <div
@@ -245,11 +247,11 @@ export function TrendChart({
   title?: string;
 }) {
   const values = data.map((item) => item.value ?? 0);
-  const max = Math.max(25, Math.ceil(Math.max(...values) / 5) * 5);
-  const plot = { left: 36, right: 350, top: 14, bottom: 150 };
+  const max = 25;
+  const plot = { left: 38, right: 348, top: 19, bottom: 151 };
   const points = values.map((value, index) => ({
     x: plot.left + index * ((plot.right - plot.left) / Math.max(1, values.length - 1)),
-    y: plot.bottom - (value / max) * (plot.bottom - plot.top),
+    y: plot.bottom - (Math.min(value, max) / max) * (plot.bottom - plot.top),
     value,
     label: data[index]?.label ?? "",
   }));
@@ -263,8 +265,8 @@ export function TrendChart({
           <svg className="trend-svg" viewBox="0 0 360 180" role="img" aria-label={`${title}，${data.map((item) => `${item.label}${formatValue(item.value, 1)}`).join("，")}`}>
             <defs>
               <linearGradient id="trend-area-fill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#10e9df" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#10e9df" stopOpacity="0.015" />
+                <stop offset="0%" stopColor="#10e9df" stopOpacity="0.34" />
+                <stop offset="100%" stopColor="#10e9df" stopOpacity="0.035" />
               </linearGradient>
               <filter id="trend-line-glow" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur stdDeviation="1.5" result="blur" />
@@ -281,7 +283,7 @@ export function TrendChart({
             {points.map((point) => (
               <g className="trend-node" key={point.label}>
                 <title>{`${point.label} · ${formatValue(point.value, 1)}`}</title>
-                <text className="trend-value" x={point.x} y={point.y - 10}>{formatValue(point.value, 1)}</text>
+                <text className="trend-value" x={point.x} y={Math.max(point.y - 9, 10)}>{formatValue(point.value, 1)}</text>
                 <circle className="trend-node-halo" cx={point.x} cy={point.y} r="5" />
                 <circle className="trend-node-core" cx={point.x} cy={point.y} r="2.2" />
                 <text className="trend-label" x={point.x} y="169">{point.label}</text>
