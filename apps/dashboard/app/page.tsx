@@ -310,6 +310,80 @@ function OperationsPage({
   );
 }
 
+function HeaderHudGeometry() {
+  return (
+    <svg className="header-hud" viewBox="0 0 2560 90" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="header-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#020b0d" />
+          <stop offset="0.54" stopColor="#01090b" />
+          <stop offset="1" stopColor="#010607" />
+        </linearGradient>
+        <linearGradient id="header-line" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#087f7c" stopOpacity="0.05" />
+          <stop offset="0.32" stopColor="#0ec4bd" stopOpacity="0.34" />
+          <stop offset="0.72" stopColor="#16d7d0" stopOpacity="0.52" />
+          <stop offset="1" stopColor="#08a29e" stopOpacity="0.12" />
+        </linearGradient>
+        <linearGradient id="header-energy" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#086c6a" stopOpacity="0.2" />
+          <stop offset="0.52" stopColor="#32fff4" stopOpacity="0.94" />
+          <stop offset="1" stopColor="#087c78" stopOpacity="0.2" />
+        </linearGradient>
+        <linearGradient id="header-panel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#0b5f60" stopOpacity="0.28" />
+          <stop offset="1" stopColor="#021315" stopOpacity="0.03" />
+        </linearGradient>
+        <filter id="header-glow" x="-40%" y="-80%" width="180%" height="260%">
+          <feGaussianBlur stdDeviation="2.2" result="blur" />
+          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <g id="header-side-geometry">
+          <path d="M17 14H636l8 7h315l16 15" fill="none" stroke="#0b5555" strokeWidth="1" strokeDasharray="2 6" opacity=".56" />
+          <path d="M0 20h625l10 8h340l17 17" fill="none" stroke="url(#header-line)" strokeWidth="1" opacity=".55" />
+          <path d="M0 51h754l16 9h190l28-21" fill="none" stroke="#087c7b" strokeWidth="1.25" opacity=".62" />
+          <path d="M0 55h751l17 9h202" fill="none" stroke="#073f40" strokeWidth="1" opacity=".65" />
+          <path d="M0 58h744l14 7h202" fill="none" stroke="#052b2d" strokeWidth="1" opacity=".7" />
+          <path d="M33 31l9 8h7l-9-8zm14 0 9 8h7l-9-8zm14 0 9 8h7l-9-8z" fill="#0fb8b2" opacity=".82" />
+          <path d="M548 37v8m7-8v8m7-8v8m7-8v8m7-8v8m7-8v8m7-8v8m7-8v8" stroke="#0b8d89" strokeWidth="3" opacity=".72" />
+          <path d="M648 25h27m5 0h65" stroke="#0aa29d" strokeWidth="4" opacity=".72" />
+          <path d="M650 27h93" stroke="#092e30" strokeWidth="1" opacity=".8" />
+          <rect x="917" y="39" width="11" height="10" fill="#0b8d89" opacity=".73" />
+          <path d="M968 16h38l13 14" fill="none" stroke="#096463" strokeWidth="2" opacity=".48" />
+        </g>
+        <g id="header-center-bracket">
+          <path d="M1013 3l15 13 5 24 17 29 31 5h97" fill="none" stroke="#0a6666" strokeWidth="2" opacity=".72" />
+          <path d="M1025 14l13 10 7 24 14 14h98" fill="none" stroke="#16d8d1" strokeWidth="3" opacity=".82" filter="url(#header-glow)" />
+          <path d="M1035 22l14 8 9 21 17 7h62l9 7h-76l-21-11-12-24z" fill="#0b9a97" opacity=".2" />
+          <path d="M1038 25l13 6 8 18 15 6" fill="none" stroke="#38fff5" strokeWidth="4" opacity=".7" filter="url(#header-glow)" />
+          <path d="M1063 40h28l9 10h-29z" fill="#13c4be" opacity=".64" filter="url(#header-glow)" />
+          <path d="M1019 10l8 4-2 10-8-4zm13 24l8 4 3 13-8-4z" fill="#19d5cf" opacity=".75" />
+        </g>
+      </defs>
+      <rect width="2560" height="90" fill="url(#header-bg)" />
+      <path d="M0 86H2560" stroke="#075251" strokeWidth="1" opacity=".48" />
+      <use href="#header-side-geometry" />
+      <use href="#header-side-geometry" transform="translate(2560 0) scale(-1 1)" />
+
+      <path d="M992 0h576l-18 14-4 27-17 29-28 7h-442l-28-7-17-29-4-27z" fill="url(#header-panel)" opacity=".72" />
+      <path d="M995 0h570l-17 15-5 27-17 27-30 7h-432l-30-7-17-27-5-27z" fill="none" stroke="#0a494a" strokeWidth="2" opacity=".82" />
+      <path d="M1006 0l17 15 5 27 17 25 27 6h416l27-6 17-25 5-27 17-15" fill="none" stroke="#0c7776" strokeWidth="1.5" opacity=".8" />
+      <path d="M1024 1l12 14 5 25 17 20 26 6h392l26-6 17-20 5-25 12-14" fill="none" stroke="#0f5f5f" strokeWidth="1" opacity=".7" />
+      <use href="#header-center-bracket" />
+      <use href="#header-center-bracket" transform="translate(2560 0) scale(-1 1)" />
+
+      <path d="M1084 66h102l9 7h-121z" fill="#0d8582" opacity=".6" filter="url(#header-glow)" />
+      <path d="M1197 65h57l7 8h-72z" fill="#17c9c3" opacity=".86" filter="url(#header-glow)" />
+      <path d="M1265 64h30l5 9h-40z" fill="#36fff5" opacity=".98" filter="url(#header-glow)" />
+      <path d="M1306 65h57l8 8h-72z" fill="#17c9c3" opacity=".86" filter="url(#header-glow)" />
+      <path d="M1374 66h102l10 7h-121z" fill="#0d8582" opacity=".6" filter="url(#header-glow)" />
+      <path d="M1075 77h410" stroke="url(#header-energy)" strokeWidth="1.5" opacity=".65" />
+      <rect x="1118" y="57" width="54" height="3" fill="#0b7774" opacity=".6" />
+      <rect x="1388" y="57" width="54" height="3" fill="#0b7774" opacity=".6" />
+    </svg>
+  );
+}
+
 function DashboardHeader({ meta, status, updatedAt }: { meta: DashboardMeta; status: DataStatus; updatedAt: string }) {
   const [now, setNow] = useState<Date | null>(null);
   useEffect(() => {
@@ -318,10 +392,13 @@ function DashboardHeader({ meta, status, updatedAt }: { meta: DashboardMeta; sta
     const timer = window.setInterval(update, 1000);
     return () => { window.cancelAnimationFrame(frame); window.clearInterval(timer); };
   }, []);
-  const dateText = now ? new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" }).format(now) : "----/--/-- 周--";
+  const dateText = now
+    ? `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][now.getDay()]}`
+    : "----/--/-- 星期-";
   const timeText = now ? new Intl.DateTimeFormat("zh-CN", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(now) : "--:--:--";
   return (
     <header className="dashboard-header">
+      <HeaderHudGeometry />
       <div className="header-side weather-block"><span>WEATHER</span><strong>天气：{meta.weather}</strong><i className="weather-symbol" aria-hidden="true">◌</i><DataStatusBadge status={status} updatedAt={updatedAt} /></div>
       <div className="header-title"><i className="title-wing title-wing-left" /><div><h1>{meta.projectName}</h1><p>VISUALIZATION DEMO</p></div><i className="title-wing title-wing-right" /></div>
       <div className="header-side datetime-block"><span>{dateText}</span><strong>{timeText}</strong></div>

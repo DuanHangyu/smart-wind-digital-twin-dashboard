@@ -102,89 +102,42 @@ button {
   z-index: 20;
   top: 0;
   left: 0;
-  display: grid;
   width: 100%;
-  height: 88px;
-  grid-template-columns: 1fr 540px 1fr;
-  align-items: center;
-  border-top: 1px solid rgba(0, 229, 223, 0.08);
-  border-bottom: 1px solid rgba(0, 229, 223, 0.14);
-  background:
-    repeating-linear-gradient(90deg, transparent 0 20px, rgba(92, 255, 245, 0.12) 20px 22px, transparent 22px 32px) top 12px left 28px/180px 2px no-repeat,
-    repeating-linear-gradient(90deg, transparent 0 20px, rgba(92, 255, 245, 0.12) 20px 22px, transparent 22px 32px) top 12px right 28px/180px 2px no-repeat,
-    linear-gradient(90deg, transparent 0 4%, rgba(0, 229, 223, 0.025) 4% 24%, transparent 31% 69%, rgba(0, 229, 223, 0.025) 76% 96%, transparent 96%),
-    linear-gradient(180deg, rgba(1, 10, 12, 0.995), rgba(1, 10, 12, 0.82));
-  box-shadow: 0 8px 30px rgba(0, 229, 223, 0.035), inset 0 -9px 18px rgba(0, 229, 223, 0.018);
+  height: 90px;
+  overflow: hidden;
+  background: #010809;
+  box-shadow: 0 7px 26px rgba(0, 229, 223, 0.025);
 }
 
 .dashboard-header::before,
-.dashboard-header::after {
+.dashboard-header::after,
+.header-side::before,
+.header-side::after,
+.header-title::before,
+.header-title::after,
+.header-title > div::before,
+.header-title > div::after {
+  display: none;
+}
+
+.header-hud {
   position: absolute;
-  bottom: 34px;
-  width: 870px;
-  height: 2px;
-  content: "";
-  background: linear-gradient(90deg, transparent, rgba(0, 229, 223, 0.14) 18%, rgba(8, 126, 125, 0.72) 50%, rgba(0, 229, 223, 0.14) 82%, transparent);
-}
-
-.dashboard-header::before {
-  left: 20px;
-}
-
-.dashboard-header::after {
-  right: 20px;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 90px;
+  pointer-events: none;
 }
 
 .header-side {
-  position: relative;
+  position: absolute;
+  z-index: 1;
+  top: 0;
   display: flex;
-  min-width: 0;
-  height: 100%;
-  align-items: flex-start;
-  gap: 18px;
-  padding: 21px 36px 0;
+  height: 90px;
+  align-items: center;
   color: var(--text-soft);
-}
-
-.header-side::before {
-  position: absolute;
-  z-index: -1;
-  top: 13px;
-  right: 22px;
-  left: 22px;
-  height: 43px;
-  content: "";
-  border-top: 1px solid rgba(0, 229, 223, 0.13);
-  border-bottom: 1px solid rgba(0, 229, 223, 0.18);
-  background:
-    linear-gradient(90deg, rgba(0, 229, 223, 0.65), rgba(0, 229, 223, 0.65)) 7% 29px/26px 4px no-repeat,
-    linear-gradient(90deg, rgba(0, 229, 223, 0.34), rgba(0, 229, 223, 0.34)) 43% 8px/78px 3px no-repeat,
-    linear-gradient(90deg, rgba(0, 229, 223, 0.4), rgba(0, 229, 223, 0.4)) 78% 34px/52px 3px no-repeat,
-    radial-gradient(circle, rgba(0, 229, 223, 0.82) 0 3px, transparent 3.5px) 54% 18px/8px 8px no-repeat,
-    linear-gradient(90deg, rgba(0, 229, 223, 0.035), transparent 72%);
-  clip-path: polygon(0 0, 93% 0, 96% 20%, 100% 20%, 100% 78%, 96% 78%, 93% 100%, 0 100%);
-  opacity: 0.58;
-}
-
-.datetime-block::before {
-  transform: scaleX(-1);
-}
-
-.header-side::after {
-  position: absolute;
-  right: 36px;
-  bottom: 31px;
-  left: 36px;
-  height: 4px;
-  content: "";
-  opacity: 0.62;
-  background:
-    repeating-linear-gradient(90deg, transparent 0 58px, rgba(0, 229, 223, 0.34) 58px 64px),
-    linear-gradient(90deg, transparent 0 62%, rgba(0, 229, 223, 0.16) 62% 76%, transparent 76%);
-}
-
-.datetime-block::after {
-  transform: scaleX(-1);
 }
 
 .header-side span {
@@ -202,8 +155,11 @@ button {
 }
 
 .weather-block {
-  gap: 0;
-  padding-left: 98px;
+  left: 99px;
+  width: 750px;
+  justify-content: flex-start;
+  padding: 0;
+  transform: translateY(-13px);
 }
 
 .weather-block > span,
@@ -213,21 +169,11 @@ button {
 }
 
 .weather-block strong {
-  position: relative;
+  color: #18aaa6;
+  line-height: 20px;
   font-size: 16px;
-}
-
-.weather-block strong::before {
-  position: absolute;
-  top: 1px;
-  left: -65px;
-  content: "///";
-  color: #059c99;
-  font-family: monospace;
-  font-size: 18px;
-  font-weight: 900;
-  letter-spacing: -4px;
-  transform: skewX(18deg);
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .data-status-badge {
@@ -270,27 +216,39 @@ button {
 }
 
 .datetime-block {
+  right: 98px;
+  width: 330px;
   justify-content: flex-end;
-  padding-right: 88px;
+  gap: 20px;
+  padding: 0;
+  transform: translateY(-13px);
 }
 
 .datetime-block span {
-  font-size: 13px;
-  letter-spacing: 2px;
+  color: #168d8b;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .datetime-block strong {
-  color: var(--cyan-bright);
+  color: #23ded7;
   font-family: "DIN Condensed", "Arial Narrow", monospace;
-  font-size: 20px;
+  line-height: 20px;
+  font-size: 18px;
+  font-weight: 700;
   letter-spacing: 2px;
+  text-shadow: 0 0 8px rgba(35, 222, 215, 0.5);
 }
 
 .header-title {
-  position: relative;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 1005px;
   display: flex;
-  height: 72px;
-  align-self: start;
+  width: 550px;
+  height: 62px;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -299,91 +257,30 @@ button {
 .header-title > div {
   position: relative;
   z-index: 1;
-  transform: translateY(-7px);
-}
-
-.header-title > div::before,
-.header-title > div::after {
-  position: absolute;
-  top: -2px;
-  width: 72px;
-  height: 45px;
-  content: "";
-  background:
-    linear-gradient(135deg, transparent 0 22%, rgba(0, 229, 223, 0.82) 23% 30%, transparent 31% 49%, rgba(90, 255, 240, 0.62) 50% 57%, transparent 58%) 0 0/38px 100% no-repeat,
-    linear-gradient(180deg, rgba(90, 255, 240, 0.52), rgba(0, 229, 223, 0.08)) 42px 13px/20px 13px no-repeat;
-  filter: drop-shadow(0 0 7px rgba(0, 229, 223, 0.72));
-  opacity: 0.92;
-  pointer-events: none;
-}
-
-.header-title > div::before { left: -145px; }
-.header-title > div::after { right: -145px; transform: scaleX(-1); }
-
-.header-title::before {
-  position: absolute;
-  inset: 1px -8px 17px;
-  content: "";
-  border: 1px solid rgba(0, 229, 223, 0.5);
-  background:
-    linear-gradient(90deg, transparent 0 8%, rgba(0, 229, 223, 0.16) 8% 11%, transparent 11% 89%, rgba(0, 229, 223, 0.16) 89% 92%, transparent 92%),
-    linear-gradient(180deg, rgba(0, 229, 223, 0.055), transparent 58%);
-  clip-path: polygon(7% 0, 93% 0, 100% 37%, 96% 82%, 91% 100%, 9% 100%, 4% 82%, 0 37%);
-  box-shadow: inset 0 0 24px rgba(0, 229, 223, 0.1), inset 0 -5px 10px rgba(0, 229, 223, 0.06), 0 0 14px rgba(0, 229, 223, 0.1);
-}
-
-.header-title::after {
-  position: absolute;
-  right: 118px;
-  bottom: 3px;
-  left: 118px;
-  height: 7px;
-  content: "";
-  background:
-    linear-gradient(90deg, transparent 0 4%, var(--cyan) 4% 28%, transparent 28% 34%, var(--cyan-bright) 34% 66%, transparent 66% 72%, var(--cyan) 72% 96%, transparent 96%);
-  box-shadow: 0 0 15px rgba(0, 229, 223, 0.72);
-  clip-path: polygon(7% 0, 93% 0, 100% 72%, 96% 100%, 4% 100%, 0 72%);
+  transform: translateY(0);
 }
 
 .header-title h1 {
   margin: 0;
-  color: #f5ffff;
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.4), 0 0 16px rgba(90, 255, 240, 0.45);
-  font-size: 26px;
+  color: #e8ffff;
+  line-height: 29px;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.3), 0 0 11px rgba(90, 255, 240, 0.52);
+  font-size: 25px;
   font-weight: 800;
-  letter-spacing: 5px;
+  letter-spacing: 2.5px;
 }
 
 .header-title p {
-  margin: 1px 0 0;
-  color: #69b4b5;
+  margin: 0;
+  color: #6aafb0;
   font-family: "Arial Narrow", sans-serif;
-  font-size: 8px;
-  letter-spacing: 8px;
+  line-height: 9px;
+  font-size: 7px;
+  letter-spacing: 6px;
 }
 
 .title-wing {
-  position: absolute;
-  top: 27px;
-  width: 130px;
-  height: 15px;
-  border-top: 2px solid rgba(90, 255, 240, 0.9);
-  border-bottom: 1px solid rgba(0, 229, 223, 0.18);
-  background:
-    linear-gradient(90deg, var(--cyan-bright), var(--cyan)) top/96px 3px no-repeat,
-    repeating-linear-gradient(90deg, transparent 0 17px, rgba(0, 229, 223, 0.28) 17px 21px) bottom 3px left 31px/96px 3px no-repeat;
-  filter: drop-shadow(0 0 6px rgba(0, 229, 223, 0.55));
-}
-
-.title-wing-left {
-  left: -365px;
-  clip-path: polygon(0 0, 72% 0, 78% 30%, 100% 30%, 100% 100%, 74% 100%, 68% 72%, 0 72%);
-}
-
-.title-wing-right {
-  right: -365px;
-  clip-path: polygon(28% 0, 100% 0, 100% 72%, 32% 72%, 26% 100%, 0 100%, 0 30%, 22% 30%);
-  transform: scaleX(-1);
+  display: none;
 }
 
 .global-line {
