@@ -150,8 +150,8 @@ export function SegmentedBarChart({
                 key={point.label}
               >
                 <div className="bar-pair">
-                  <i className="segmented-bar cyan" style={{ height: `${((point.value ?? 0) / max) * 100}%` }} />
-                  <i className="segmented-bar green" style={{ height: `${((point.comparisonValue ?? 0) / max) * 100}%` }} />
+                  <span className="bar-track"><i className="segmented-bar cyan" style={{ height: `${((point.value ?? 0) / max) * 100}%` }} /></span>
+                  <span className="bar-track"><i className="segmented-bar green" style={{ height: `${((point.comparisonValue ?? 0) / max) * 100}%` }} /></span>
                 </div>
                 <span>{point.label}</span>
               </div>
@@ -245,35 +245,49 @@ export function TrendChart({
   title?: string;
 }) {
   const values = data.map((item) => item.value ?? 0);
-  const max = Math.max(30, ...values);
+  const max = Math.max(25, Math.ceil(Math.max(...values) / 5) * 5);
+  const plot = { left: 36, right: 350, top: 14, bottom: 150 };
   const points = values.map((value, index) => ({
-    x: 8 + index * (84 / Math.max(1, values.length - 1)),
-    y: 82 - (value / max) * 65,
+    x: plot.left + index * ((plot.right - plot.left) / Math.max(1, values.length - 1)),
+    y: plot.bottom - (value / max) * (plot.bottom - plot.top),
     value,
     label: data[index]?.label ?? "",
   }));
+  const ticks = Array.from({ length: Math.floor(max / 5) + 1 }, (_, index) => index * 5);
+  const pointString = points.map((point) => `${point.x},${point.y}`).join(" ");
+  const areaString = `${plot.left},${plot.bottom} ${pointString} ${plot.right},${plot.bottom}`;
   return (
     <HudPanel title={title} code="GENERATION TREND" status={status}>
       {data.length ? (
         <div className="trend-chart">
-          <div className="trend-grid" />
-          {points.slice(0, -1).map((point, index) => {
-            const next = points[index + 1];
-            const dx = next.x - point.x;
-            const dy = next.y - point.y;
-            return (
-              <i
-                className="trend-segment"
-                key={`${point.label}-${next.label}`}
-                style={{ left: `${point.x}%`, top: `${point.y}%`, width: `${Math.hypot(dx, dy)}%`, transform: `rotate(${Math.atan2(dy, dx) * (180 / Math.PI)}deg)` }}
-              />
-            );
-          })}
-          {points.map((point) => (
-            <span className="trend-point" data-tooltip={`${point.label} · ${formatValue(point.value, 1)}`} key={point.label} style={{ left: `${point.x}%`, top: `${point.y}%` }}>
-              <b>{formatValue(point.value, 1)}</b><small>{point.label}</small>
-            </span>
-          ))}
+          <svg className="trend-svg" viewBox="0 0 360 180" role="img" aria-label={`${title}，${data.map((item) => `${item.label}${formatValue(item.value, 1)}`).join("，")}`}>
+            <defs>
+              <linearGradient id="trend-area-fill" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#10e9df" stopOpacity="0.25" />
+                <stop offset="100%" stopColor="#10e9df" stopOpacity="0.015" />
+              </linearGradient>
+              <filter id="trend-line-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="1.5" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+            {ticks.map((tick) => {
+              const y = plot.bottom - (tick / max) * (plot.bottom - plot.top);
+              return <g className="trend-tick" key={tick}><line x1={plot.left} x2={plot.right} y1={y} y2={y} /><text x="27" y={y + 3}>{tick}</text></g>;
+            })}
+            {points.map((point) => <line className="trend-x-grid" key={`grid-${point.label}`} x1={point.x} x2={point.x} y1={plot.top} y2={plot.bottom} />)}
+            <polygon className="trend-area" points={areaString} />
+            <polyline className="trend-line" points={pointString} />
+            {points.map((point) => (
+              <g className="trend-node" key={point.label}>
+                <title>{`${point.label} · ${formatValue(point.value, 1)}`}</title>
+                <text className="trend-value" x={point.x} y={point.y - 10}>{formatValue(point.value, 1)}</text>
+                <circle className="trend-node-halo" cx={point.x} cy={point.y} r="5" />
+                <circle className="trend-node-core" cx={point.x} cy={point.y} r="2.2" />
+                <text className="trend-label" x={point.x} y="169">{point.label}</text>
+              </g>
+            ))}
+          </svg>
         </div>
       ) : <PanelEmpty />}
     </HudPanel>
