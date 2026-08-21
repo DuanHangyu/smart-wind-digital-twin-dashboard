@@ -212,7 +212,7 @@ function StatisticsPage({
           className={classes}
           controls={controls("statistics")}
           metric={data.summary.totalGenerationKWh}
-          name="自定义区域运行态势"
+          name="自定义区域"
           page="statistics"
           scene={<CustomRegionMapScene hoveredRegionCode={hoveredRegionCode} onRegionHover={onRegionHover} onRegionSelect={onRegionSelect} regions={data.regions} state={ui.statistics} />}
           sceneBadge="W3 REAL GLB"

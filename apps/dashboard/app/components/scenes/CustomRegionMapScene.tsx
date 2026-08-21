@@ -288,32 +288,53 @@ export function CustomRegionMapScene({
         const createTurbine = () => {
           const marker = new THREE.Group();
           const material = new THREE.MeshBasicMaterial({
-            color: 0x42e6dc,
+            color: 0xc8fffb,
             depthWrite: false,
-            opacity: 0.7,
+            opacity: 0.92,
+            side: THREE.DoubleSide,
             transparent: true,
           });
-          const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.07, 0.78, 8), material);
-          tower.position.y = 0.39;
+          const base = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.17, 0.055, 16), material);
+          base.position.y = 0.028;
+          marker.add(base);
+          const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.082, 0.82, 10), material);
+          tower.position.y = 0.44;
           marker.add(tower);
-          const hub = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8), material);
-          hub.position.y = 0.82;
-          marker.add(hub);
-          turbineRotors.push(hub);
+          const nacelle = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.12, 0.13), material);
+          nacelle.position.set(0.08, 0.88, -0.035);
+          marker.add(nacelle);
+          const rotor = new THREE.Group();
+          rotor.position.set(-0.075, 0.88, 0.045);
+          marker.add(rotor);
+          const hub = new THREE.Mesh(new THREE.SphereGeometry(0.105, 12, 10), material);
+          rotor.add(hub);
+          turbineRotors.push(rotor);
+          const bladeShape = new THREE.Shape();
+          bladeShape.moveTo(-0.038, 0.04);
+          bladeShape.bezierCurveTo(-0.062, 0.16, -0.052, 0.42, -0.025, 0.62);
+          bladeShape.lineTo(0.018, 0.62);
+          bladeShape.bezierCurveTo(0.034, 0.4, 0.038, 0.16, 0.038, 0.04);
+          bladeShape.closePath();
+          const bladeGeometry = new THREE.ShapeGeometry(bladeShape, 5);
           for (let index = 0; index < 3; index += 1) {
-            const blade = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.48, 0.025), material);
+            const blade = new THREE.Mesh(bladeGeometry, material);
             blade.rotation.z = (Math.PI * 2 * index) / 3;
-            blade.geometry.translate(0, 0.24, 0);
-            hub.add(blade);
+            rotor.add(blade);
           }
           const halo = new THREE.Mesh(
-            new THREE.RingGeometry(0.12, 0.19, 28),
-            new THREE.MeshBasicMaterial({ color: 0x3affee, opacity: 0.38, side: THREE.DoubleSide, transparent: true }),
+            new THREE.RingGeometry(0.15, 0.235, 32),
+            new THREE.MeshBasicMaterial({ blending: THREE.AdditiveBlending, color: 0x3affee, depthWrite: false, opacity: 0.62, side: THREE.DoubleSide, transparent: true }),
           );
           halo.rotation.x = -Math.PI / 2;
           halo.position.y = 0.015;
           marker.add(halo);
-          marker.scale.setScalar(0.62);
+          const anchorBeam = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.012, 0.045, 0.3, 10),
+            new THREE.MeshBasicMaterial({ blending: THREE.AdditiveBlending, color: 0x38fff1, depthWrite: false, opacity: 0.35, transparent: true }),
+          );
+          anchorBeam.position.y = 0.15;
+          marker.add(anchorBeam);
+          marker.scale.setScalar(0.82);
           marker.userData.isTurbineMarker = true;
           return marker;
         };
