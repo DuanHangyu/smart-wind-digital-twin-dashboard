@@ -33,6 +33,7 @@ type LoadState = "loading" | "ready" | "error" | "unsupported";
 const TURBINE_CAMERA_DESKTOP = [3.15, 1.4, 3.95] as const;
 const TURBINE_CAMERA_TOUCH = [4, 2, 5] as const;
 const TURBINE_CAMERA_TARGET = [0, -0.05, 0] as const;
+const TURBINE_ROTOR_PRESENTATION_PHASE = Math.PI / 6;
 
 type PartMesh = Mesh & {
   userData: {
@@ -475,6 +476,7 @@ export function TurbineTwinScene({
               runtimeRotor.userData = { ...sourceRotor.userData, pivot_source: "PART__HUB_VERTEX_CENTROID" };
               rotorParent.add(runtimeRotor);
               sourceRotor.children.slice().forEach((child) => runtimeRotor.attach(child));
+              runtimeRotor.rotateOnAxis(rotorAxis, TURBINE_ROTOR_PRESENTATION_PHASE);
               rotorParent.remove(sourceRotor);
               rotor = runtimeRotor;
               partRuntimes.forEach((runtime) => {
