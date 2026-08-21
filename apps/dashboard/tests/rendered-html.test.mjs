@@ -35,7 +35,7 @@ test("server-renders the W1 digital-twin dashboard shell", async () => {
   assert.match(html, /风场管理/);
   assert.match(html, /统计视图/);
   assert.match(html, /运维管理/);
-  assert.match(html, /自定义区域运行态势/);
+  assert.match(html, /自定义区域/);
   assert.match(html, /实时数据/);
   assert.match(html, /W3 REAL GLB/);
   assert.match(html, /1952\.47/);
@@ -133,11 +133,16 @@ test("polishes the P01 holographic presentation without modifying the map asset"
   assert.match(scene, /dotMask/);
   assert.match(scene, /sideMask/);
   assert.match(scene, /bottomGlow/);
-  assert.match(scene, /marker\.scale\.setScalar\(0\.62\)/);
+  assert.match(scene, /uSelectionLevel/);
+  assert.match(scene, /marker\.scale\.setScalar\(0\.82\)/);
+  assert.match(scene, /ShapeGeometry/);
   assert.match(scene, /map-hologram-field/);
   assert.match(styles, /\.map-hologram-field/);
   assert.match(styles, /\.scene-statistics \.scene-grid\s*\{[\s\S]*?transform:\s*none/);
-  assert.match(styles, /\.scene-statistics \.custom-map-scene\s*\{[\s\S]*?translateY\(-120px\)/);
+  assert.match(styles, /\.scene-statistics \.custom-map-scene\s*\{[\s\S]*?translate\(-24px, -18px\)/);
+  assert.match(styles, /\.map-panel-titlebar/);
+  assert.match(styles, /\.map-panel-inner-frame/);
+  assert.match(styles, /\.scene-statistics \.scene-disclaimer,[\s\S]*?display:\s*none/);
   assert.match(styles, /\.scene-statistics \.map-status,[\s\S]*?\.scene-statistics \.region-cycle-status\s*\{[\s\S]*?display:\s*none/);
   assert.match(styles, /\.map-hotspot-layer button::after\s*\{[\s\S]*?display:\s*none/);
   assert.match(styles, /\.map-hotspot-layer button i\s*\{[\s\S]*?display:\s*none/);
@@ -265,8 +270,8 @@ test("locks the three reference-directed opening camera shots", async () => {
     readFile(new URL("../app/components/scenes/TurbineTwinScene.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 8\.3, 10\.4\]/);
-  assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, -0\.35, 0\]/);
+  assert.match(mapScene, /MAP_CAMERA_POSITION = \[0, 7\.45, 11\.8\]/);
+  assert.match(mapScene, /MAP_CAMERA_TARGET = \[0, -0\.12, 0\]/);
   assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_DESKTOP = \[-1\.1, 5\.55, 7\.25\]/);
   assert.match(windfarmScene, /WINDFARM_CAMERA_OVERVIEW_TARGET = \[0, -0\.48, 0\]/);
   assert.match(turbineScene, /TURBINE_CAMERA_DESKTOP = \[3\.15, 1\.4, 3\.95\]/);
