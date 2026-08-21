@@ -1764,20 +1764,22 @@ button {
   top: 84px;
   right: 20px;
   display: grid;
-  width: 118px;
-  gap: 10px;
+  width: 128px;
+  gap: 9px;
 }
 
 .layer-controls button {
   position: relative;
-  height: 38px;
+  height: 42px;
   padding: 0 12px;
-  border: 1px solid rgba(0, 229, 223, 0.38);
-  background: linear-gradient(180deg, rgba(6, 47, 51, 0.92), rgba(2, 20, 23, 0.9));
+  border: 1px solid rgba(0, 229, 223, 0.46);
+  background:
+    linear-gradient(90deg, transparent 0 8%, rgba(90, 255, 240, 0.08) 8% 10%, transparent 10% 90%, rgba(90, 255, 240, 0.08) 90% 92%, transparent 92%),
+    linear-gradient(180deg, rgba(6, 47, 51, 0.96), rgba(2, 20, 23, 0.94));
   clip-path: polygon(13% 0, 100% 0, 88% 100%, 0 100%);
-  box-shadow: inset 0 0 12px rgba(0, 229, 223, 0.045);
-  color: #79abad;
-  font-size: 12px;
+  box-shadow: inset 0 0 0 1px rgba(90, 255, 240, 0.06), inset 0 0 14px rgba(0, 229, 223, 0.065);
+  color: #91babc;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 2.5px;
   cursor: pointer;
@@ -1788,8 +1790,10 @@ button {
 
 .layer-controls button.active {
   border-color: var(--cyan-bright);
-  background: linear-gradient(180deg, rgba(0, 229, 223, 0.58), rgba(0, 83, 87, 0.72));
-  box-shadow: 0 0 15px rgba(0, 229, 223, 0.3), inset 0 0 12px rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(90deg, transparent 0 7%, rgba(255, 255, 255, 0.24) 7% 9%, transparent 9% 91%, rgba(255, 255, 255, 0.18) 91% 93%, transparent 93%),
+    linear-gradient(180deg, rgba(26, 236, 226, 0.72), rgba(0, 83, 87, 0.82));
+  box-shadow: 0 0 17px rgba(0, 229, 223, 0.38), inset 0 0 15px rgba(255, 255, 255, 0.12);
   color: #fff;
   text-shadow: 0 0 7px rgba(255, 255, 255, 0.28);
 }
@@ -1806,17 +1810,18 @@ button {
   letter-spacing: 0;
 }
 
-.layer-controls.operations { width: 118px; }
+.layer-controls.operations { width: 128px; }
 
 .layer-controls.operations button:last-child {
-  margin-top: 3px;
-  border-bottom-color: rgba(56, 137, 255, 0.7);
+  margin-top: 6px;
+  border-top-style: double;
+  border-bottom-color: rgba(0, 229, 223, 0.64);
 }
 
 .layer-controls.operations button:last-child.active {
-  border-color: #4cc8ff;
-  background: linear-gradient(180deg, rgba(0, 190, 213, 0.62), rgba(17, 65, 120, 0.72));
-  box-shadow: 0 0 15px rgba(44, 155, 255, 0.34);
+  border-color: var(--cyan-bright);
+  background: linear-gradient(180deg, rgba(0, 229, 223, 0.68), rgba(0, 74, 79, 0.84));
+  box-shadow: 0 0 17px rgba(0, 229, 223, 0.4);
 }
 
 .scene-placeholder-badge {
@@ -1891,13 +1896,7 @@ button {
 .turbines-hidden .scene-orbit { opacity: 0.16; }
 
 .mode-status {
-  top: 22px;
-  right: 144px;
-  bottom: auto;
-  left: auto;
-  padding: 5px 9px;
-  border: 1px solid rgba(0, 229, 223, 0.2);
-  background: rgba(1, 20, 23, 0.75);
+  display: none;
 }
 
 .scene-state-toast {
@@ -2165,19 +2164,31 @@ button {
   bottom: 0;
   left: 0;
   display: grid;
-  height: 94px;
+  height: 100px;
   grid-template-columns: repeat(5, 1fr);
-  border-top: 1px solid rgba(90, 255, 240, 0.55);
+  border-top: 1px solid rgba(90, 255, 240, 0.72);
   background:
     linear-gradient(180deg, rgba(0, 47, 51, 0.38), rgba(1, 13, 16, 0.97) 26%),
     rgba(2, 19, 22, 0.96);
   box-shadow: 0 -12px 28px rgba(0, 229, 223, 0.05);
 }
 
+.realtime-bar::before {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  width: 190px;
+  height: 3px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--cyan-bright), transparent);
+  box-shadow: 0 0 10px rgba(0, 229, 223, 0.58);
+  transform: translateX(-50%);
+}
+
 .realtime-bar div {
   display: grid;
-  grid-template-columns: 44px auto auto;
-  grid-template-rows: 22px 31px;
+  grid-template-columns: 46px auto auto;
+  grid-template-rows: 23px 33px;
   align-content: center;
   justify-content: center;
   gap: 1px 8px;
@@ -2186,8 +2197,8 @@ button {
 
 .realtime-glyph {
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   grid-row: 1 / 3;
   place-items: center;
   align-self: center;
@@ -2195,7 +2206,7 @@ button {
   background: radial-gradient(circle, rgba(0, 229, 223, 0.24), rgba(0, 68, 71, 0.15));
   box-shadow: inset 0 0 10px rgba(90, 255, 240, 0.1), 0 0 9px rgba(0, 229, 223, 0.14);
   color: var(--cyan-bright);
-  font-size: 12px;
+  font-size: 13px;
   font-style: normal;
   clip-path: polygon(0 0, 78% 0, 100% 22%, 100% 100%, 22% 100%, 0 78%);
 }
@@ -2203,8 +2214,8 @@ button {
 .realtime-bar span {
   grid-column: 2 / 4;
   align-self: end;
-  color: #8bbabc;
-  font-size: 11px;
+  color: #a4c8c9;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
 }
@@ -2214,7 +2225,7 @@ button {
   align-self: start;
   color: #f4ffff;
   text-shadow: 0 0 10px rgba(0, 229, 223, 0.32);
-  font: 700 22px/1 "DIN Alternate", "Bahnschrift", "Arial Narrow", monospace;
+  font: 700 24px/1 "DIN Alternate", "Bahnschrift", "Arial Narrow", monospace;
   font-variant-numeric: tabular-nums;
   text-align: left;
 }
@@ -2255,11 +2266,11 @@ button {
 .bottom-navigation {
   position: absolute;
   z-index: 30;
-  bottom: 7px;
+  bottom: 4px;
   left: 50%;
   display: grid;
-  width: 700px;
-  height: 61px;
+  width: 724px;
+  height: 70px;
   grid-template-columns: repeat(3, 1fr);
   gap: 7px;
   transform: translateX(-50%);
@@ -2281,7 +2292,9 @@ button {
 .bottom-navigation button {
   position: relative;
   border: 1px solid rgba(0, 229, 223, 0.28);
-  background: linear-gradient(180deg, rgba(5, 39, 43, 0.9), rgba(2, 13, 16, 0.96));
+  background:
+    linear-gradient(90deg, transparent, rgba(90, 255, 240, 0.045), transparent),
+    linear-gradient(180deg, rgba(5, 39, 43, 0.94), rgba(2, 13, 16, 0.98));
   clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
   color: #527f81;
   cursor: pointer;
@@ -2294,7 +2307,9 @@ button {
 
 .bottom-navigation button.active {
   border-color: var(--cyan-bright);
-  background: linear-gradient(180deg, rgba(0, 229, 223, 0.48), rgba(0, 66, 71, 0.8));
+  background:
+    linear-gradient(90deg, transparent 0 8%, rgba(255, 255, 255, 0.12) 50%, transparent 92%),
+    linear-gradient(180deg, rgba(0, 229, 223, 0.56), rgba(0, 66, 71, 0.84));
   color: var(--text);
   filter: drop-shadow(0 0 10px rgba(0, 229, 223, 0.35));
 }
@@ -2303,12 +2318,12 @@ button {
   display: block;
   margin-bottom: 3px;
   color: #6aa4a6;
-  font: 8px "DIN Alternate", "Bahnschrift", monospace;
+  font: 9px "DIN Alternate", "Bahnschrift", monospace;
   letter-spacing: 2px;
 }
 
 .bottom-navigation span {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 4px;
 }
