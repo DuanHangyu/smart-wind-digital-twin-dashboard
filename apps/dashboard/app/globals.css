@@ -350,7 +350,10 @@ button {
   background:
     linear-gradient(135deg, rgba(0, 229, 223, 0.035), transparent 32%),
     var(--panel-fill);
-  box-shadow: inset 0 0 34px rgba(0, 70, 70, 0.16), 0 0 14px rgba(0, 229, 223, 0.025);
+  box-shadow:
+    inset 0 0 0 1px rgba(90, 255, 240, 0.035),
+    inset 0 0 34px rgba(0, 70, 70, 0.18),
+    0 0 14px rgba(0, 229, 223, 0.035);
 }
 
 .hud-panel::after,
@@ -367,8 +370,8 @@ button {
 .panel-corner {
   position: absolute;
   z-index: 3;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .panel-corner-tl {
@@ -389,37 +392,38 @@ button {
   position: relative;
   z-index: 2;
   display: flex;
-  height: 43px;
+  height: 45px;
   align-items: center;
-  gap: 10px;
-  padding: 0 13px;
+  gap: 11px;
+  padding: 0 14px;
   border-bottom: 1px solid rgba(0, 229, 223, 0.26);
   background:
-    linear-gradient(90deg, rgba(0, 229, 223, 0.13), rgba(0, 229, 223, 0.025) 42%, transparent 76%),
+    linear-gradient(90deg, rgba(0, 229, 223, 0.17), rgba(0, 229, 223, 0.035) 42%, transparent 78%),
     rgba(1, 13, 16, 0.72);
+  box-shadow: inset 0 -1px 0 rgba(90, 255, 240, 0.08);
 }
 
 .panel-heading h2 {
   margin: 0;
   color: #e9ffff;
   text-shadow: 0 0 10px rgba(90, 255, 240, 0.22);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: 2.4px;
 }
 
 .panel-heading small {
   margin-left: auto;
-  color: #52878a;
-  font-size: 8px;
+  color: #659597;
+  font-size: 9px;
   letter-spacing: 2px;
 }
 
 .panel-icon {
   position: relative;
   display: grid;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   place-items: center;
   border: 1px solid rgba(90, 255, 240, 0.64);
   border-radius: 0;
@@ -445,9 +449,9 @@ button {
 .panel-accent {
   position: absolute;
   z-index: 3;
-  top: 42px;
-  left: 12px;
-  width: 48px;
+  top: 44px;
+  left: 13px;
+  width: 56px;
   height: 2px;
   background: var(--cyan-bright);
   box-shadow: 0 0 8px var(--cyan);
@@ -456,8 +460,8 @@ button {
 .panel-body {
   position: relative;
   z-index: 2;
-  height: calc(100% - 43px);
-  padding: 13px 15px;
+  height: calc(100% - 45px);
+  padding: 12px 15px;
 }
 
 .summary-layout {
@@ -833,8 +837,8 @@ button {
   align-items: center;
   gap: 10px;
   padding: 0 8px;
-  border: 1px solid rgba(0, 229, 223, 0.08);
-  background: linear-gradient(90deg, rgba(0, 70, 73, 0.13), rgba(0, 27, 30, 0.08));
+  border: 1px solid rgba(0, 229, 223, 0.12);
+  background: linear-gradient(90deg, rgba(0, 76, 79, 0.22), rgba(0, 27, 30, 0.1));
   color: #c6e1e2;
   font-size: 12px;
 }
@@ -858,14 +862,14 @@ button {
 
 .ranking-track {
   height: 8px;
-  border: 1px solid rgba(0, 229, 223, 0.08);
-  background: rgba(0, 229, 223, 0.055);
+  border: 1px solid rgba(0, 229, 223, 0.13);
+  background: repeating-linear-gradient(90deg, rgba(0, 229, 223, 0.065) 0 10px, rgba(0, 40, 43, 0.16) 10px 13px);
 }
 
 .ranking-track i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #0a676b, #26d9d5 74%, #cafffa);
+  background: linear-gradient(90deg, #0a676b, #26d9d5 72%, #efffff);
   box-shadow: 0 0 10px rgba(0, 229, 223, 0.48);
 }
 
@@ -1021,8 +1025,8 @@ button {
 .alarm-list p {
   margin: 5px 0 0;
   overflow: hidden;
-  color: #91b8ba;
-  font-size: 11px;
+  color: #a9c8c9;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1030,7 +1034,7 @@ button {
 .alarm-list em {
   padding: 5px 10px;
   border: 1px solid rgba(90, 255, 240, 0.64);
-  background: rgba(0, 229, 223, 0.15);
+  background: linear-gradient(180deg, rgba(0, 229, 223, 0.3), rgba(0, 81, 84, 0.28));
   color: #dffffd;
   font-size: 10px;
   font-weight: 700;
