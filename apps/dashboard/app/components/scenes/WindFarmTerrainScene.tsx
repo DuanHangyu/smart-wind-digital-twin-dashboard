@@ -125,9 +125,9 @@ function targetFromTurbineId(turbineId: string | null) {
 }
 
 function projectionColorAtHeight(THREE: typeof import("three"), normalizedHeight: number) {
-  const low = new THREE.Color(0x075b86);
-  const middle = new THREE.Color(0x13cfc6);
-  const high = new THREE.Color(0xd1fffb);
+  const low = new THREE.Color(0x023b68);
+  const middle = new THREE.Color(0x08aeb8);
+  const high = new THREE.Color(0x8efff7);
   if (normalizedHeight < 0.58) return low.lerp(middle, normalizedHeight / 0.58);
   return middle.lerp(high, (normalizedHeight - 0.58) / 0.42);
 }
@@ -438,7 +438,7 @@ export function WindFarmTerrainScene({
         const wireLines: import("three").LineSegments[] = [];
         const contourLines: import("three").LineSegments[] = [];
         const turbineWireLines: import("three").LineSegments[] = [];
-        let projectionTerrainMaterial: MeshStandardMaterial | null = null;
+        let projectionTerrainMaterial: Material | null = null;
         let projectionShader: { uniforms: { uProjectionTime: { value: number } } } | null = null;
         let projectionActive = stateRef.current.projectionEnabled;
         let selectedPart: InteractivePart | null = null;
@@ -655,39 +655,93 @@ export function WindFarmTerrainScene({
             });
 
             if (terrainMeshes.length) {
-              projectionTerrainMaterial = new THREE.MeshStandardMaterial({
-                blending: THREE.NormalBlending,
-                color: 0x000711,
-                depthWrite: true,
-                emissive: 0x001c31,
-                emissiveIntensity: 0.2,
-                metalness: 0,
-                opacity: 0.2,
-                roughness: 0.92,
-                side: THREE.DoubleSide,
-                transparent: true,
-                wireframe: false,
+              const terrainLocalBounds = new THREE.Box3();
+              terrainMeshes.forEach((mesh) => {
+                mesh.geometry.computeBoundingBox();
+                if (mesh.geometry.boundingBox) terrainLocalBounds.union(mesh.geometry.boundingBox);
               });
-              projectionTerrainMaterial.onBeforeCompile = (shader) => {
-                shader.uniforms.uProjectionTime = { value: 0 };
-                projectionShader = shader as typeof projectionShader;
-                shader.vertexShader = shader.vertexShader
-                  .replace("#include <common>", "#include <common>\nvarying vec3 vProjectionPosition;")
-                  .replace("#include <begin_vertex>", "#include <begin_vertex>\nvProjectionPosition = position;");
-                shader.fragmentShader = shader.fragmentShader
-                  .replace(
-                    "#include <common>",
-                    "#include <common>\nvarying vec3 vProjectionPosition;\nuniform float uProjectionTime;",
-                  )
-                  .replace(
-                    "#include <emissivemap_fragment>",
-                    `#include <emissivemap_fragment>
-                    float fineScan = pow(max(0.0, sin(vProjectionPosition.y * 0.0105 - uProjectionTime * 0.72)), 24.0);
-                    float broadScan = pow(max(0.0, sin(vProjectionPosition.y * 0.0032 + uProjectionTime * 0.24)), 34.0);
-                    float ridgeFresnel = pow(1.0 - abs(dot(normalize(normal), normalize(vViewPosition))), 2.6);
-                    totalEmissiveRadiance += vec3(0.0, 0.34, 0.42) * (fineScan * 0.36 + broadScan * 0.28 + ridgeFresnel * 0.2);`,
-                  );
-              };
+              const projectionUniforms = THREE.UniformsUtils.merge([
+                THREE.UniformsLib.fog,
+                {
+                  uProjectionTime: { value: 0 },
+                  uTerrainHeightMin: { value: terrainLocalBounds.min.y },
+                  uTerrainHeightRange: { value: Math.max(1, terrainLocalBounds.max.y - terrainLocalBounds.min.y) },
+                },
+              ]);
+              projectionTerrainMaterial = new THREE.ShaderMaterial({
+                blending: THREE.NormalBlending,
+                depthWrite: true,
+                fog: true,
+                side: THREE.DoubleSide,
+                transparent: false,
+                uniforms: projectionUniforms,
+                vertexShader: `
+                  varying vec3 vProjectionLocalPosition;
+                  varying vec3 vProjectionLocalNormal;
+                  varying vec3 vProjectionViewNormal;
+                  varying vec3 vProjectionViewPosition;
+                  #include <fog_pars_vertex>
+                  void main() {
+                    vProjectionLocalPosition = position;
+                    vProjectionLocalNormal = normal;
+                    vProjectionViewNormal = normalize(normalMatrix * normal);
+                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                    vProjectionViewPosition = mvPosition.xyz;
+                    gl_Position = projectionMatrix * mvPosition;
+                    #include <fog_vertex>
+                  }
+                `,
+                fragmentShader: `
+                  uniform float uProjectionTime;
+                  uniform float uTerrainHeightMin;
+                  uniform float uTerrainHeightRange;
+                  varying vec3 vProjectionLocalPosition;
+                  varying vec3 vProjectionLocalNormal;
+                  varying vec3 vProjectionViewNormal;
+                  varying vec3 vProjectionViewPosition;
+                  #include <fog_pars_fragment>
+                  void main() {
+                    vec3 terrainNormal = normalize(vProjectionLocalNormal);
+                    float normalizedHeight = clamp(
+                      (vProjectionLocalPosition.y - uTerrainHeightMin) / uTerrainHeightRange,
+                      0.0,
+                      1.0
+                    );
+                    float upwardFacing = abs(terrainNormal.y);
+                    float steepness = 1.0 - upwardFacing;
+                    vec3 keyDirection = normalize(vec3(-0.46, 0.82, 0.34));
+                    float directionalLight = clamp(dot(terrainNormal, keyDirection) * 0.5 + 0.5, 0.0, 1.0);
+                    float heightLight = smoothstep(0.12, 0.92, normalizedHeight);
+                    float slopeShadow = mix(0.42, 1.0, smoothstep(0.12, 0.88, upwardFacing));
+                    float faceLight = mix(0.34, 1.0, directionalLight) * slopeShadow;
+
+                    vec3 deepVolume = vec3(0.0006, 0.008, 0.022);
+                    vec3 litVolume = vec3(0.002, 0.055, 0.082);
+                    vec3 terrainColor = mix(
+                      deepVolume,
+                      litVolume,
+                      clamp(faceLight * 0.72 + heightLight * 0.2, 0.0, 1.0)
+                    );
+                    terrainColor *= mix(0.58, 1.08, heightLight);
+
+                    float fineScan = pow(max(0.0, sin(vProjectionLocalPosition.y * 0.0105 - uProjectionTime * 0.72)), 28.0);
+                    float broadScan = pow(max(0.0, sin(vProjectionLocalPosition.y * 0.0032 + uProjectionTime * 0.24)), 38.0);
+                    float crestLight = smoothstep(0.56, 0.95, normalizedHeight)
+                      * smoothstep(0.16, 0.74, steepness);
+                    vec3 viewDirection = normalize(-vProjectionViewPosition);
+                    float rimLight = pow(1.0 - abs(dot(normalize(vProjectionViewNormal), viewDirection)), 3.2);
+                    terrainColor += vec3(0.0, 0.19, 0.24) * (fineScan * 0.22 + broadScan * 0.19);
+                    terrainColor += vec3(0.0, 0.11, 0.14) * crestLight;
+                    terrainColor += vec3(0.0, 0.09, 0.13) * rimLight;
+
+                    gl_FragColor = vec4(terrainColor, 1.0);
+                    #include <fog_fragment>
+                    #include <tonemapping_fragment>
+                    #include <colorspace_fragment>
+                  }
+                `,
+              });
+              projectionShader = { uniforms: { uProjectionTime: projectionUniforms.uProjectionTime } };
               terrainMeshes.forEach((mesh) => {
                 originalTerrainMaterials.set(mesh, mesh.material);
                 const hologramWireGeometry = createHeightColoredWireframe(THREE, mesh.geometry);
@@ -697,7 +751,7 @@ export function WindFarmTerrainScene({
                     blending: THREE.AdditiveBlending,
                     depthTest: true,
                     depthWrite: false,
-                    opacity: 0.78,
+                    opacity: 0.5,
                     toneMapped: false,
                     transparent: true,
                     vertexColors: true,
@@ -709,14 +763,14 @@ export function WindFarmTerrainScene({
                 mesh.add(lines);
                 wireLines.push(lines);
 
-                [170, 360].forEach((lift, layerIndex) => {
+                [140, 360, 680].forEach((lift, layerIndex) => {
                   const shellLines = new THREE.LineSegments(
                     hologramWireGeometry.clone(),
                     new THREE.LineBasicMaterial({
                       blending: THREE.AdditiveBlending,
                       depthTest: true,
                       depthWrite: false,
-                      opacity: layerIndex === 0 ? 0.32 : 0.18,
+                      opacity: [0.23, 0.13, 0.07][layerIndex],
                       toneMapped: false,
                       transparent: true,
                       vertexColors: true,
@@ -724,11 +778,50 @@ export function WindFarmTerrainScene({
                   );
                   shellLines.name = `RUNTIME__TERRAIN_GHOST_SHELL_${layerIndex + 1}`;
                   shellLines.position.y = lift;
+                  shellLines.scale.setScalar(1 + (layerIndex + 1) * 0.0025);
                   shellLines.renderOrder = 4 - layerIndex;
                   shellLines.visible = stateRef.current.projectionEnabled;
                   mesh.add(shellLines);
                   wireLines.push(shellLines);
                 });
+
+                const structuralEdges = new THREE.LineSegments(
+                  new THREE.EdgesGeometry(mesh.geometry, 4.5),
+                  new THREE.LineBasicMaterial({
+                    blending: THREE.NormalBlending,
+                    color: 0x07516f,
+                    depthTest: true,
+                    depthWrite: false,
+                    opacity: 0.7,
+                    toneMapped: false,
+                    transparent: true,
+                  }),
+                );
+                structuralEdges.name = "RUNTIME__TERRAIN_STRUCTURAL_EDGES";
+                structuralEdges.position.y = 5;
+                structuralEdges.renderOrder = 5;
+                structuralEdges.visible = stateRef.current.projectionEnabled;
+                mesh.add(structuralEdges);
+                wireLines.push(structuralEdges);
+
+                const ridgeHighlights = new THREE.LineSegments(
+                  new THREE.EdgesGeometry(mesh.geometry, 11.5),
+                  new THREE.LineBasicMaterial({
+                    blending: THREE.AdditiveBlending,
+                    color: 0x4ffff2,
+                    depthTest: true,
+                    depthWrite: false,
+                    opacity: 0.82,
+                    toneMapped: false,
+                    transparent: true,
+                  }),
+                );
+                ridgeHighlights.name = "RUNTIME__TERRAIN_RIDGE_HIGHLIGHTS";
+                ridgeHighlights.position.y = 9;
+                ridgeHighlights.renderOrder = 7;
+                ridgeHighlights.visible = stateRef.current.projectionEnabled;
+                mesh.add(ridgeHighlights);
+                wireLines.push(ridgeHighlights);
 
                 const fineContourGeometry = createTerrainContourGeometry(THREE, mesh.geometry, 58, 0.35);
                 if (fineContourGeometry) {
@@ -736,9 +829,9 @@ export function WindFarmTerrainScene({
                     fineContourGeometry,
                     new THREE.LineBasicMaterial({
                       blending: THREE.AdditiveBlending,
-                      depthTest: false,
+                      depthTest: true,
                       depthWrite: false,
-                      opacity: 0.72,
+                      opacity: 0.5,
                       toneMapped: false,
                       transparent: true,
                       vertexColors: true,
@@ -758,9 +851,9 @@ export function WindFarmTerrainScene({
                     new THREE.LineBasicMaterial({
                       blending: THREE.AdditiveBlending,
                       color: 0x68fff4,
-                      depthTest: false,
+                      depthTest: true,
                       depthWrite: false,
-                      opacity: 0.94,
+                      opacity: 0.82,
                       toneMapped: false,
                       transparent: true,
                       vertexColors: false,
