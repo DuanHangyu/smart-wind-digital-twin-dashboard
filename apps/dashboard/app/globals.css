@@ -1615,16 +1615,16 @@ button {
   inset: 0;
   content: "";
   background:
-    radial-gradient(ellipse at 50% 12%, rgba(246, 248, 247, 0.52) 0%, rgba(230, 237, 232, 0.32) 29%, rgba(204, 218, 207, 0.1) 50%, transparent 67%),
-    radial-gradient(ellipse at 50% 42%, rgba(220, 232, 223, 0.2) 0%, rgba(191, 211, 194, 0.08) 42%, transparent 68%);
+    radial-gradient(ellipse at 50% 12%, rgba(246, 248, 247, 0.5) 0%, rgba(230, 237, 232, 0.29) 29%, rgba(204, 218, 207, 0.08) 50%, transparent 67%),
+    radial-gradient(ellipse at 50% 42%, rgba(220, 232, 223, 0.12) 0%, rgba(191, 211, 194, 0.045) 42%, transparent 68%);
   mix-blend-mode: screen;
-  opacity: 0.58;
+  opacity: 0.5;
   pointer-events: none;
   transition: opacity 320ms ease;
 }
 
 .windfarm-terrain-scene canvas {
-  filter: saturate(1.06) brightness(0.98) contrast(0.96) sepia(0.018) hue-rotate(-3deg);
+  filter: saturate(1.24) brightness(1.03) contrast(1.12) sepia(0.006) hue-rotate(-3deg);
   transition: filter 360ms ease;
 }
 

@@ -179,8 +179,8 @@ export function WindFarmTerrainScene({
           controls?.removeEventListener("start", preserveManualCamera);
         });
 
-        scene.add(new THREE.HemisphereLight(0xe9eee9, 0x1c2c22, 1.55));
-        const keyLight = new THREE.DirectionalLight(0xf6f5ed, 1.65);
+        scene.add(new THREE.HemisphereLight(0xe9eee9, 0x1c2c22, 1.34));
+        const keyLight = new THREE.DirectionalLight(0xf6f5ed, 1.84);
         keyLight.position.set(-6, 10, 7);
         scene.add(keyLight);
         const rimLight = new THREE.PointLight(0x78cfc0, 0.48, 30, 2);
@@ -347,9 +347,9 @@ export function WindFarmTerrainScene({
                 if (isTerrainMesh) {
                   material.color.setHex(0x91a879);
                   material.metalness = 0;
-                  material.roughness = 0.98;
+                  material.roughness = 0.94;
                   material.emissive.setHex(0x0a130c);
-                  material.emissiveIntensity = 0.055;
+                  material.emissiveIntensity = 0.03;
                 } else if (isLakeMesh) {
                   material.color.setHex(0x71888d);
                   material.metalness = 0.04;
