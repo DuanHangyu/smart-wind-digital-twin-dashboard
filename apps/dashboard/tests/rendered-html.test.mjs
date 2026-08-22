@@ -206,6 +206,15 @@ test("polishes the P02 terrain presentation without modifying the windfarm asset
   assert.doesNotMatch(scene, /controls\.autoRotate = true/);
   assert.match(scene, /projectionTerrainMaterial/);
   assert.match(scene, /AdditiveBlending/);
+  assert.match(scene, /createHeightColoredWireframe/);
+  assert.match(scene, /createTerrainContourGeometry\(THREE, mesh\.geometry, 58, 0\.35\)/);
+  assert.match(scene, /createTerrainContourGeometry\(THREE, mesh\.geometry, 16, 0\.12\)/);
+  assert.match(scene, /RUNTIME__TERRAIN_CONTOUR_FINE/);
+  assert.match(scene, /RUNTIME__TERRAIN_CONTOUR_MAJOR/);
+  assert.match(scene, /RUNTIME__TERRAIN_GHOST_SHELL_/);
+  assert.match(scene, /RUNTIME__TURBINE_PROJECTION_WIREFRAME/);
+  assert.match(scene, /material\.opacity = 0\.025/);
+  assert.match(scene, /multiplyScalar\(enabled \? 0\.76 : 1\)/);
   assert.match(scene, /FogExp2\(0xc6d0cb, 0\.045\)/);
   assert.match(scene, /toneMappingExposure = enabled \? 1\.08 : 1\.02/);
   assert.match(scene, /const isTurbineMesh = TURBINE_LINKS\.some/);
@@ -226,6 +235,7 @@ test("polishes the P02 terrain presentation without modifying the windfarm asset
   assert.match(scene, /风机状态/);
   assert.match(styles, /\.windfarm-anchor-card\s*\{[\s\S]*?width:\s*350px/);
   assert.match(styles, /\.windfarm-terrain-scene::before\s*\{[\s\S]*?radial-gradient[\s\S]*?repeating-radial-gradient/);
+  assert.match(styles, /\.windfarm-terrain-scene\.projection-enabled canvas\s*\{[\s\S]*?contrast\(1\.3\)/);
   assert.match(styles, /\.windfarm-hotspot-layer button i::before/);
   assert.match(styles, /\.windfarm-hotspot-layer button i::after/);
   assert.match(scene, /const detailWidth = Math\.min\(350, host\.clientWidth - 28\)/);

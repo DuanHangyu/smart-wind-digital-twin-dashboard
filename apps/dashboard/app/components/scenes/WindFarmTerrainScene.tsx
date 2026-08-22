@@ -61,6 +61,7 @@ type InteractivePart = Object3D & {
   userData: {
     display_name?: string;
     power_kw?: number;
+    projectionBaseScale?: Vector3;
     targetY?: number;
   };
 };
@@ -121,6 +122,113 @@ function turbineIdFromTarget(target: string) {
 
 function targetFromTurbineId(turbineId: string | null) {
   return TURBINE_LINKS.find((item) => item.turbineId === turbineId)?.target ?? null;
+}
+
+function projectionColorAtHeight(THREE: typeof import("three"), normalizedHeight: number) {
+  const low = new THREE.Color(0x075b86);
+  const middle = new THREE.Color(0x13cfc6);
+  const high = new THREE.Color(0xd1fffb);
+  if (normalizedHeight < 0.58) return low.lerp(middle, normalizedHeight / 0.58);
+  return middle.lerp(high, (normalizedHeight - 0.58) / 0.42);
+}
+
+function createHeightColoredWireframe(
+  THREE: typeof import("three"),
+  geometry: import("three").BufferGeometry,
+) {
+  geometry.computeBoundingBox();
+  const bounds = geometry.boundingBox;
+  const wireGeometry = new THREE.WireframeGeometry(geometry);
+  if (!bounds) return wireGeometry;
+  const position = wireGeometry.getAttribute("position");
+  const heightRange = Math.max(1, bounds.max.y - bounds.min.y);
+  const colors = new Float32Array(position.count * 3);
+  for (let index = 0; index < position.count; index += 1) {
+    const normalizedHeight = THREE.MathUtils.clamp((position.getY(index) - bounds.min.y) / heightRange, 0, 1);
+    const color = projectionColorAtHeight(THREE, normalizedHeight);
+    colors[index * 3] = color.r;
+    colors[index * 3 + 1] = color.g;
+    colors[index * 3 + 2] = color.b;
+  }
+  wireGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  return wireGeometry;
+}
+
+function createTerrainContourGeometry(
+  THREE: typeof import("three"),
+  geometry: import("three").BufferGeometry,
+  levelCount: number,
+  levelPhase = 0,
+) {
+  geometry.computeBoundingBox();
+  const bounds = geometry.boundingBox;
+  const position = geometry.getAttribute("position");
+  if (!bounds || !position) return null;
+  const heightRange = bounds.max.y - bounds.min.y;
+  const horizontalRange = Math.max(bounds.max.x - bounds.min.x, bounds.max.z - bounds.min.z);
+  if (heightRange < Math.max(1, horizontalRange * 0.0012)) return null;
+
+  const positions = position.array as ArrayLike<number>;
+  const indices = geometry.index?.array as ArrayLike<number> | undefined;
+  const triangleCount = indices ? Math.floor(indices.length / 3) : Math.floor(position.count / 3);
+  const contourPositions: number[] = [];
+  const contourColors: number[] = [];
+  const edgeEpsilon = Math.max(0.0001, heightRange * 0.000001);
+  const surfaceLift = Math.max(0.002, heightRange * 0.0021);
+
+  const vertex = (vertexIndex: number) => {
+    const offset = vertexIndex * 3;
+    return [positions[offset], positions[offset + 1], positions[offset + 2]] as const;
+  };
+
+  for (let levelIndex = 0; levelIndex < levelCount; levelIndex += 1) {
+    const levelT = (levelIndex + 1 + levelPhase) / (levelCount + 1 + levelPhase * 2);
+    const level = THREE.MathUtils.lerp(bounds.min.y, bounds.max.y, levelT);
+    const levelColor = projectionColorAtHeight(THREE, levelT);
+    for (let triangleIndex = 0; triangleIndex < triangleCount; triangleIndex += 1) {
+      const triangleOffset = triangleIndex * 3;
+      const ia = indices ? indices[triangleOffset] : triangleOffset;
+      const ib = indices ? indices[triangleOffset + 1] : triangleOffset + 1;
+      const ic = indices ? indices[triangleOffset + 2] : triangleOffset + 2;
+      const a = vertex(ia);
+      const b = vertex(ib);
+      const c = vertex(ic);
+      const intersections: Array<[number, number, number]> = [];
+      const intersectEdge = (start: readonly number[], end: readonly number[]) => {
+        const startDelta = start[1] - level;
+        const endDelta = end[1] - level;
+        if (Math.abs(startDelta) <= edgeEpsilon && Math.abs(endDelta) <= edgeEpsilon) return;
+        if ((startDelta > edgeEpsilon && endDelta > edgeEpsilon) || (startDelta < -edgeEpsilon && endDelta < -edgeEpsilon)) return;
+        const denominator = startDelta - endDelta;
+        const edgeT = Math.abs(denominator) <= edgeEpsilon ? 0 : THREE.MathUtils.clamp(startDelta / denominator, 0, 1);
+        const point: [number, number, number] = [
+          THREE.MathUtils.lerp(start[0], end[0], edgeT),
+          level + surfaceLift,
+          THREE.MathUtils.lerp(start[2], end[2], edgeT),
+        ];
+        const duplicate = intersections.some((candidate) => (
+          Math.abs(candidate[0] - point[0]) <= edgeEpsilon
+          && Math.abs(candidate[2] - point[2]) <= edgeEpsilon
+        ));
+        if (!duplicate) intersections.push(point);
+      };
+      intersectEdge(a, b);
+      intersectEdge(b, c);
+      intersectEdge(c, a);
+      if (intersections.length !== 2) continue;
+      intersections.forEach((point) => {
+        contourPositions.push(point[0], point[1], point[2]);
+        contourColors.push(levelColor.r, levelColor.g, levelColor.b);
+      });
+    }
+  }
+
+  if (!contourPositions.length) return null;
+  const contourGeometry = new THREE.BufferGeometry();
+  contourGeometry.setAttribute("position", new THREE.Float32BufferAttribute(contourPositions, 3));
+  contourGeometry.setAttribute("color", new THREE.Float32BufferAttribute(contourColors, 3));
+  contourGeometry.computeBoundingSphere();
+  return contourGeometry;
 }
 
 export function WindFarmTerrainScene({
@@ -328,6 +436,8 @@ export function WindFarmTerrainScene({
         const terrainMeshes: Mesh[] = [];
         const originalTerrainMaterials = new Map<Mesh, Material | Material[]>();
         const wireLines: import("three").LineSegments[] = [];
+        const contourLines: import("three").LineSegments[] = [];
+        const turbineWireLines: import("three").LineSegments[] = [];
         let projectionTerrainMaterial: MeshStandardMaterial | null = null;
         let projectionShader: { uniforms: { uProjectionTime: { value: number } } } | null = null;
         let projectionActive = stateRef.current.projectionEnabled;
@@ -405,8 +515,8 @@ export function WindFarmTerrainScene({
                 material.emissive.setHex(0x087e7b);
                 material.emissiveIntensity = 0.24;
               } else if (projectionActive && part.name !== "PART__LAKE") {
-                material.emissive.setHex(0x00bdb6);
-                material.emissiveIntensity = 0.58;
+                material.emissive.setHex(0x007f82);
+                material.emissiveIntensity = 0.24;
               } else {
                 material.emissive.copy(material.userData.baseEmissive);
                 material.emissiveIntensity = material.userData.baseEmissiveIntensity;
@@ -445,6 +555,12 @@ export function WindFarmTerrainScene({
           (gltf) => {
             if (disposed) return;
             const root = gltf.scene;
+            // Capture the authored asset bounds before adding projection-only
+            // contour and ghost-shell children. Those layers intentionally sit
+            // above the terrain and must not shift the model's auto-centering.
+            const sourceBounds = new THREE.Box3().setFromObject(root);
+            const sourceCenter = sourceBounds.getCenter(new THREE.Vector3());
+            const sourceSize = sourceBounds.getSize(new THREE.Vector3());
             const belongsToPart = (object: Object3D, partName: string) => {
               let current: Object3D | null = object;
               while (current) {
@@ -509,23 +625,45 @@ export function WindFarmTerrainScene({
                   material.userData.baseColor = material.color.clone();
                   material.userData.baseOpacity = material.opacity;
                   material.userData.baseTransparent = material.transparent;
+                  material.userData.baseDepthWrite = material.depthWrite;
+                  material.userData.baseDepthTest = material.depthTest;
                   if (isTurbineMesh) projectionAccentMaterials.add(material);
                 }
                 return material;
               });
               mesh.material = Array.isArray(mesh.material) ? cloned : cloned[0];
+              if (isTurbineMesh) {
+                const turbineWireGeometry = createHeightColoredWireframe(THREE, mesh.geometry);
+                const turbineLines = new THREE.LineSegments(
+                  turbineWireGeometry,
+                  new THREE.LineBasicMaterial({
+                    blending: THREE.AdditiveBlending,
+                    color: 0x20cbc5,
+                    depthTest: true,
+                    depthWrite: false,
+                    opacity: 0.46,
+                    toneMapped: false,
+                    transparent: true,
+                  }),
+                );
+                turbineLines.name = "RUNTIME__TURBINE_PROJECTION_WIREFRAME";
+                turbineLines.renderOrder = 9;
+                turbineLines.visible = stateRef.current.projectionEnabled;
+                mesh.add(turbineLines);
+                turbineWireLines.push(turbineLines);
+              }
             });
 
             if (terrainMeshes.length) {
               projectionTerrainMaterial = new THREE.MeshStandardMaterial({
                 blending: THREE.NormalBlending,
-                color: 0x000405,
+                color: 0x000711,
                 depthWrite: true,
-                emissive: 0x003f3d,
-                emissiveIntensity: 0.12,
+                emissive: 0x001c31,
+                emissiveIntensity: 0.2,
                 metalness: 0,
-                opacity: 0.12,
-                roughness: 0.78,
+                opacity: 0.2,
+                roughness: 0.92,
                 side: THREE.DoubleSide,
                 transparent: true,
                 wireframe: false,
@@ -544,40 +682,102 @@ export function WindFarmTerrainScene({
                   .replace(
                     "#include <emissivemap_fragment>",
                     `#include <emissivemap_fragment>
-                    float scanWave = pow(max(0.0, sin(vProjectionPosition.y * 18.0 - uProjectionTime * 1.35)), 18.0);
-                    float ridgeFresnel = pow(1.0 - abs(dot(normalize(normal), normalize(vViewPosition))), 2.2);
-                    totalEmissiveRadiance += vec3(0.0, 0.28, 0.27) * (scanWave * 0.34 + ridgeFresnel * 0.12);`,
+                    float fineScan = pow(max(0.0, sin(vProjectionPosition.y * 0.0105 - uProjectionTime * 0.72)), 24.0);
+                    float broadScan = pow(max(0.0, sin(vProjectionPosition.y * 0.0032 + uProjectionTime * 0.24)), 34.0);
+                    float ridgeFresnel = pow(1.0 - abs(dot(normalize(normal), normalize(vViewPosition))), 2.6);
+                    totalEmissiveRadiance += vec3(0.0, 0.34, 0.42) * (fineScan * 0.36 + broadScan * 0.28 + ridgeFresnel * 0.2);`,
                   );
               };
               terrainMeshes.forEach((mesh) => {
                 originalTerrainMaterials.set(mesh, mesh.material);
-                // The target uses a continuous triangular topology. Rendering the terrain's
-                // real edge network at low alpha is both more faithful and avoids stripe artifacts.
-                const hologramWireGeometry = new THREE.WireframeGeometry(mesh.geometry);
+                const hologramWireGeometry = createHeightColoredWireframe(THREE, mesh.geometry);
                 const lines = new THREE.LineSegments(
                   hologramWireGeometry,
                   new THREE.LineBasicMaterial({
                     blending: THREE.AdditiveBlending,
-                    color: 0x2cfff3,
                     depthTest: true,
                     depthWrite: false,
-                    opacity: 0.66,
+                    opacity: 0.78,
+                    toneMapped: false,
                     transparent: true,
+                    vertexColors: true,
                   }),
                 );
+                lines.name = "RUNTIME__TERRAIN_DEPTH_WIREFRAME";
                 lines.renderOrder = 5;
                 lines.visible = stateRef.current.projectionEnabled;
                 mesh.add(lines);
                 wireLines.push(lines);
+
+                [170, 360].forEach((lift, layerIndex) => {
+                  const shellLines = new THREE.LineSegments(
+                    hologramWireGeometry.clone(),
+                    new THREE.LineBasicMaterial({
+                      blending: THREE.AdditiveBlending,
+                      depthTest: true,
+                      depthWrite: false,
+                      opacity: layerIndex === 0 ? 0.32 : 0.18,
+                      toneMapped: false,
+                      transparent: true,
+                      vertexColors: true,
+                    }),
+                  );
+                  shellLines.name = `RUNTIME__TERRAIN_GHOST_SHELL_${layerIndex + 1}`;
+                  shellLines.position.y = lift;
+                  shellLines.renderOrder = 4 - layerIndex;
+                  shellLines.visible = stateRef.current.projectionEnabled;
+                  mesh.add(shellLines);
+                  wireLines.push(shellLines);
+                });
+
+                const fineContourGeometry = createTerrainContourGeometry(THREE, mesh.geometry, 58, 0.35);
+                if (fineContourGeometry) {
+                  const fineContours = new THREE.LineSegments(
+                    fineContourGeometry,
+                    new THREE.LineBasicMaterial({
+                      blending: THREE.AdditiveBlending,
+                      depthTest: false,
+                      depthWrite: false,
+                      opacity: 0.72,
+                      toneMapped: false,
+                      transparent: true,
+                      vertexColors: true,
+                    }),
+                  );
+                  fineContours.name = "RUNTIME__TERRAIN_CONTOUR_FINE";
+                  fineContours.renderOrder = 6;
+                  fineContours.visible = stateRef.current.projectionEnabled;
+                  mesh.add(fineContours);
+                  contourLines.push(fineContours);
+                }
+
+                const majorContourGeometry = createTerrainContourGeometry(THREE, mesh.geometry, 16, 0.12);
+                if (majorContourGeometry) {
+                  const majorContours = new THREE.LineSegments(
+                    majorContourGeometry,
+                    new THREE.LineBasicMaterial({
+                      blending: THREE.AdditiveBlending,
+                      color: 0x68fff4,
+                      depthTest: false,
+                      depthWrite: false,
+                      opacity: 0.94,
+                      toneMapped: false,
+                      transparent: true,
+                      vertexColors: false,
+                    }),
+                  );
+                  majorContours.name = "RUNTIME__TERRAIN_CONTOUR_MAJOR";
+                  majorContours.renderOrder = 7;
+                  majorContours.visible = stateRef.current.projectionEnabled;
+                  mesh.add(majorContours);
+                  contourLines.push(majorContours);
+                }
               });
               root.add(wireGroup);
             }
 
-            const bounds = new THREE.Box3().setFromObject(root);
-            const center = bounds.getCenter(new THREE.Vector3());
-            const size = bounds.getSize(new THREE.Vector3());
-            root.position.copy(center).multiplyScalar(-1);
-            pivot.scale.setScalar(12.4 / Math.max(size.x, size.z));
+            root.position.copy(sourceCenter).multiplyScalar(-1);
+            pivot.scale.setScalar(12.4 / Math.max(sourceSize.x, sourceSize.z));
             pivot.add(root);
 
             const applyProjectionLook = (enabled: boolean) => {
@@ -588,6 +788,8 @@ export function WindFarmTerrainScene({
               fog.density = enabled ? 0.018 : 0.045;
               if (renderer) renderer.toneMappingExposure = enabled ? 1.08 : 1.02;
               wireLines.forEach((lines) => { lines.visible = enabled; });
+              contourLines.forEach((lines) => { lines.visible = enabled; });
+              turbineWireLines.forEach((lines) => { lines.visible = enabled; });
               baseMeshes.forEach((mesh) => { mesh.visible = !enabled; });
               terrainMeshes.forEach((mesh) => {
                 const original = originalTerrainMaterials.get(mesh);
@@ -595,19 +797,31 @@ export function WindFarmTerrainScene({
               });
               projectionAccentMaterials.forEach((material) => {
                 if (enabled) {
-                  material.color.setHex(0x42d8cf);
-                  material.emissive.setHex(0x00bdb6);
-                  material.emissiveIntensity = 0.58;
-                  material.opacity = 0.76;
+                  material.color.setHex(0x011419);
+                  material.emissive.setHex(0x005c61);
+                  material.emissiveIntensity = 0.08;
+                  material.opacity = 0.025;
                   material.transparent = true;
+                  material.depthWrite = false;
                 } else {
                   material.color.copy(material.userData.baseColor);
                   material.emissive.copy(material.userData.baseEmissive);
                   material.emissiveIntensity = material.userData.baseEmissiveIntensity;
                   material.opacity = material.userData.baseOpacity;
                   material.transparent = material.userData.baseTransparent;
+                  material.depthWrite = material.userData.baseDepthWrite;
+                  material.depthTest = material.userData.baseDepthTest;
                 }
                 material.needsUpdate = true;
+              });
+              parts.forEach((part) => {
+                if (!part.name.startsWith("PART__TURBINE_")) return;
+                let baseScale = part.userData.projectionBaseScale as Vector3 | undefined;
+                if (!baseScale) {
+                  baseScale = part.scale.clone();
+                  part.userData.projectionBaseScale = baseScale;
+                }
+                part.scale.copy(baseScale).multiplyScalar(enabled ? 0.76 : 1);
               });
               if (lakePart) lakePart.visible = !enabled && stateRef.current.waterVisible;
               if (selectedPart) setPartVisual(selectedPart, "selected");
