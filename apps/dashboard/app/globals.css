@@ -1796,6 +1796,11 @@ button {
   box-shadow: 0 0 12px rgba(0, 229, 223, 0.16);
 }
 
+.page-windfarm .windfarm-camera-actions,
+.page-windfarm .scene-placeholder-badge {
+  display: none;
+}
+
 .map-hotspot-layer {
   position: absolute;
   z-index: 5;
