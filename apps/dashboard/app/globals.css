@@ -2698,10 +2698,91 @@ button {
 .panel-empty small { margin-top: 4px; color: #31575a; font: 6px monospace; letter-spacing: 1px; }
 .panel-empty.compact { min-height: 180px; }
 
-.bottom-navigation {
+.bottom-hud-shell {
   position: absolute;
   z-index: 30;
-  bottom: 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  pointer-events: none;
+}
+
+.bottom-hud-artwork {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 56px;
+  overflow: visible;
+  filter: drop-shadow(0 0 4px rgba(0, 229, 223, 0.13));
+  pointer-events: none;
+}
+
+.bottom-hud-line,
+.bottom-hud-center-line,
+.bottom-hud-center-cap,
+.bottom-hud-end {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.bottom-hud-line-primary {
+  stroke: url(#bottom-rail-fade);
+  stroke-width: 1;
+}
+
+.bottom-hud-line-secondary {
+  stroke: rgba(0, 229, 223, 0.2);
+  stroke-width: 1;
+}
+
+.bottom-hud-line-faint {
+  stroke: rgba(0, 229, 223, 0.08);
+  stroke-width: 1;
+}
+
+.bottom-hud-line-shoulder {
+  stroke: rgba(0, 229, 223, 0.24);
+  stroke-width: 1;
+}
+
+.bottom-hud-line-dots {
+  stroke: rgba(41, 211, 205, 0.42);
+  stroke-width: 2;
+  stroke-dasharray: 2 6;
+}
+
+.bottom-hud-ticks {
+  opacity: 0.72;
+}
+
+.bottom-hud-node {
+  fill: #24dcd5;
+  opacity: 0.82;
+  filter: drop-shadow(0 0 3px rgba(36, 220, 213, 0.58));
+}
+
+.bottom-hud-end {
+  stroke: rgba(23, 170, 166, 0.72);
+  stroke-width: 3;
+}
+
+.bottom-hud-center-line {
+  stroke: rgba(0, 229, 223, 0.14);
+  stroke-width: 1;
+}
+
+.bottom-hud-center-cap {
+  stroke: rgba(0, 229, 223, 0.22);
+  stroke-width: 1;
+}
+
+.bottom-navigation {
+  position: absolute;
+  z-index: 2;
+  top: 2px;
   left: 50%;
   display: grid;
   width: 680px;
@@ -2710,49 +2791,38 @@ button {
   gap: 10px;
   transform: translateX(-50%);
   isolation: isolate;
+  pointer-events: auto;
 }
 
 .bottom-navigation::before {
   position: absolute;
   z-index: -1;
-  top: -5px;
-  right: -94px;
-  bottom: -4px;
-  left: -94px;
+  top: -2px;
+  right: -28px;
+  bottom: -5px;
+  left: -28px;
   content: "";
-  border-top: 1px solid rgba(44, 232, 223, 0.36);
-  border-bottom: 1px solid rgba(0, 229, 223, 0.09);
+  border-top: 1px solid rgba(44, 232, 223, 0.26);
+  border-bottom: 1px solid rgba(0, 229, 223, 0.07);
   background:
-    linear-gradient(90deg, transparent 0 6%, rgba(0, 229, 223, 0.24) 18%, rgba(90, 255, 240, 0.54) 50%, rgba(0, 229, 223, 0.24) 82%, transparent 94%) top/100% 1px no-repeat,
-    linear-gradient(90deg, transparent 3%, rgba(1, 24, 27, 0.82) 16% 84%, transparent 97%);
-  clip-path: polygon(8% 0, 92% 0, 96% 23%, 100% 23%, 95% 100%, 5% 100%, 0 23%, 4% 23%);
+    linear-gradient(90deg, transparent 0 8%, rgba(0, 229, 223, 0.18) 24%, rgba(90, 255, 240, 0.38) 50%, rgba(0, 229, 223, 0.18) 76%, transparent 92%) top/100% 1px no-repeat,
+    linear-gradient(90deg, transparent 0 3%, rgba(1, 18, 22, 0.78) 14% 86%, transparent 97%);
+  clip-path: polygon(7% 0, 93% 0, 97% 34%, 100% 34%, 96% 100%, 4% 100%, 0 34%, 3% 34%);
   pointer-events: none;
 }
 
 .bottom-navigation::after {
   position: absolute;
   z-index: -2;
-  top: 5px;
-  left: 50%;
-  width: 100vw;
-  height: 36px;
+  right: -52px;
+  bottom: -9px;
+  left: -52px;
+  height: 17px;
   content: "";
-  transform: translateX(-50%);
   background:
-    repeating-linear-gradient(62deg, rgba(25, 180, 176, 0.7) 0 3px, transparent 3px 9px) 1.7% 5px / 54px 8px no-repeat,
-    repeating-linear-gradient(118deg, rgba(25, 180, 176, 0.7) 0 3px, transparent 3px 9px) 98.3% 5px / 54px 8px no-repeat,
-    repeating-linear-gradient(90deg, rgba(44, 232, 223, 0.76) 0 4px, transparent 4px 9px) 12.5% 5px / 62px 8px no-repeat,
-    repeating-linear-gradient(90deg, rgba(44, 232, 223, 0.76) 0 4px, transparent 4px 9px) 87.5% 5px / 62px 8px no-repeat,
-    repeating-linear-gradient(90deg, rgba(44, 232, 223, 0.28) 0 2px, transparent 2px 7px) 7.4% 8px / 45px 2px no-repeat,
-    repeating-linear-gradient(90deg, rgba(44, 232, 223, 0.28) 0 2px, transparent 2px 7px) 92.6% 8px / 45px 2px no-repeat,
-    linear-gradient(#24dcd5, #24dcd5) 28.8% 3px / 10px 10px no-repeat,
-    linear-gradient(#24dcd5, #24dcd5) 71.2% 3px / 10px 10px no-repeat,
-    linear-gradient(118deg, transparent 0 45%, rgba(0, 229, 223, 0.34) 46% 49%, transparent 50%) 0 0 / 74px 22px no-repeat,
-    linear-gradient(242deg, transparent 0 45%, rgba(0, 229, 223, 0.34) 46% 49%, transparent 50%) 100% 0 / 74px 22px no-repeat,
-    linear-gradient(90deg, rgba(0, 229, 223, 0.08), rgba(0, 229, 223, 0.42) 32%, transparent 43% 57%, rgba(0, 229, 223, 0.42) 68%, rgba(0, 229, 223, 0.08)) 50% 13px / 100% 1px no-repeat,
-    linear-gradient(90deg, transparent 1%, rgba(5, 62, 65, 0.7) 6% 35%, transparent 42% 58%, rgba(5, 62, 65, 0.7) 65% 94%, transparent 99%) 50% 14px / 100% 2px no-repeat,
-    linear-gradient(90deg, transparent 0 2%, rgba(0, 229, 223, 0.15) 2% 35%, transparent 41% 59%, rgba(0, 229, 223, 0.15) 65% 98%, transparent 98%) 50% 31px / 100% 1px no-repeat;
-  filter: drop-shadow(0 0 4px rgba(0, 229, 223, 0.13));
+    linear-gradient(90deg, transparent 0, rgba(0, 229, 223, 0.18) 12%, rgba(0, 229, 223, 0.08) 42%, transparent 50% 50%, rgba(0, 229, 223, 0.08) 58%, rgba(0, 229, 223, 0.18) 88%, transparent 100%) top/100% 1px no-repeat,
+    linear-gradient(90deg, transparent 4%, rgba(1, 15, 18, 0.92) 16% 84%, transparent 96%);
+  clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
   pointer-events: none;
 }
 
@@ -2761,10 +2831,10 @@ button {
   overflow: hidden;
   border: 1px solid rgba(0, 229, 223, 0.38);
   background:
-    linear-gradient(90deg, transparent, rgba(90, 255, 240, 0.035), transparent),
-    linear-gradient(180deg, rgba(3, 28, 32, 0.94), rgba(1, 11, 14, 0.99));
+    linear-gradient(90deg, transparent, rgba(90, 255, 240, 0.025), transparent),
+    linear-gradient(180deg, rgba(3, 26, 30, 0.92), rgba(1, 10, 13, 0.99));
   clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
-  box-shadow: inset 0 1px rgba(90, 255, 240, 0.1), inset 0 -9px 15px rgba(0, 0, 0, 0.32);
+  box-shadow: inset 0 1px rgba(90, 255, 240, 0.08), inset 0 -8px 13px rgba(0, 0, 0, 0.36);
   color: #448486;
   cursor: pointer;
   transition: color 180ms ease, background 180ms ease, filter 180ms ease;
@@ -2801,8 +2871,8 @@ button {
   border-color: var(--cyan-bright);
   background:
     linear-gradient(90deg, rgba(0, 229, 223, 0.08), transparent 24% 76%, rgba(0, 229, 223, 0.08)),
-    linear-gradient(180deg, #00424a 0%, #00767a 55%, #18c9c1 100%);
-  box-shadow: inset 0 0 12px rgba(65, 255, 241, 0.13), inset 0 -6px 10px rgba(148, 255, 247, 0.18), 0 0 12px rgba(0, 229, 223, 0.5);
+    linear-gradient(180deg, #00383e 0%, #00656b 52%, #13b9b3 100%);
+  box-shadow: inset 0 0 11px rgba(65, 255, 241, 0.12), inset 0 -5px 9px rgba(148, 255, 247, 0.17), 0 0 9px rgba(0, 229, 223, 0.42);
   color: var(--text);
   filter: drop-shadow(0 0 8px rgba(0, 229, 223, 0.42));
   text-shadow: 0 0 7px rgba(255, 255, 255, 0.42);
@@ -2829,7 +2899,7 @@ button {
 .bottom-navigation span {
   position: relative;
   z-index: 1;
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: 2px;
 }
