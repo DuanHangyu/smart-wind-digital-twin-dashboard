@@ -44,7 +44,7 @@ const navigation: Array<{ id: PageId; label: string; code: string }> = [
 
 function BottomHudArtwork() {
   return (
-    <svg aria-hidden="true" className="bottom-hud-artwork" focusable="false" preserveAspectRatio="none" viewBox="0 0 2560 64">
+    <svg aria-hidden="true" className="bottom-hud-artwork" focusable="false" preserveAspectRatio="none" viewBox="0 0 2560 60">
       <defs>
         <linearGradient id="bottom-rail-fade" x1="0" x2="1">
           <stop offset="0" stopColor="#00dcd5" stopOpacity="0.08" />
@@ -57,27 +57,29 @@ function BottomHudArtwork() {
         </pattern>
       </defs>
       <g className="bottom-hud-rail-art">
-        <path className="bottom-hud-line bottom-hud-line-primary" d="M0 38 H850 L902 18 H955" />
-        <path className="bottom-hud-line bottom-hud-line-secondary" d="M45 51 H844 L886 37 H940" />
-        <path className="bottom-hud-line bottom-hud-line-faint" d="M0 54 H820" />
-        <path className="bottom-hud-line bottom-hud-line-shoulder" d="M848 38 L892 25 H922 L941 35" />
+        <path className="bottom-hud-line bottom-hud-line-primary" d="M0 38 H900 L938 18 H955" />
+        <path className="bottom-hud-line bottom-hud-line-secondary" d="M45 51 H895 L930 37 H950" />
+        <path className="bottom-hud-line bottom-hud-line-faint" d="M0 55 H868" />
+        <path className="bottom-hud-line bottom-hud-line-shoulder" d="M900 38 L934 25 H950" />
+        <path className="bottom-hud-line bottom-hud-line-accent" d="M644 25 H704 M754 25 H814" />
         <path className="bottom-hud-line bottom-hud-line-dots" d="M205 30 H260" />
         <rect className="bottom-hud-ticks" fill="url(#bottom-rail-ticks)" height="8" width="62" x="315" y="26" />
         <rect className="bottom-hud-node" height="9" width="10" x="732" y="28" />
-        <path className="bottom-hud-end" d="M20 37 27 29h4l-7 8m9 0 7-8h4l-7 8m9 0 7-8h4l-7 8" />
+        <path className="bottom-hud-end" d="M2 37 10 29h7l-8 8m12 0 8-8h7l-8 8m12 0 8-8h7l-8 8m12 0 8-8h7l-8 8" />
       </g>
       <g className="bottom-hud-rail-art" transform="translate(2560 0) scale(-1 1)">
-        <path className="bottom-hud-line bottom-hud-line-primary" d="M0 38 H850 L902 18 H955" />
-        <path className="bottom-hud-line bottom-hud-line-secondary" d="M45 51 H844 L886 37 H940" />
-        <path className="bottom-hud-line bottom-hud-line-faint" d="M0 54 H820" />
-        <path className="bottom-hud-line bottom-hud-line-shoulder" d="M848 38 L892 25 H922 L941 35" />
+        <path className="bottom-hud-line bottom-hud-line-primary" d="M0 38 H900 L938 18 H955" />
+        <path className="bottom-hud-line bottom-hud-line-secondary" d="M45 51 H895 L930 37 H950" />
+        <path className="bottom-hud-line bottom-hud-line-faint" d="M0 55 H868" />
+        <path className="bottom-hud-line bottom-hud-line-shoulder" d="M900 38 L934 25 H950" />
+        <path className="bottom-hud-line bottom-hud-line-accent" d="M644 25 H704 M754 25 H814" />
         <path className="bottom-hud-line bottom-hud-line-dots" d="M205 30 H260" />
         <rect className="bottom-hud-ticks" fill="url(#bottom-rail-ticks)" height="8" width="62" x="315" y="26" />
         <rect className="bottom-hud-node" height="9" width="10" x="732" y="28" />
-        <path className="bottom-hud-end" d="M20 37 27 29h4l-7 8m9 0 7-8h4l-7 8m9 0 7-8h4l-7 8" />
+        <path className="bottom-hud-end" d="M2 37 10 29h7l-8 8m12 0 8-8h7l-8 8m12 0 8-8h7l-8 8m12 0 8-8h7l-8 8" />
       </g>
-      <path className="bottom-hud-center-line" d="M884 52 H1016 M1544 52 H1676" />
-      <path className="bottom-hud-center-cap" d="M916 33 934 6 H1626 L1644 33" />
+      <path className="bottom-hud-center-line" d="M900 52 H1020 M1540 52 H1660" />
+      <path className="bottom-hud-center-cap" d="M918 34 938 5 H1622 L1642 34" />
     </svg>
   );
 }
