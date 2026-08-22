@@ -1782,7 +1782,7 @@ button {
 
 .windfarm-camera-actions {
   position: absolute;
-  z-index: 7;
+  z-index: 12;
   right: 20px;
   bottom: 9px;
   display: flex;
@@ -1796,10 +1796,142 @@ button {
   box-shadow: 0 0 12px rgba(0, 229, 223, 0.16);
 }
 
-.page-windfarm .windfarm-camera-actions,
-.page-windfarm .scene-placeholder-badge {
-  display: none;
+.windfarm-camera-editor {
+  position: absolute;
+  z-index: 13;
+  right: 20px;
+  bottom: 48px;
+  width: 344px;
+  padding: 14px 15px 13px;
+  border: 1px solid rgba(0, 229, 223, 0.5);
+  background:
+    linear-gradient(135deg, rgba(0, 37, 40, 0.97), rgba(0, 10, 13, 0.98)),
+    repeating-linear-gradient(0deg, transparent 0 18px, rgba(0, 229, 223, 0.035) 19px);
+  box-shadow: 0 0 28px rgba(0, 229, 223, 0.16), inset 0 0 24px rgba(0, 229, 223, 0.045);
+  color: #cffffc;
+  pointer-events: auto;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
 }
+
+.windfarm-camera-editor::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 88px;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, #69fff7, transparent);
+  box-shadow: 0 0 9px rgba(0, 229, 223, 0.72);
+}
+
+.windfarm-camera-editor header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 229, 223, 0.18);
+}
+
+.windfarm-camera-editor header div { display: grid; gap: 2px; }
+.windfarm-camera-editor header strong { font-size: 14px; letter-spacing: 1.2px; }
+.windfarm-camera-editor header small { color: #447a7d; font: 8px monospace; letter-spacing: 2px; }
+.windfarm-camera-editor header button {
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(0, 229, 223, 0.25);
+  background: rgba(0, 19, 22, 0.72);
+  color: #72aeb0;
+  cursor: pointer;
+}
+.windfarm-camera-editor header button:hover { border-color: var(--cyan-bright); color: var(--cyan-bright); }
+
+.windfarm-camera-editor label {
+  display: grid;
+  grid-template-columns: 76px 1fr 48px;
+  align-items: center;
+  gap: 9px;
+  margin-top: 12px;
+  color: #9ec4c5;
+  font-size: 11px;
+}
+
+.windfarm-camera-editor label output {
+  grid-column: 3;
+  grid-row: 1;
+  color: #6ffff6;
+  font: 11px monospace;
+  text-align: right;
+}
+
+.windfarm-camera-editor label input {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  height: 3px;
+  margin: 0;
+  appearance: none;
+  border: 0;
+  background: linear-gradient(90deg, rgba(0, 229, 223, 0.85), rgba(0, 94, 99, 0.34));
+  box-shadow: 0 0 8px rgba(0, 229, 223, 0.14);
+  cursor: pointer;
+}
+
+.windfarm-camera-editor label input::-webkit-slider-thumb {
+  width: 10px;
+  height: 14px;
+  appearance: none;
+  border: 1px solid #7ffff8;
+  background: #07393c;
+  box-shadow: 0 0 8px rgba(0, 229, 223, 0.75);
+  clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%);
+}
+
+.windfarm-camera-editor label input::-moz-range-thumb {
+  width: 10px;
+  height: 14px;
+  border: 1px solid #7ffff8;
+  border-radius: 0;
+  background: #07393c;
+  box-shadow: 0 0 8px rgba(0, 229, 223, 0.75);
+}
+
+.windfarm-camera-editor > p {
+  margin: 12px 0 10px;
+  color: #638e91;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.windfarm-camera-save-actions {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 7px;
+}
+
+.windfarm-camera-save-actions button {
+  min-height: 29px;
+  border: 1px solid rgba(0, 229, 223, 0.28);
+  background: linear-gradient(180deg, rgba(0, 91, 94, 0.48), rgba(0, 25, 29, 0.82));
+  color: #b7e5e4;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.windfarm-camera-save-actions button:first-child { border-color: rgba(55, 255, 242, 0.7); color: #e5fffd; }
+.windfarm-camera-save-actions button:last-child { grid-column: 1 / -1; }
+.windfarm-camera-save-actions button:hover:not(:disabled) { border-color: var(--cyan-bright); color: var(--cyan-bright); box-shadow: inset 0 0 14px rgba(0, 229, 223, 0.12); }
+.windfarm-camera-save-actions button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.windfarm-camera-message {
+  display: block;
+  min-height: 13px;
+  margin-top: 8px;
+  color: #70aaa9;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.page-windfarm .scene-placeholder-badge { display: none; }
 
 .map-hotspot-layer {
   position: absolute;

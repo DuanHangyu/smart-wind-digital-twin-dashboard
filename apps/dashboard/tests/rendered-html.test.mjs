@@ -214,7 +214,14 @@ test("polishes the P02 terrain presentation without modifying the windfarm asset
   assert.match(scene, /baseMeshes/);
   assert.match(scene, /PART__BASE/);
   assert.match(scene, /setCameraPreset/);
-  assert.match(scene, /focusSelectedTurbine = \(_target: string\) => \{[\s\S]*?setCameraPreset\("overview"\)/);
+  assert.match(scene, /focusSelectedTurbine = \(_target: string\) => \{[\s\S]*?user-authored camera\.\n\s*\};/);
+  assert.match(scene, /WINDFARM_CAMERA_STORAGE_KEY/);
+  assert.match(scene, /saveInitialCamera/);
+  assert.match(scene, /restoreSavedCamera/);
+  assert.match(scene, /controls\.enablePan = true/);
+  assert.match(scene, /controls\.enableRotate = true/);
+  assert.match(scene, /controls\.enableZoom = true/);
+  assert.match(scene, /保存为初始视角/);
   assert.match(scene, /风机名称/);
   assert.match(scene, /风机状态/);
   assert.match(styles, /\.windfarm-anchor-card\s*\{[\s\S]*?width:\s*350px/);

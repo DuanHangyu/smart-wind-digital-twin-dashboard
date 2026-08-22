@@ -16,7 +16,17 @@ import type { TurbineRecord, WindfarmSceneState } from "../../types/dashboard";
 
 type LoadState = "loading" | "ready" | "error" | "unsupported";
 type VisualState = "default" | "hover" | "selected";
-type CameraPreset = "overview" | "max" | "focus-turbine";
+type CameraPreset = "overview" | "max" | "custom" | "focus-turbine";
+type CameraTuning = {
+  azimuth: number;
+  elevation: number;
+  zoom: number;
+};
+type CameraSnapshot = {
+  position: [number, number, number];
+  target: [number, number, number];
+  version: 1;
+};
 
 // The overview reproduces the target composition: lake in the foreground,
 // three turbines across the middle distance, and enough air above the ridges.
@@ -26,6 +36,7 @@ const WINDFARM_CAMERA_OVERVIEW_TARGET = [0, -0.48, 0] as const;
 const WINDFARM_CAMERA_MAX_DESKTOP = [0, 3.4, 5.45] as const;
 const WINDFARM_CAMERA_MAX_TOUCH = [0, 3.55, 5.75] as const;
 const WINDFARM_CAMERA_MAX_TARGET = [0, 0.78, 0] as const;
+const WINDFARM_CAMERA_STORAGE_KEY = "smart-wind:windfarm-initial-camera:v1";
 
 const TURBINE_LINKS = [
   { modelCode: "01", turbineId: "T-A04", target: "PART__TURBINE_01" },
@@ -38,7 +49,11 @@ type SceneController = {
   hoverTarget: (target: string | null) => void;
   setProjectionEnabled: (enabled: boolean) => void;
   setWaterVisible: (visible: boolean) => void;
-  setCameraPreset: (preset: Exclude<CameraPreset, "focus-turbine">) => void;
+  setCameraPreset: (preset: Exclude<CameraPreset, "focus-turbine" | "custom">) => void;
+  setCameraTuning: (tuning: CameraTuning) => void;
+  saveInitialCamera: () => boolean;
+  restoreSavedCamera: () => boolean;
+  restoreSystemCamera: () => void;
   resetCamera: () => void;
 };
 
@@ -62,10 +77,35 @@ const STATUS_LABEL = {
 function webGlAvailable() {
   try {
     const canvas = document.createElement("canvas");
-    return Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl"));
+    const context = canvas.getContext("webgl2") || canvas.getContext("webgl");
+    context?.getExtension("WEBGL_lose_context")?.loseContext();
+    return Boolean(context);
   } catch {
     return false;
   }
+}
+
+function isCameraSnapshot(value: unknown): value is CameraSnapshot {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<CameraSnapshot>;
+  const validTuple = (tuple: unknown): tuple is [number, number, number] => (
+    Array.isArray(tuple)
+    && tuple.length === 3
+    && tuple.every((entry) => typeof entry === "number" && Number.isFinite(entry) && Math.abs(entry) < 1000)
+  );
+  return candidate.version === 1 && validTuple(candidate.position) && validTuple(candidate.target);
+}
+
+function cameraTuningFromSnapshot(snapshot: CameraSnapshot, referenceDistance: number): CameraTuning {
+  const offsetX = snapshot.position[0] - snapshot.target[0];
+  const offsetY = snapshot.position[1] - snapshot.target[1];
+  const offsetZ = snapshot.position[2] - snapshot.target[2];
+  const distance = Math.max(0.001, Math.hypot(offsetX, offsetY, offsetZ));
+  return {
+    azimuth: Math.atan2(offsetX, offsetZ) * 180 / Math.PI,
+    elevation: Math.asin(Math.min(1, Math.max(-1, offsetY / distance))) * 180 / Math.PI,
+    zoom: referenceDistance / distance * 100,
+  };
 }
 
 function partFromHit(object: Object3D | null) {
@@ -103,6 +143,10 @@ export function WindFarmTerrainScene({
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [progress, setProgress] = useState(0);
   const [cameraPreset, setCameraPresetState] = useState<CameraPreset>("overview");
+  const [cameraEditorOpen, setCameraEditorOpen] = useState(false);
+  const [cameraTuning, setCameraTuningState] = useState<CameraTuning>({ azimuth: -8.6, elevation: 39.5, zoom: 100 });
+  const [hasSavedCamera, setHasSavedCamera] = useState(false);
+  const [cameraMessage, setCameraMessage] = useState("拖动场景或使用滑杆调整镜头");
 
   useEffect(() => { stateRef.current = state; }, [state]);
   useEffect(() => { turbinesRef.current = turbines; }, [turbines]);
@@ -140,13 +184,35 @@ export function WindFarmTerrainScene({
         scene.fog = fog;
         const camera: PerspectiveCamera = new THREE.PerspectiveCamera(35, 1, 0.05, 100);
         const coarsePointer = matchMedia("(pointer: coarse)").matches;
-        const defaultCamera = new THREE.Vector3(...(
+        const systemDefaultCamera = new THREE.Vector3(...(
           coarsePointer ? WINDFARM_CAMERA_OVERVIEW_TOUCH : WINDFARM_CAMERA_OVERVIEW_DESKTOP
         ));
-        const defaultTarget = new THREE.Vector3(...WINDFARM_CAMERA_OVERVIEW_TARGET);
+        const systemDefaultTarget = new THREE.Vector3(...WINDFARM_CAMERA_OVERVIEW_TARGET);
+        const systemCameraSnapshot: CameraSnapshot = {
+          position: systemDefaultCamera.toArray() as [number, number, number],
+          target: systemDefaultTarget.toArray() as [number, number, number],
+          version: 1,
+        };
+        const referenceDistance = systemDefaultCamera.distanceTo(systemDefaultTarget);
+        let initialCameraSnapshot = systemCameraSnapshot;
+        let savedCameraSnapshot: CameraSnapshot | null = null;
+        try {
+          const storedCamera = window.localStorage.getItem(WINDFARM_CAMERA_STORAGE_KEY);
+          const parsedCamera: unknown = storedCamera ? JSON.parse(storedCamera) : null;
+          if (isCameraSnapshot(parsedCamera)) {
+            savedCameraSnapshot = parsedCamera;
+            initialCameraSnapshot = parsedCamera;
+          }
+        } catch {
+          savedCameraSnapshot = null;
+        }
+        const defaultCamera = new THREE.Vector3(...initialCameraSnapshot.position);
+        const defaultTarget = new THREE.Vector3(...initialCameraSnapshot.target);
         const cameraGoal = defaultCamera.clone();
         const targetGoal = defaultTarget.clone();
         camera.position.copy(defaultCamera);
+        setHasSavedCamera(Boolean(savedCameraSnapshot));
+        setCameraTuningState(cameraTuningFromSnapshot(initialCameraSnapshot, referenceDistance));
 
         renderer = new THREE.WebGLRenderer({
           canvas,
@@ -161,22 +227,63 @@ export function WindFarmTerrainScene({
 
         controls = new OrbitControls(camera, canvas);
         controls.enableDamping = true;
+        controls.enablePan = true;
+        controls.enableRotate = true;
+        controls.enableZoom = true;
         controls.dampingFactor = 0.065;
         controls.minDistance = 5.1;
         controls.maxDistance = 26;
         controls.minPolarAngle = 0.32;
         controls.maxPolarAngle = 1.42;
+        controls.panSpeed = 0.72;
+        controls.rotateSpeed = 0.56;
+        controls.zoomSpeed = 0.82;
+        controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
+        controls.mouseButtons.MIDDLE = THREE.MOUSE.DOLLY;
+        controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
         controls.target.copy(defaultTarget);
         controls.autoRotate = false;
 
-        const preserveManualCamera = () => {
+        let controlInteractionActive = false;
+        let tuningSyncTimer = 0;
+        const snapshotCurrentCamera = (): CameraSnapshot => ({
+          position: camera.position.toArray() as [number, number, number],
+          target: (controls?.target ?? targetGoal).toArray() as [number, number, number],
+          version: 1,
+        });
+        const syncManualCamera = () => {
           cameraGoal.copy(camera.position);
           if (controls) targetGoal.copy(controls.target);
-          setCameraPresetState("overview");
         };
-        controls.addEventListener("start", preserveManualCamera);
+        const syncTuningReadout = () => {
+          window.clearTimeout(tuningSyncTimer);
+          tuningSyncTimer = window.setTimeout(() => {
+            setCameraTuningState(cameraTuningFromSnapshot(snapshotCurrentCamera(), referenceDistance));
+          }, 90);
+        };
+        const handleControlStart = () => {
+          controlInteractionActive = true;
+          syncManualCamera();
+          setCameraPresetState("custom");
+          setCameraMessage("自定义视角尚未保存");
+        };
+        const handleControlChange = () => {
+          syncManualCamera();
+          syncTuningReadout();
+        };
+        const handleControlEnd = () => {
+          controlInteractionActive = false;
+          syncManualCamera();
+          syncTuningReadout();
+        };
+        controls.addEventListener("start", handleControlStart);
+        controls.addEventListener("change", handleControlChange);
+        controls.addEventListener("end", handleControlEnd);
         cleanups.push(() => {
-          controls?.removeEventListener("start", preserveManualCamera);
+          window.clearTimeout(tuningSyncTimer);
+          controls?.removeEventListener("start", handleControlStart);
+          controls?.removeEventListener("change", handleControlChange);
+          controls?.removeEventListener("end", handleControlEnd);
         });
 
         scene.add(new THREE.HemisphereLight(0xe9eee9, 0x1c2c22, 1.34));
@@ -228,21 +335,53 @@ export function WindFarmTerrainScene({
         let hoverPart: InteractivePart | null = null;
         let pointerDown = { x: 0, y: 0 };
 
-        const setCameraPreset = (preset: Exclude<CameraPreset, "focus-turbine">) => {
-          const position = preset === "max"
-            ? (coarsePointer ? WINDFARM_CAMERA_MAX_TOUCH : WINDFARM_CAMERA_MAX_DESKTOP)
-            : (coarsePointer ? WINDFARM_CAMERA_OVERVIEW_TOUCH : WINDFARM_CAMERA_OVERVIEW_DESKTOP);
-          const target = preset === "max" ? WINDFARM_CAMERA_MAX_TARGET : WINDFARM_CAMERA_OVERVIEW_TARGET;
-          cameraGoal.set(...position);
-          targetGoal.set(...target);
+        const applyCameraSnapshot = (snapshot: CameraSnapshot, preset: CameraPreset = "custom") => {
+          cameraGoal.set(...snapshot.position);
+          targetGoal.set(...snapshot.target);
+          camera.position.copy(cameraGoal);
+          controls?.target.copy(targetGoal);
+          controls?.update();
+          setCameraTuningState(cameraTuningFromSnapshot(snapshot, referenceDistance));
           setCameraPresetState(preset);
+        };
+
+        const setCameraPreset = (preset: Exclude<CameraPreset, "focus-turbine" | "custom">) => {
+          if (preset === "overview") {
+            applyCameraSnapshot(initialCameraSnapshot, "overview");
+            return;
+          }
+          const position = coarsePointer ? WINDFARM_CAMERA_MAX_TOUCH : WINDFARM_CAMERA_MAX_DESKTOP;
+          applyCameraSnapshot({ position: [...position], target: [...WINDFARM_CAMERA_MAX_TARGET], version: 1 }, "max");
+        };
+
+        const applyCameraTuning = (tuning: CameraTuning) => {
+          const nextTuning = {
+            azimuth: THREE.MathUtils.clamp(tuning.azimuth, -180, 180),
+            elevation: THREE.MathUtils.clamp(tuning.elevation, 10, 70),
+            zoom: THREE.MathUtils.clamp(tuning.zoom, 50, 180),
+          };
+          const azimuth = THREE.MathUtils.degToRad(nextTuning.azimuth);
+          const elevation = THREE.MathUtils.degToRad(nextTuning.elevation);
+          const distance = THREE.MathUtils.clamp(referenceDistance / (nextTuning.zoom / 100), controls?.minDistance ?? 5.1, controls?.maxDistance ?? 26);
+          const horizontalDistance = Math.cos(elevation) * distance;
+          const target = controls?.target ?? targetGoal;
+          const snapshot: CameraSnapshot = {
+            position: [
+              target.x + Math.sin(azimuth) * horizontalDistance,
+              target.y + Math.sin(elevation) * distance,
+              target.z + Math.cos(azimuth) * horizontalDistance,
+            ],
+            target: target.toArray() as [number, number, number],
+            version: 1,
+          };
+          applyCameraSnapshot(snapshot, "custom");
+          setCameraMessage("自定义视角尚未保存");
         };
 
         const focusSelectedTurbine = (_target: string) => {
           void _target;
           // The reference keeps the entire wind farm in frame while the anchored
-          // information card opens. Selection must not turn into a camera zoom.
-          setCameraPreset("overview");
+          // information card opens. Selection must not override a user-authored camera.
         };
 
         const setPointer = (event: PointerEvent | MouseEvent) => {
@@ -287,8 +426,6 @@ export function WindFarmTerrainScene({
           if (selectedPart) {
             setPartVisual(selectedPart, "selected");
             if (selectedPart.name.startsWith("PART__TURBINE_")) focusSelectedTurbine(selectedPart.name);
-          } else {
-            setCameraPreset("overview");
           }
         };
 
@@ -489,6 +626,37 @@ export function WindFarmTerrainScene({
                 if (label) label.hidden = !visible || projectionActive;
               },
               setCameraPreset,
+              setCameraTuning: applyCameraTuning,
+              saveInitialCamera() {
+                const snapshot = snapshotCurrentCamera();
+                try {
+                  window.localStorage.setItem(WINDFARM_CAMERA_STORAGE_KEY, JSON.stringify(snapshot));
+                  savedCameraSnapshot = snapshot;
+                  initialCameraSnapshot = snapshot;
+                  setHasSavedCamera(true);
+                  setCameraPresetState("overview");
+                  setCameraMessage("已保存为初始视角，刷新页面仍然生效");
+                  return true;
+                } catch {
+                  setCameraMessage("保存失败：浏览器禁止本地存储");
+                  return false;
+                }
+              },
+              restoreSavedCamera() {
+                if (!savedCameraSnapshot) return false;
+                initialCameraSnapshot = savedCameraSnapshot;
+                applyCameraSnapshot(savedCameraSnapshot, "overview");
+                setCameraMessage("已恢复保存的初始视角");
+                return true;
+              },
+              restoreSystemCamera() {
+                try { window.localStorage.removeItem(WINDFARM_CAMERA_STORAGE_KEY); } catch { /* Keep the runtime reset usable. */ }
+                savedCameraSnapshot = null;
+                initialCameraSnapshot = systemCameraSnapshot;
+                setHasSavedCamera(false);
+                applyCameraSnapshot(systemCameraSnapshot, "overview");
+                setCameraMessage("已清除保存并恢复系统默认视角");
+              },
               resetCamera() {
                 setCameraPreset("overview");
               },
@@ -568,9 +736,11 @@ export function WindFarmTerrainScene({
             rotor.rotateOnAxis(axis, sourceRpm * Math.PI * 2 / 60 * delta);
           });
           if (projectionShader) projectionShader.uniforms.uProjectionTime.value = now / 1000;
-          const cameraEase = 1 - Math.exp(-delta * 4.8);
-          camera.position.lerp(cameraGoal, cameraEase);
-          controls?.target.lerp(targetGoal, cameraEase);
+          if (!controlInteractionActive) {
+            const cameraEase = 1 - Math.exp(-delta * 4.8);
+            camera.position.lerp(cameraGoal, cameraEase);
+            controls?.target.lerp(targetGoal, cameraEase);
+          }
           controls?.update(delta);
           renderer.render(scene, camera);
 
@@ -623,7 +793,8 @@ export function WindFarmTerrainScene({
             });
           });
         });
-      } catch {
+      } catch (error) {
+        console.error("Wind farm terrain scene initialization failed", error);
         if (!disposed) setLoadState("error");
       }
     };
@@ -651,6 +822,11 @@ export function WindFarmTerrainScene({
     [turbines],
   );
   const selectedTurbine = turbines.find((item) => item.id === state.selectedTurbineId) ?? null;
+  const updateCameraTuning = (key: keyof CameraTuning, value: number) => {
+    const next = { ...cameraTuning, [key]: value };
+    setCameraTuningState(next);
+    controllerRef.current?.setCameraTuning(next);
+  };
 
   return (
     <div className={`windfarm-terrain-scene ${state.projectionEnabled ? "projection-enabled" : ""}`} ref={hostRef}>
@@ -703,17 +879,78 @@ export function WindFarmTerrainScene({
         </div>
       ) : null}
       {loadState === "ready" ? (
-        <div className="windfarm-camera-actions">
-          <button className="map-camera-reset" onClick={() => controllerRef.current?.resetCamera()} type="button">全景视角</button>
-          <button
-            aria-pressed={cameraPreset === "max"}
-            className={`map-camera-reset ${cameraPreset === "max" ? "active" : ""}`}
-            onClick={() => controllerRef.current?.setCameraPreset(cameraPreset === "max" ? "overview" : "max")}
-            type="button"
-          >
-            {cameraPreset === "max" ? "恢复全景" : "最大视图"}
-          </button>
-        </div>
+        <>
+          <div className="windfarm-camera-actions">
+            <button className="map-camera-reset" onClick={() => controllerRef.current?.resetCamera()} type="button">初始视角</button>
+            <button
+              aria-pressed={cameraPreset === "max"}
+              className={`map-camera-reset ${cameraPreset === "max" ? "active" : ""}`}
+              onClick={() => controllerRef.current?.setCameraPreset(cameraPreset === "max" ? "overview" : "max")}
+              type="button"
+            >
+              {cameraPreset === "max" ? "恢复初始" : "最大视图"}
+            </button>
+            <button
+              aria-expanded={cameraEditorOpen}
+              className={`map-camera-reset camera-edit-trigger ${cameraEditorOpen || cameraPreset === "custom" ? "active" : ""}`}
+              onClick={() => setCameraEditorOpen((open) => !open)}
+              type="button"
+            >
+              镜头调整
+            </button>
+          </div>
+          {cameraEditorOpen ? (
+            <section aria-label="风场初始镜头设置" className="windfarm-camera-editor">
+              <header>
+                <div><strong>自定义初始视角</strong><small>CAMERA CALIBRATION</small></div>
+                <button aria-label="关闭镜头设置" onClick={() => setCameraEditorOpen(false)} type="button">×</button>
+              </header>
+              <label>
+                <span>水平角</span><output>{cameraTuning.azimuth.toFixed(0)}°</output>
+                <input
+                  aria-label="水平旋转角度"
+                  max="180"
+                  min="-180"
+                  onChange={(event) => updateCameraTuning("azimuth", Number(event.target.value))}
+                  step="1"
+                  type="range"
+                  value={cameraTuning.azimuth}
+                />
+              </label>
+              <label>
+                <span>俯仰角</span><output>{cameraTuning.elevation.toFixed(0)}°</output>
+                <input
+                  aria-label="镜头俯仰角度"
+                  max="70"
+                  min="10"
+                  onChange={(event) => updateCameraTuning("elevation", Number(event.target.value))}
+                  step="1"
+                  type="range"
+                  value={cameraTuning.elevation}
+                />
+              </label>
+              <label>
+                <span>画面大小</span><output>{cameraTuning.zoom.toFixed(0)}%</output>
+                <input
+                  aria-label="模型画面大小"
+                  max="180"
+                  min="50"
+                  onChange={(event) => updateCameraTuning("zoom", Number(event.target.value))}
+                  step="1"
+                  type="range"
+                  value={cameraTuning.zoom}
+                />
+              </label>
+              <p>左键旋转 · 滚轮缩放 · 右键平移；平移位置也会随初始视角保存。</p>
+              <div className="windfarm-camera-save-actions">
+                <button onClick={() => controllerRef.current?.saveInitialCamera()} type="button">保存为初始视角</button>
+                <button disabled={!hasSavedCamera} onClick={() => controllerRef.current?.restoreSavedCamera()} type="button">载入已保存</button>
+                <button onClick={() => controllerRef.current?.restoreSystemCamera()} type="button">清除并恢复默认</button>
+              </div>
+              <small className="windfarm-camera-message">{cameraMessage}</small>
+            </section>
+          ) : null}
+        </>
       ) : null}
     </div>
   );
